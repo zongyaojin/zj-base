@@ -30,6 +30,18 @@ protected:
     std::string m_msg;
 };
 
+class ZjOverlook : public ZjException
+{
+public:
+    ZjOverlook() = default;
+    virtual ~ZjOverlook() noexcept = default;
+
+    ZjOverlook(const std::string& msg)
+    : ZjException(msg)
+    {
+    }
+};
+
 class ZjFault : public ZjException
 {
 public:

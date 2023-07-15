@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.22.1)
 #   the ${PROJECT_NAME} is used to generate the package config file:
 # * If the project name is formatted as "project-name", then the config file should be "${PROJECT_NAME}-config.cmake"
 # * If the project name is formatted as "ProjectName", then the config file should be "${PROJECT_NAME}Config.cmake"
-project(zj-cmake-template VERSION 0.0.1)
+project(zj-debug VERSION 0.0.1)
 
 # ######################################################################################################################
 # Scripts

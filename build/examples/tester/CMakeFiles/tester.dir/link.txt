@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/tester.dir/main.cpp.o -o tester  ../../libs/zj-exceptions/libzj-exceptions.a /usr/lib/x86_64-linux-gnu/libspdlog.so.1.9.2 /usr/lib/x86_64-linux-gnu/libfmt.so.8.1.1 -Wl,--as-needed 

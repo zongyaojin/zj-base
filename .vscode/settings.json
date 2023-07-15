@@ -63,6 +63,13 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "optional": "cpp",
-        "variant": "cpp"
-    }
+        "variant": "cpp",
+        "bitset": "cpp",
+        "typeindex": "cpp",
+        "source_location": "cpp"
+    },
+    "cSpell.words": [
+        "spdlog",
+        "Zongyao"
+    ]
 }

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libzj-exceptions.a CMakeFiles/zj-exceptions.dir/src/ZjLog.cpp.o
+/usr/bin/ranlib libzj-exceptions.a

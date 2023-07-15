@@ -11,5 +11,4 @@
 #define _ZJ_TYPEID(type) (boost::typeindex::type_id<type>().pretty_name())
 
 /// Gets a type's typename; doesn't remove const, volatile, & and && modifiers
-#define _ZJ_TYPEID_RAW(type)                                                   \
-    (boost::typeindex::type_id_with_cvr<type>().pretty_name())
+#define _ZJ_TYPEID_RAW(type) (boost::typeindex::type_id_with_cvr<type>().pretty_name())
