@@ -6,7 +6,8 @@
 
 enum class ZjExceptionType : std::uint8_t
 {
-    Fault = 0,
+    Bug = 0,
+    Fault,
     Failure,
 };
 
@@ -30,13 +31,13 @@ protected:
     std::string m_msg;
 };
 
-class ZjOverlook : public ZjException
+class ZjBut : public ZjException
 {
 public:
-    ZjOverlook() = default;
-    virtual ~ZjOverlook() noexcept = default;
+    ZjBut() = default;
+    virtual ~ZjBut() noexcept = default;
 
-    ZjOverlook(const std::string& msg)
+    ZjBut(const std::string& msg)
     : ZjException(msg)
     {
     }

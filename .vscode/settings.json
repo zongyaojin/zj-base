@@ -66,10 +66,13 @@
         "variant": "cpp",
         "bitset": "cpp",
         "typeindex": "cpp",
-        "source_location": "cpp"
+        "source_location": "cpp",
+        "condition_variable": "cpp",
+        "mutex": "cpp"
     },
     "cSpell.words": [
         "spdlog",
         "Zongyao"
-    ]
+    ],
+    "C_Cpp.errorSquiggles": "disabled"
 }
