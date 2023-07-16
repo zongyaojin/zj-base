@@ -92,7 +92,8 @@ tester_EXTERNAL_OBJECTS =
 
 examples/tester/tester: examples/tester/CMakeFiles/tester.dir/main.cpp.o
 examples/tester/tester: examples/tester/CMakeFiles/tester.dir/build.make
-examples/tester/tester: libs/zj-exceptions/libzj-exceptions.a
+examples/tester/tester: libs/zj-exception/libzj-exception.a
+examples/tester/tester: libs/zj-utility/libzj-utility.a
 examples/tester/tester: /usr/lib/x86_64-linux-gnu/libspdlog.so.1.9.2
 examples/tester/tester: /usr/lib/x86_64-linux-gnu/libfmt.so.8.1.1
 examples/tester/tester: examples/tester/CMakeFiles/tester.dir/link.txt

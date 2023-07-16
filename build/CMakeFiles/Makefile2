@@ -63,12 +63,14 @@ CMAKE_BINARY_DIR = /home/zjin/zj-portal/zj-debug/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: libs/zj-exceptions/all
+all: libs/zj-utility/all
+all: libs/zj-exception/all
 all: examples/tester/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
-preinstall: libs/zj-exceptions/preinstall
+preinstall: libs/zj-utility/preinstall
+preinstall: libs/zj-exception/preinstall
 preinstall: examples/tester/preinstall
 .PHONY : preinstall
 
@@ -101,7 +103,8 @@ clean: CMakeFiles/ContinuousTest.dir/clean
 clean: CMakeFiles/ContinuousCoverage.dir/clean
 clean: CMakeFiles/ContinuousMemCheck.dir/clean
 clean: CMakeFiles/ContinuousSubmit.dir/clean
-clean: libs/zj-exceptions/clean
+clean: libs/zj-utility/clean
+clean: libs/zj-exception/clean
 clean: examples/tester/clean
 .PHONY : clean
 
@@ -121,19 +124,34 @@ examples/tester/clean: examples/tester/CMakeFiles/tester.dir/clean
 .PHONY : examples/tester/clean
 
 #=============================================================================
-# Directory level rules for directory libs/zj-exceptions
+# Directory level rules for directory libs/zj-exception
 
 # Recursive "all" directory target.
-libs/zj-exceptions/all: libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/all
-.PHONY : libs/zj-exceptions/all
+libs/zj-exception/all: libs/zj-exception/CMakeFiles/zj-exception.dir/all
+.PHONY : libs/zj-exception/all
 
 # Recursive "preinstall" directory target.
-libs/zj-exceptions/preinstall:
-.PHONY : libs/zj-exceptions/preinstall
+libs/zj-exception/preinstall:
+.PHONY : libs/zj-exception/preinstall
 
 # Recursive "clean" directory target.
-libs/zj-exceptions/clean: libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/clean
-.PHONY : libs/zj-exceptions/clean
+libs/zj-exception/clean: libs/zj-exception/CMakeFiles/zj-exception.dir/clean
+.PHONY : libs/zj-exception/clean
+
+#=============================================================================
+# Directory level rules for directory libs/zj-utility
+
+# Recursive "all" directory target.
+libs/zj-utility/all: libs/zj-utility/CMakeFiles/zj-utility.dir/all
+.PHONY : libs/zj-utility/all
+
+# Recursive "preinstall" directory target.
+libs/zj-utility/preinstall:
+.PHONY : libs/zj-utility/preinstall
+
+# Recursive "clean" directory target.
+libs/zj-utility/clean: libs/zj-utility/CMakeFiles/zj-utility.dir/clean
+.PHONY : libs/zj-utility/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/Experimental.dir
@@ -864,36 +882,63 @@ CMakeFiles/ContinuousSubmit.dir/clean:
 .PHONY : CMakeFiles/ContinuousSubmit.dir/clean
 
 #=============================================================================
-# Target rules for target libs/zj-exceptions/CMakeFiles/zj-exceptions.dir
+# Target rules for target libs/zj-utility/CMakeFiles/zj-utility.dir
 
 # All Build rule for target.
-libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/all:
-	$(MAKE) $(MAKESILENT) -f libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/build.make libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/depend
-	$(MAKE) $(MAKESILENT) -f libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/build.make libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zjin/zj-portal/zj-debug/build/CMakeFiles --progress-num=3,4 "Built target zj-exceptions"
-.PHONY : libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/all
+libs/zj-utility/CMakeFiles/zj-utility.dir/all:
+	$(MAKE) $(MAKESILENT) -f libs/zj-utility/CMakeFiles/zj-utility.dir/build.make libs/zj-utility/CMakeFiles/zj-utility.dir/depend
+	$(MAKE) $(MAKESILENT) -f libs/zj-utility/CMakeFiles/zj-utility.dir/build.make libs/zj-utility/CMakeFiles/zj-utility.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zjin/zj-portal/zj-debug/build/CMakeFiles --progress-num=5,6 "Built target zj-utility"
+.PHONY : libs/zj-utility/CMakeFiles/zj-utility.dir/all
 
 # Build rule for subdir invocation for target.
-libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/rule: cmake_check_build_system
+libs/zj-utility/CMakeFiles/zj-utility.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/zjin/zj-portal/zj-debug/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/zj-utility/CMakeFiles/zj-utility.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/zjin/zj-portal/zj-debug/build/CMakeFiles 0
-.PHONY : libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/rule
+.PHONY : libs/zj-utility/CMakeFiles/zj-utility.dir/rule
 
 # Convenience name for target.
-zj-exceptions: libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/rule
-.PHONY : zj-exceptions
+zj-utility: libs/zj-utility/CMakeFiles/zj-utility.dir/rule
+.PHONY : zj-utility
 
 # clean rule for target.
-libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/clean:
-	$(MAKE) $(MAKESILENT) -f libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/build.make libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/clean
-.PHONY : libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/clean
+libs/zj-utility/CMakeFiles/zj-utility.dir/clean:
+	$(MAKE) $(MAKESILENT) -f libs/zj-utility/CMakeFiles/zj-utility.dir/build.make libs/zj-utility/CMakeFiles/zj-utility.dir/clean
+.PHONY : libs/zj-utility/CMakeFiles/zj-utility.dir/clean
+
+#=============================================================================
+# Target rules for target libs/zj-exception/CMakeFiles/zj-exception.dir
+
+# All Build rule for target.
+libs/zj-exception/CMakeFiles/zj-exception.dir/all: libs/zj-utility/CMakeFiles/zj-utility.dir/all
+	$(MAKE) $(MAKESILENT) -f libs/zj-exception/CMakeFiles/zj-exception.dir/build.make libs/zj-exception/CMakeFiles/zj-exception.dir/depend
+	$(MAKE) $(MAKESILENT) -f libs/zj-exception/CMakeFiles/zj-exception.dir/build.make libs/zj-exception/CMakeFiles/zj-exception.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zjin/zj-portal/zj-debug/build/CMakeFiles --progress-num=3,4 "Built target zj-exception"
+.PHONY : libs/zj-exception/CMakeFiles/zj-exception.dir/all
+
+# Build rule for subdir invocation for target.
+libs/zj-exception/CMakeFiles/zj-exception.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zjin/zj-portal/zj-debug/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/zj-exception/CMakeFiles/zj-exception.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zjin/zj-portal/zj-debug/build/CMakeFiles 0
+.PHONY : libs/zj-exception/CMakeFiles/zj-exception.dir/rule
+
+# Convenience name for target.
+zj-exception: libs/zj-exception/CMakeFiles/zj-exception.dir/rule
+.PHONY : zj-exception
+
+# clean rule for target.
+libs/zj-exception/CMakeFiles/zj-exception.dir/clean:
+	$(MAKE) $(MAKESILENT) -f libs/zj-exception/CMakeFiles/zj-exception.dir/build.make libs/zj-exception/CMakeFiles/zj-exception.dir/clean
+.PHONY : libs/zj-exception/CMakeFiles/zj-exception.dir/clean
 
 #=============================================================================
 # Target rules for target examples/tester/CMakeFiles/tester.dir
 
 # All Build rule for target.
-examples/tester/CMakeFiles/tester.dir/all: libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/all
+examples/tester/CMakeFiles/tester.dir/all: libs/zj-utility/CMakeFiles/zj-utility.dir/all
+examples/tester/CMakeFiles/tester.dir/all: libs/zj-exception/CMakeFiles/zj-exception.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/tester/CMakeFiles/tester.dir/build.make examples/tester/CMakeFiles/tester.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/tester/CMakeFiles/tester.dir/build.make examples/tester/CMakeFiles/tester.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zjin/zj-portal/zj-debug/build/CMakeFiles --progress-num=1,2 "Built target tester"
@@ -901,7 +946,7 @@ examples/tester/CMakeFiles/tester.dir/all: libs/zj-exceptions/CMakeFiles/zj-exce
 
 # Build rule for subdir invocation for target.
 examples/tester/CMakeFiles/tester.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/zjin/zj-portal/zj-debug/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zjin/zj-portal/zj-debug/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/tester/CMakeFiles/tester.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/zjin/zj-portal/zj-debug/build/CMakeFiles 0
 .PHONY : examples/tester/CMakeFiles/tester.dir/rule

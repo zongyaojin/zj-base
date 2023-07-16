@@ -16,7 +16,7 @@ set(CMAKE_IMPORT_FILE_VERSION 1)
 set(_targetsDefined)
 set(_targetsNotDefined)
 set(_expectedTargets)
-foreach(_expectedTarget zj-debug::zj-debug zj-debug::zj-exceptions zj-debug::tester)
+foreach(_expectedTarget zj-debug::zj-debug zj-debug::zj-utility zj-debug::zj-exception zj-debug::tester)
   list(APPEND _expectedTargets ${_expectedTarget})
   if(NOT TARGET ${_expectedTarget})
     list(APPEND _targetsNotDefined ${_expectedTarget})
@@ -55,15 +55,23 @@ add_library(zj-debug::zj-debug INTERFACE IMPORTED)
 
 set_target_properties(zj-debug::zj-debug PROPERTIES
   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
-  INTERFACE_LINK_LIBRARIES "zj-debug::zj-exceptions"
+  INTERFACE_LINK_LIBRARIES "zj-debug::zj-utility;zj-debug::zj-exception"
 )
 
-# Create imported target zj-debug::zj-exceptions
-add_library(zj-debug::zj-exceptions STATIC IMPORTED)
+# Create imported target zj-debug::zj-utility
+add_library(zj-debug::zj-utility STATIC IMPORTED)
 
-set_target_properties(zj-debug::zj-exceptions PROPERTIES
+set_target_properties(zj-debug::zj-utility PROPERTIES
   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include;${_IMPORT_PREFIX}/include"
-  INTERFACE_LINK_LIBRARIES "Boost::boost;spdlog::spdlog"
+  INTERFACE_LINK_LIBRARIES "Boost::boost"
+)
+
+# Create imported target zj-debug::zj-exception
+add_library(zj-debug::zj-exception STATIC IMPORTED)
+
+set_target_properties(zj-debug::zj-exception PROPERTIES
+  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include;${_IMPORT_PREFIX}/include"
+  INTERFACE_LINK_LIBRARIES "zj-debug::zj-utility;spdlog::spdlog"
 )
 
 # Create imported target zj-debug::tester

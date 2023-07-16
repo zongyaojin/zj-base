@@ -24,7 +24,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "../cmake/systems/zj-system-helpers.cmake"
   "../cmake/utilities/CCache.cmake"
   "../examples/tester/CMakeLists.txt"
-  "../libs/zj-exceptions/CMakeLists.txt"
+  "../libs/zj-exception/CMakeLists.txt"
+  "../libs/zj-utility/CMakeLists.txt"
   "/usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfigVersion.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/GTest/GTestConfig.cmake"
@@ -91,7 +92,8 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "zj-debug-config.cmake"
   "DartConfiguration.tcl"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
-  "libs/zj-exceptions/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "libs/zj-utility/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "libs/zj-exception/CMakeFiles/CMakeDirectoryInformation.cmake"
   "examples/tester/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
@@ -125,6 +127,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/ContinuousCoverage.dir/DependInfo.cmake"
   "CMakeFiles/ContinuousMemCheck.dir/DependInfo.cmake"
   "CMakeFiles/ContinuousSubmit.dir/DependInfo.cmake"
-  "libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/DependInfo.cmake"
+  "libs/zj-utility/CMakeFiles/zj-utility.dir/DependInfo.cmake"
+  "libs/zj-exception/CMakeFiles/zj-exception.dir/DependInfo.cmake"
   "examples/tester/CMakeFiles/tester.dir/DependInfo.cmake"
   )

@@ -536,17 +536,30 @@ ContinuousSubmit/fast:
 .PHONY : ContinuousSubmit/fast
 
 #=============================================================================
-# Target rules for targets named zj-exceptions
+# Target rules for targets named zj-utility
 
 # Build rule for target.
-zj-exceptions: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 zj-exceptions
-.PHONY : zj-exceptions
+zj-utility: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 zj-utility
+.PHONY : zj-utility
 
 # fast build rule for target.
-zj-exceptions/fast:
-	$(MAKE) $(MAKESILENT) -f libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/build.make libs/zj-exceptions/CMakeFiles/zj-exceptions.dir/build
-.PHONY : zj-exceptions/fast
+zj-utility/fast:
+	$(MAKE) $(MAKESILENT) -f libs/zj-utility/CMakeFiles/zj-utility.dir/build.make libs/zj-utility/CMakeFiles/zj-utility.dir/build
+.PHONY : zj-utility/fast
+
+#=============================================================================
+# Target rules for targets named zj-exception
+
+# Build rule for target.
+zj-exception: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 zj-exception
+.PHONY : zj-exception
+
+# fast build rule for target.
+zj-exception/fast:
+	$(MAKE) $(MAKESILENT) -f libs/zj-exception/CMakeFiles/zj-exception.dir/build.make libs/zj-exception/CMakeFiles/zj-exception.dir/build
+.PHONY : zj-exception/fast
 
 #=============================================================================
 # Target rules for targets named tester
@@ -603,7 +616,8 @@ help:
 	@echo "... NightlyTest"
 	@echo "... NightlyUpdate"
 	@echo "... tester"
-	@echo "... zj-exceptions"
+	@echo "... zj-exception"
+	@echo "... zj-utility"
 .PHONY : help
 
 

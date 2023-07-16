@@ -4,5 +4,6 @@
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
-subdirs("libs/zj-exceptions")
+subdirs("libs/zj-utility")
+subdirs("libs/zj-exception")
 subdirs("examples/tester")
