@@ -11,7 +11,7 @@ enum class ZjExceptionType : std::uint8_t
     Failure,
 };
 
-using ZjEt = ZjExceptionType;
+using ZjE = ZjExceptionType;
 
 class ZjException : public std::exception
 {

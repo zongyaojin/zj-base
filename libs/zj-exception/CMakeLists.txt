@@ -16,12 +16,12 @@ add_library(${libName} ${libAbsCpps})
 # * The include directories use relative paths with generator expression so the package can be installed
 # * Link to any internal libraries that this library depends on
 zj_target_include_directories_genex(${libName} "${libRelIncDirs}")
-target_link_libraries(${libName} zj-utility)
+target_link_libraries(${libName})
 
 # * Find and link to any external libraries that this library depends on
 find_package(Boost REQUIRED)
 find_package(spdlog REQUIRED)
-target_link_libraries(${libName} spdlog::spdlog)
+target_link_libraries(${libName} spdlog::spdlog Boost::boost)
 
 # ######################################################################################################################
 
