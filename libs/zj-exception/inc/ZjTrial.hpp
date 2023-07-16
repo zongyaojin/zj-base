@@ -20,6 +20,16 @@ static constexpr const char* k_formatter {"{}:{}:{} @ `{}` | " ZJ_I_WHITE "{}" Z
 }
 }
 
+/**
+ * @brief
+ *
+ * @tparam Args
+ * @param t
+ * @param e
+ * @param s
+ * @param fmt
+ * @param args
+ */
 template <typename... Args>
 void _ZjThrow(const ZjEt t, const std::exception& e, const std::source_location& s, const std::string& fmt = "", Args&&... args)
 {
@@ -27,6 +37,8 @@ void _ZjThrow(const ZjEt t, const std::exception& e, const std::source_location&
 
     std::string msg {fmt::format(fmt::runtime(fmt), std::forward<Args>(args)...)};
     std::string fmtMsg {fmt::format(k_formatter, s.file_name(), s.line(), s.column(), s.function_name(), std::move(msg))};
+
+    // replace spdlog with the log agent
 
     switch (t) {
         case ZjEt::Failure: {
@@ -52,6 +64,10 @@ void _ZjThrow(const ZjEt t, const std::exception& e, const std::source_location&
     }
 }
 
+/**
+ * @brief
+ *
+ */
 #define _ZJ_THROW(e, ...)                                                                                                                  \
     do {                                                                                                                                   \
         static_assert(std::is_same_v<decltype(e), ZjEt>, ZJ_B_YELLOW "first argument of `_ZJ_THROW()` has to be an ZjEt" ZJ_PLAIN);        \
@@ -66,5 +82,26 @@ void _ZjThrow(const ZjEt t, const std::exception& e, const std::source_location&
             default:                                                                                                                       \
                 _ZjAssert("N/A", std::source_location::current(), ZJ_BLUE "illegal exception type [{}], check code logic" ZJ_PLAIN,        \
                     static_cast<std::uint8_t>(e));                                                                                         \
+        }                                                                                                                                  \
+    } while (0)
+
+/**
+ * @brief
+ *
+ */
+#define _ZJ_TRY(expression)                                                                                                                \
+    do {                                                                                                                                   \
+        try {                                                                                                                              \
+            expression;                                                                                                                    \
+        } catch (const ZjFailure& e) {                                                                                                     \
+            _ZjThrow(ZjEt::Failure, e, std::source_location::current());                                                                   \
+        } catch (const ZjFault& e) {                                                                                                       \
+            _ZjThrow(ZjEt::Fault, e, std::source_location::current());                                                                     \
+        } catch (const ZjBug& e) {                                                                                                         \
+            _ZjThrow(ZjEt::Bug, ZjBug(zj::trail::k_notFromZj), std::source_location::current());                                           \
+        } catch (const std::exception& e) {                                                                                                \
+            _ZjThrow(ZjEt::Bug, e, std::source_location::current());                                                                       \
+        } catch (...) {                                                                                                                    \
+            _ZjAssert("N/A", std::source_location::current(), ZJ_BLUE "unknown exception, this package cannot trace it" ZJ_PLAIN);         \
         }                                                                                                                                  \
     } while (0)
