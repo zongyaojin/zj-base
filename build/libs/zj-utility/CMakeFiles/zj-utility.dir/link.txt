@@ -1,2 +1,0 @@
-/usr/bin/ar qc libzj-utility.a CMakeFiles/zj-utility.dir/src/ZjDummy.cpp.o
-/usr/bin/ranlib libzj-utility.a
