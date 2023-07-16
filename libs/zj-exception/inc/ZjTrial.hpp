@@ -16,7 +16,7 @@
 namespace zj {
 namespace trial {
 static constexpr const char* k_notFromZj = "NOT_FROM_ZJ_EXCEPTION";
-static constexpr const char* k_formatter {"{}:{}:{} @ `{}` | " ZJ_I_WHITE "{}" ZJ_PLAIN};
+static constexpr const char* k_formatter {"{}:{}:{} @ `{}`; " ZJ_I_WHITE "{}" ZJ_PLAIN};
 }
 }
 

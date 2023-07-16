@@ -9,7 +9,7 @@
 namespace zj {
 namespace log {
 namespace agent {
-static constexpr const char* k_assertFmt {"{}:{}:{} @ `{}` || " ZJ_B_CYAN "[{}]" ZJ_PLAIN "\n{}\n" ZJ_PLAIN};
+static constexpr const char* k_assertFmt {"{}:{}:{} @ `{}` | " ZJ_B_CYAN "[{}]" ZJ_PLAIN "\n{}\n" ZJ_PLAIN};
 }
 }
 }
