@@ -29,7 +29,7 @@ endif()
 
 # All libraries in dependency order, this cannot be done by finding all folders in [libs/]; manually adding there here
 # since the order matters
-set(zjLibsInOrder "zj-exception")
+set(zjLibsInOrder "zj-utility" "zj-debug")
 
 # Root level variable to store all libray's relative include directories, so that they can be used to install package,
 # since the generator expression requires relative paths
