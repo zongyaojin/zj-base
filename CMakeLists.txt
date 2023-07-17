@@ -9,24 +9,12 @@ cmake_minimum_required(VERSION 3.22.1)
 #   the ${PROJECT_NAME} is used to generate the package config file:
 # * If the project name is formatted as "project-name", then the config file should be "${PROJECT_NAME}-config.cmake"
 # * If the project name is formatted as "ProjectName", then the config file should be "${PROJECT_NAME}Config.cmake"
-project(zj-debug VERSION 0.0.1)
+project(zj-base VERSION 0.0.1)
 
 # ######################################################################################################################
 # Scripts
 
-include(${CMAKE_SOURCE_DIR}/cmake/definitions/ZJ-colors.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/definitions/ZJ-compiler-settings.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/definitions/ZJ-compile-definitions.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/definitions/ZJ-find-settings.cmake)
-
-include(${CMAKE_SOURCE_DIR}/cmake/functions/zj_file_helpers.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/functions/zj_path_helpers.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/functions/zj_target_helpers.cmake)
-
-include(${CMAKE_SOURCE_DIR}/cmake/installation/zj_install_helpers.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/utilities/CCache.cmake)
-
-include(${CMAKE_SOURCE_DIR}/cmake/systems/zj-system-helpers.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/zj-include-all.cmake)
 
 # ######################################################################################################################
 # System check

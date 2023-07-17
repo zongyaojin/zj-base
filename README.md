@@ -1,6 +1,5 @@
-# zj-debug
+# zj-base
 
 In order:
 
-- timed msg
 - tests

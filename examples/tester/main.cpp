@@ -1,5 +1,5 @@
 #include "ZjDebug.hpp"
-#include "ZjLogMacros.hpp"
+#include "ZjLogMacrosExtension.hpp"
 
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
@@ -51,10 +51,17 @@ void f3()
 int main()
 {
 
-    spdlog::set_level(spdlog::level::trace);
-    auto console = spdlog::stdout_color_mt("console");
+    // spdlog::set_level(spdlog::level::trace);
+    // auto console = spdlog::stdout_color_mt("console");
 
-    _ZJ_TRY(f3());
+    // _ZJ_TRY(f3());
+
+    while (1) {
+        _ZJ_INFO_T(0.5, "hi");
+        _ZJ_WARN_T(1.5, "hi");
+        _ZJ_DEBUG_T(3, "hi");
+        _ZJ_TRACE_T(1, "hi");
+    }
 
     return 0;
 }
