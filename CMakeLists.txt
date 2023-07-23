@@ -68,7 +68,7 @@ include(CTest)
 # Assuming tests are simple with only one cpp file, and there's no need to install tests since they are for client code
 if(BUILD_TESTING)
     find_package(GTest REQUIRED)
-    set(zjAllTests)
+    set(zjAllTests testZjDebug testZjUtility testZjSingleton)
 
     foreach(zjTest IN LISTS zjAllTests)
         add_executable(${zjTest} ${CMAKE_SOURCE_DIR}/tests/${zjTest}.cpp)

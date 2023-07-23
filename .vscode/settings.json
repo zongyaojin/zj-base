@@ -68,7 +68,9 @@
         "typeindex": "cpp",
         "source_location": "cpp",
         "condition_variable": "cpp",
-        "mutex": "cpp"
+        "mutex": "cpp",
+        "any": "cpp",
+        "iomanip": "cpp"
     },
     "cSpell.words": [
         "spdlog",

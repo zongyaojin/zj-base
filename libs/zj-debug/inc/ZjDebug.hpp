@@ -52,13 +52,13 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
 
 #define _ZJ_THROW_EXCEPTION(t, ...)                                                                                                        \
     do {                                                                                                                                   \
-        static_assert(std::is_same_v<decltype(t), ZjE>, ZJ_B_YELLOW "first argument of `_ZJ_THROW()` has to be an ZjE" ZJ_PLAIN);        \
-        static_assert(t != ZjE::Bug, ZJ_B_YELLOW "ZjBug is reserved for `_ZJ_TRY()` to pass upstream exceptions" ZJ_PLAIN);               \
+        static_assert(std::is_same_v<decltype(t), ZjE>, ZJ_B_YELLOW "first argument of `_ZJ_THROW()` has to be an ZjE" ZJ_PLAIN);          \
+        static_assert(t != ZjE::Bug, ZJ_B_YELLOW "ZjBug is reserved for `_ZJ_TRY()` to pass upstream exceptions" ZJ_PLAIN);                \
         switch (t) {                                                                                                                       \
-            case ZjE::Failure:                                                                                                            \
+            case ZjE::Failure:                                                                                                             \
                 _ZjThrow(t, ZjFailure(), std::source_location::current(), ##__VA_ARGS__);                                                  \
                 break;                                                                                                                     \
-            case ZjE::Fault:                                                                                                              \
+            case ZjE::Fault:                                                                                                               \
                 _ZjThrow(t, ZjFault(), std::source_location::current(), ##__VA_ARGS__);                                                    \
                 break;                                                                                                                     \
             default:                                                                                                                       \
@@ -72,13 +72,13 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
         try {                                                                                                                              \
             expression;                                                                                                                    \
         } catch (const ZjFailure& e) {                                                                                                     \
-            _ZjThrow(ZjE::Failure, e, std::source_location::current());                                                                   \
+            _ZjThrow(ZjE::Failure, e, std::source_location::current());                                                                    \
         } catch (const ZjFault& e) {                                                                                                       \
-            _ZjThrow(ZjE::Fault, e, std::source_location::current());                                                                     \
+            _ZjThrow(ZjE::Fault, e, std::source_location::current());                                                                      \
         } catch (const ZjBug& e) {                                                                                                         \
-            _ZjThrow(ZjE::Bug, ZjBug(zj::debug::k_notFromZj), std::source_location::current());                                           \
+            _ZjThrow(ZjE::Bug, ZjBug(zj::debug::k_notFromZj), std::source_location::current());                                            \
         } catch (const std::exception& e) {                                                                                                \
-            _ZjThrow(ZjE::Bug, e, std::source_location::current(), std::string {#expression});                                            \
+            _ZjThrow(ZjE::Bug, e, std::source_location::current(), std::string {#expression});                                             \
         } catch (...) {                                                                                                                    \
             _ZjAssert("N/A", std::source_location::current(), ZJ_BLUE "unknown exception, package cannot trace it" ZJ_PLAIN);              \
         }                                                                                                                                  \
@@ -88,22 +88,21 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
 // Convenient wrappers
 // ---------------------------------------------------------
 
-#define _ZJ_THROW(...) (_ZJ_THROW_EXCEPTION(ZjE::Fault, ##__VA_ARGS__))
-
-#define _ZJ_THROW_CRITICAL(...) (_ZJ_THROW_EXCEPTION(ZjE::Critical, ##__VA_ARGS__))
+#define _ZJ_THROW(...) _ZJ_THROW_EXCEPTION(ZjE::Fault, ##__VA_ARGS__)
+#define _ZJ_THROW_FAILURE(...) _ZJ_THROW_EXCEPTION(ZjE::Failure, ##__VA_ARGS__)
 
 #define _ZJ_THROW_IF(condition, ...)                                                                                                       \
     do {                                                                                                                                   \
         _ZJ_STATIC_BOOLEAN_CHECK(condition);                                                                                               \
         if ((condition)) {                                                                                                                 \
-            _ZJ_THROW_EXCEPTION(ZjE::Fault, ##__VA_ARGS__);                                                                               \
+            _ZJ_THROW_EXCEPTION(ZjE::Fault, ##__VA_ARGS__);                                                                                \
         }                                                                                                                                  \
     } while (0)
 
-#define _ZJ_THROW_CRITICAL_IF(condition, ...)                                                                                              \
+#define _ZJ_THROW_FAILURE_IF(condition, ...)                                                                                               \
     do {                                                                                                                                   \
         _ZJ_STATIC_BOOLEAN_CHECK(condition);                                                                                               \
         if ((condition)) {                                                                                                                 \
-            _ZJ_THROW_EXCEPTION(ZjE::Critical, ##__VA_ARGS__);                                                                            \
+            _ZJ_THROW_EXCEPTION(ZjE::Failure, ##__VA_ARGS__);                                                                              \
         }                                                                                                                                  \
     } while (0)
