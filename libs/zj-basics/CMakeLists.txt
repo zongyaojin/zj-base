@@ -14,10 +14,10 @@ zj_files_get_cpp("${libAbsSrcDirs}" libAbsCpps)
 add_library(${libName} ${libAbsCpps})
 
 zj_target_include_directories_genex(${libName} "${libRelIncDirs}")
-target_link_libraries(${libName} zj-debug)
+target_link_libraries(${libName})
 
-# find_package(Boost REQUIRED)
-# target_link_libraries(${libName} Boost::boost)
+find_package(Boost REQUIRED)
+target_link_libraries(${libName} Boost::boost)
 
 # ######################################################################################################################
 

@@ -2,5 +2,4 @@
 
 In order:
 
-- test for each macro
-- tests
+- comments; otherwise, sometime later only GOD knows what I did...

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ZjLogAgents.hpp"
-#include "ZjUtilityMacros.hpp"
+#include "ZjBasicMacros.hpp"
 
 #include <cstdint>
 #include <type_traits>

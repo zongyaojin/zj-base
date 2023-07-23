@@ -29,7 +29,7 @@ endif()
 
 # All libraries in dependency order, this cannot be done by finding all folders in [libs/]; manually adding there here
 # since the order matters
-set(zjLibsInOrder "zj-utility" "zj-debug")
+set(zjLibsInOrder "zj-basics" "zj-debug" "zj-utility")
 
 # Root level variable to store all libray's relative include directories, so that they can be used to install package,
 # since the generator expression requires relative paths
@@ -40,6 +40,7 @@ foreach(zjLib IN LISTS zjLibsInOrder)
     add_subdirectory(${CMAKE_SOURCE_DIR}/libs/${zjLib})
 endforeach()
 
+# Remove duplicates and empty entries
 zj_variable_prune(zjPkgRelIncDirsSlash)
 
 # ######################################################################################################################
@@ -63,19 +64,8 @@ zj_combine_install_library("${zjLibsInOrder}" "${zjPkgRelIncDirsSlash}" "${zjHea
 # ######################################################################################################################
 # Tests
 
-include(CTest)
-
-# Assuming tests are simple with only one cpp file, and there's no need to install tests since they are for client code
 if(BUILD_TESTING)
-    find_package(GTest REQUIRED)
+    enable_testing()
     set(zjAllTests testZjDebug testZjUtility testZjSingleton)
-
-    foreach(zjTest IN LISTS zjAllTests)
-        add_executable(${zjTest} ${CMAKE_SOURCE_DIR}/tests/${zjTest}.cpp)
-        # Since the combined library is created by the install function, we can use it to link all libraries
-        target_link_libraries(${zjTest} PUBLIC ${PROJECT_NAME}::${PROJECT_NAME} GTest::GTest GTest::Main)
-        set_target_properties(${zjTest} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests)
-
-        add_test(NAME ${zjTest} COMMAND ${CMAKE_BINARY_DIR}/tests/${zjTest})
-    endforeach()
+    zj_test_setup("${zjAllTests}")
 endif()

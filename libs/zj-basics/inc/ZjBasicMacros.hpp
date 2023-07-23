@@ -16,7 +16,7 @@
 /// Check if a condition expression evaluates to boolean
 #define _ZJ_STATIC_BOOLEAN_CHECK(condition)                                                                                                \
     do {                                                                                                                                   \
-        using conditionType = std::remove_cv_t<decltype(condition)>;                                                                       \
+        using conditionType = std::remove_cvref_t<decltype(condition)>;                                                                    \
         constexpr bool boolType {std::is_same_v<conditionType, bool>};                                                                     \
         static_assert(boolType, ZJ_B_YELLOW "condition does not evaluate to boolean" ZJ_PLAIN);                                            \
     } while (0)

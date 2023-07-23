@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ZjExceptions.hpp"
-#include "ZjUtilityMacros.hpp"
+#include "ZjBasicMacros.hpp"
 #include "ZjColors.hpp"
 #include "ZjLogAgents.hpp"
 
