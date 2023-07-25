@@ -70,7 +70,8 @@
         "condition_variable": "cpp",
         "mutex": "cpp",
         "any": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "unordered_set": "cpp"
     },
     "cSpell.words": [
         "spdlog",

@@ -66,6 +66,6 @@ zj_combine_install_library("${zjLibsInOrder}" "${zjPkgRelIncDirsSlash}" "${zjHea
 
 if(BUILD_TESTING)
     enable_testing()
-    set(zjAllTests testZjDebug testZjUtility testZjSingleton)
+    set(zjAllTests "testZjDebug" "testZjBasics" "testZjSingleton" "testZjUtility" "testZjSwitch" "testZjTimer")
     zj_test_setup("${zjAllTests}")
 endif()

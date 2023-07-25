@@ -24,7 +24,7 @@ typename MapType::key_type _GetKeyByValue(const MapType& map, const ValueType& v
     return typename MapType::key_type {};
 }
 
-template <EnumType T>
+template <ZjEnumType T>
 T _GetEnumByString(const std::unordered_map<T, std::string>& map, const std::string& name)
 {
     for (const auto& pair : map) {
@@ -37,8 +37,8 @@ T _GetEnumByString(const std::unordered_map<T, std::string>& map, const std::str
     return T {};
 }
 
-template <typename T>
-void _DeleteRawPointer(T* ptr)
+template <ZjRawPointer T>
+void _DeleteRawPointer(T& ptr)
 {
     if (ptr) {
         delete ptr;

@@ -12,25 +12,15 @@ public:
 
     inline void turnOn() { m_on = true; }
 
-    void turnOff()
-    {
-        for (const auto& routine : turnOffRoutine) {
-            if (routine) {
-                routine();
-            }
-        }
+    void turnOff();
 
-        m_on = false;
-    }
+    void addRoutine(const std::function<void()>& routine);
 
-    void addTearDownRoutine(const std::function<void()> routine)
-    {
-        _ZJ_THROW_IF(!routine, "invalid function pointer");
-        turnOffRoutine.push_back(routine);
-    }
+    inline void removeRoutines() { m_routines.clear(); }
+    
+    inline auto numRoutines() { return m_routines.size(); }
 
 private:
     bool m_on {true};
-
-    std::vector<std::function<void()>> turnOffRoutine;
+    std::vector<std::function<void()>> m_routines;
 };
