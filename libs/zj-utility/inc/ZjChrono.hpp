@@ -15,6 +15,19 @@ public:
     using Sec = std::chrono::seconds;
 
 public:
+    static constexpr double s_nsToSec {1.0e-9};
+    static constexpr double s_nsToMs {1.0e-6};
+    static constexpr double s_nsToUs {1.0e-3};
+
+    static constexpr double s_usToSec {1.0e-6};
+    static constexpr double s_usToMs {1.0e-3};
+    static constexpr double s_usToNs {1.0e+3};
+
+    static constexpr double s_msToSec {1.0e-3};
+    static constexpr double s_msToUs {1.0e+3};
+    static constexpr double s_msToNs {1.0e+6};
+
+public:
     static auto getNsCount();
     static auto getUsCount();
     static auto getMsCount();

@@ -31,15 +31,15 @@ double ZjChrono::getNs()
 
 double ZjChrono::getUs()
 {
-    return static_cast<double>(ZjChrono::getNsCount()) * 1.0e-3;
+    return static_cast<double>(ZjChrono::getNsCount()) * s_nsToUs;
 }
 
 double ZjChrono::getMs()
 {
-    return static_cast<double>(ZjChrono::getNsCount()) * 1.0e-6;
+    return static_cast<double>(ZjChrono::getNsCount()) * s_nsToMs;
 }
 
 double ZjChrono::getSec()
 {
-    return static_cast<double>(ZjChrono::getNsCount()) * 1.0e-9;
+    return static_cast<double>(ZjChrono::getNsCount()) * s_nsToSec;
 }
