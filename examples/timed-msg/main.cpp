@@ -1,13 +1,13 @@
-#include "zj-debug.hpp"
+#include "ZjLogMacrosExtension.hpp"
 
 int main()
 {
-    
-    while (1) {
-        _ZJ_INFO_T(0.5, "hi");
-        _ZJ_WARN_T(1.5, "hi");
-        _ZJ_DEBUG_T(3, "hi");
-        _ZJ_TRACE_T(1, "hi");
+    int i = 0;
+    while (i++ < 1e7) {
+        _ZJ_INFO_T(0.11, "hi");
+        _ZJ_WARN_T(0.2, "hi");
+        _ZJ_DEBUG_T(0.3, "hi");
+        _ZJ_TRACE_T(0.22, "hi");
     }
 
     return 0;

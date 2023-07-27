@@ -1,6 +1,17 @@
+/**
+ * @file ZjLogAgents.hpp
+ *
+ * @brief Logging agents to be used in the log macros, the agents deal with the ZjLog class
+ * @note Client code should use the macros, the log macros use the agents, and the agents interact with the ZjLog
+ *
+ * @author Zongyao Jin
+ * @date 2023-07-26
+ */
+
 #pragma once
 
 #include "ZjLog.hpp"
+#include "ZjColors.hpp"
 
 #include <source_location>
 #include <string>
@@ -12,8 +23,8 @@
 namespace zj {
 namespace log {
 namespace agents {
-static constexpr const char* k_assertFmt {"{}:{}:{} @ `{}` | " ZJ_B_CYAN "[{}]" ZJ_PLAIN "\n{}\n" ZJ_PLAIN};
-static constexpr const char* k_traceFmt {ZJ_PURPLE "{}:{}:{} @ `{}`; " ZJ_PLAIN "{}"};
+static constexpr const char* k_assertFmt {"{}:{}:{} @ `{}` | [{}]\n{}\n"};
+static constexpr const char* k_traceFmt {"{}:{}:{} @ `{}`; {}"};
 }
 }
 }
@@ -22,7 +33,9 @@ template <typename... Args>
 void _ZjAssert(const char* condition, const std::source_location& s, const std::string& fmt = "", Args&&... args)
 {
     std::string userMsg {fmt::format(fmt::runtime(fmt), args...)};
-    spdlog::critical(zj::log::agents::k_assertFmt, s.file_name(), s.line(), s.column(), s.function_name(), condition, std::move(userMsg));
+    ZjLog::getInstance().log(ZjL::Critical,
+        fmt::format(zj::log::agents::k_assertFmt, s.file_name(), s.line(), s.column(), s.function_name(), condition, std::move(userMsg)));
+    ZjLog::getInstance().shutdown();
     std::abort();
 }
 

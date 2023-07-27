@@ -1,9 +1,19 @@
+/**
+ * @file ZjExceptions.hpp
+ *
+ * @brief Zj exceptions and exception types enum
+ *
+ * @author Zongyao Jin
+ * @date 2023-07-26
+ */
+
 #pragma once
 
 #include <cstdint>
 #include <exception>
 #include <string>
 
+/// ZjException types enum
 enum class ZjExceptionType : std::uint8_t
 {
     Bug = 0,
@@ -11,8 +21,10 @@ enum class ZjExceptionType : std::uint8_t
     Failure,
 };
 
+/// ZjExceptionType short alias
 using ZjE = ZjExceptionType;
 
+/// ZjException base
 class ZjException : public std::exception
 {
 protected:
@@ -31,6 +43,7 @@ protected:
     std::string m_msg {"see log trace for details"};
 };
 
+/// External level, reserved for catching and re-throwing external, non-zj exceptions
 class ZjBug : public ZjException
 {
 public:
@@ -43,6 +56,7 @@ public:
     }
 };
 
+/// Fault level exception
 class ZjFault : public ZjException
 {
 public:
@@ -55,6 +69,7 @@ public:
     }
 };
 
+/// Failure level exception
 class ZjFailure : public ZjException
 {
 public:

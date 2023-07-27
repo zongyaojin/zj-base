@@ -17,15 +17,15 @@
 
 #define _ZJ_MSG(level, msg, ...)                                                                                                           \
     do {                                                                                                                                   \
-        static_assert(std::is_same_v<decltype(level), ZjL>, ZJ_B_YELLOW "level has to be a ZjL" ZJ_PLAIN);                                 \
-        static_assert(level != ZjL::Error && level != ZjL::Critical, ZJ_B_YELLOW "Error & Critical reserved for _ZjThrow()" ZJ_PLAIN);     \
+        static_assert(std::is_same_v<decltype(level), ZjL>, "level has to be a ZjL");                                                      \
+        static_assert(level != ZjL::Error && level != ZjL::Critical, "Error & Critical reserved for _ZjThrow()");                          \
         _ZjMessage(level, std::source_location::current(), msg, ##__VA_ARGS__);                                                            \
     } while (0)
 
 #define _ZJ_MSG_T(level, intervalS, msg, ...)                                                                                              \
     do {                                                                                                                                   \
-        static_assert(std::is_convertible_v<decltype(intervalS), double>, ZJ_B_YELLOW "intervalS doesn't evaluate to double" ZJ_PLAIN);    \
-        static_assert(intervalS > 0.1, ZJ_B_YELLOW "intervalS should be greater than 0.1" ZJ_PLAIN);                                       \
+        static_assert(std::is_convertible_v<decltype(intervalS), double>, "intervalS doesn't evaluate to double");                         \
+        static_assert(intervalS >= 0.1, "intervalS should be at least 0.1");                                                               \
                                                                                                                                            \
         using Clock = std::chrono::high_resolution_clock;                                                                                  \
         using TimePoint = Clock::time_point;                                                                                               \

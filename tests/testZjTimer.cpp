@@ -24,7 +24,8 @@ ZjChrono::Count testZjTimer(unsigned hz, double sec)
 
     _ZJ_DEBUG("name: {}, overtime count: {}", timer.name(), timer.overtimeCount());
     _ZJ_DEBUG("actual total count vs. expected: [{} | {:.1f}]", actualTotalCount, hz * sec);
-    _ZJ_DEBUG("avg loop time vs. period: [{:.5f} s | {:.5f} s]", timer.loopAvg(ZjChrono::Unit::Sec), timer.period(ZjChrono::Unit::Sec));
+    _ZJ_DEBUG(
+        "avg loop time vs. period: [{:.5f} s | {:.5f} s]", timer.totalLoopAvg(ZjChrono::Unit::Sec), timer.period(ZjChrono::Unit::Sec));
     return timer.totalCount();
 }
 

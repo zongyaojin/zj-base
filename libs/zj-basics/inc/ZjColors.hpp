@@ -1,9 +1,18 @@
+/**
+ * @file ZjColors.hpp
+ *
+ * @brief Color definitions
+ *
+ * @author Zongyao Jin
+ * @date 2023-07-26
+ */
+
 #pragma once
 
-// Reset colors
+/// Reset colors
 #define ZJ_PLAIN "\033[0m"
 
-// Regular colors
+/// @{ Regular colors
 #define ZJ_BLACK "\033[0;30m"
 #define ZJ_RED "\033[0;31m"
 #define ZJ_GREEN "\033[0;32m"
@@ -12,8 +21,9 @@
 #define ZJ_PURPLE "\033[0;35m"
 #define ZJ_CYAN "\033[0;36m"
 #define ZJ_WHITE "\033[0;37m"
+/// @}
 
-// Bold
+/// @{ Bold colors
 #define ZJ_B_BLACK "\033[1;30m"
 #define ZJ_B_RED "\033[1;31m"
 #define ZJ_B_GREEN "\033[1;32m"
@@ -22,8 +32,9 @@
 #define ZJ_B_PURPLE "\033[1;35m"
 #define ZJ_B_CYAN "\033[1;36m"
 #define ZJ_B_WHITE "\033[1;37m"
+/// @}
 
-// Underline
+/// @{ Colors with underline
 #define ZJ_U_BLACK "\033[4;30m"
 #define ZJ_U_RED "\033[4;31m"
 #define ZJ_U_GREEN "\033[4;32m"
@@ -32,8 +43,9 @@
 #define ZJ_U_PURPLE "\033[4;35m"
 #define ZJ_U_CYAN "\033[4;36m"
 #define ZJ_U_WHITE "\033[4;37m"
+/// @}
 
-// Background
+/// @{ Background color
 #define ZJ_G_BLACK "\033[40m"
 #define ZJ_G_RED "\033[41m"
 #define ZJ_G_GREEN "\033[42m"
@@ -42,8 +54,9 @@
 #define ZJ_G_PURPLE "\033[45m"
 #define ZJ_G_CYAN "\033[46m"
 #define ZJ_G_WHITE "\033[47m"
+/// @}
 
-// High intensity
+/// @{ High intensity colors
 #define ZJ_I_BLACK "\033[0;90m"
 #define ZJ_I_RED "\033[0;91m"
 #define ZJ_I_GREEN "\033[0;92m"
@@ -52,8 +65,9 @@
 #define ZJ_I_PURPLE "\033[0;95m"
 #define ZJ_I_CYAN "\033[0;96m"
 #define ZJ_I_WHITE "\033[0;97m"
+/// @}
 
-// Bold high intensity
+/// @{ Bold high intensity colors
 #define ZJ_BI_BLACK "\033[1;90m"
 #define ZJ_BI_RED "\033[1;91m"
 #define ZJ_BI_GREEN "\033[1;92m"
@@ -62,8 +76,9 @@
 #define ZJ_BI_PURPLE "\033[1;95m"
 #define ZJ_BI_CYAN "\033[1;96m"
 #define ZJ_BI_WHITE "\033[1;97m"
+/// @}
 
-// High intensity backgrounds
+/// @{ High intensity background colors
 #define ZJ_GI_BLACK "\033[0;100m"
 #define ZJ_GI_RED "\033[0;101m"
 #define ZJ_GI_GREEN "\033[0;102m"
@@ -72,3 +87,4 @@
 #define ZJ_GI_PURPLE "\033[10;95m"
 #define ZJ_GI_CYAN "\033[0;106m"
 #define ZJ_GI_WHITE "\033[0;107m"
+/// @}

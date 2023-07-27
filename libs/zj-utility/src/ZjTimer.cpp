@@ -21,7 +21,7 @@ void ZjTimer::init(const unsigned frequency, const unsigned overtimeCountLimit)
     m_period = ZjChrono::Ns {static_cast<ZjChrono::Count>(ZjChrono::s_secToNs / frequency)};
 }
 
-void ZjTimer::guard()
+ZjChrono::Count ZjTimer::guard()
 {
     m_totalCount++;
 
@@ -44,9 +44,11 @@ void ZjTimer::guard()
         _ZJ_WARN("-- overtime count has been reset to start over");
         m_overtimeCount = 0;
     }
+
+    return m_timeSpent.count();
 }
 
-double ZjTimer::loopAvg(const ZjChrono::Unit unit) const
+double ZjTimer::totalLoopAvg(const ZjChrono::Unit unit) const
 {
     switch (unit) {
         case ZjChrono::Unit::Sec:

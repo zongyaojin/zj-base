@@ -1,5 +1,6 @@
 /**
  * @file ZjSingleton.hpp
+ * 
  * @brief Singleton base class using CRTP
  *
  * @see https://stackoverflow.com/a/34519373/6291896

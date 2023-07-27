@@ -14,14 +14,30 @@ public:
     void init(const unsigned frequency, const unsigned overtimeCountLimit = 0);
 
     inline void start() { m_startTime = ZjChrono::Clock::now(); }
-    void guard();
 
+    /// Get count in Ns since start, can be used for timing a segment
+    inline ZjChrono::Count sinceStart() const
+    {
+        return std::chrono::duration_cast<ZjChrono::Ns>(ZjChrono::Clock::now() - m_startTime).count();
+    }
+
+    /// Returns the count at the beginning of this function
+    ZjChrono::Count guard();
+
+    /// Loop period
+    double period(const ZjChrono::Unit unit) const;
+
+    /// Overtime count of the last loop
+    inline ZjChrono::Count overtimeCount() const { return m_overtimeCount; }
+
+    /// Timer name
     inline const std::string& name() const { return m_name; }
+
+    /// Total number of counts of all cycles
     inline ZjChrono::Count totalCount() const { return m_totalCount; };
 
-    double loopAvg(const ZjChrono::Unit unit) const;
-    double period(const ZjChrono::Unit unit) const;
-    inline ZjChrono::Count overtimeCount() const { return m_overtimeCount; }
+    /// Total loop average of all cycles
+    double totalLoopAvg(const ZjChrono::Unit unit) const;
 
 private:
     std::string m_name {fmt::format("ZjTimer-{}", fmt::ptr(this))};

@@ -1,3 +1,12 @@
+/**
+ * @file ZjBasicMacros.hpp
+ *
+ * @brief Basic macros
+ *
+ * @author Zongyao Jin
+ * @date 2023-07-26
+ */
+
 #pragma once
 
 #include <typeinfo>
@@ -18,5 +27,5 @@
     do {                                                                                                                                   \
         using conditionType = std::remove_cvref_t<decltype(condition)>;                                                                    \
         constexpr bool boolType {std::is_same_v<conditionType, bool>};                                                                     \
-        static_assert(boolType, ZJ_B_YELLOW "condition does not evaluate to boolean" ZJ_PLAIN);                                            \
+        static_assert(boolType, "condition does not evaluate to boolean");                                                                 \
     } while (0)
