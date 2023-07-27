@@ -21,16 +21,15 @@ constexpr size_t k_threadCount = 1;
 void ZjLog::log(const ZjLogLevel level, std::string&& msg)
 {
     if (!m_logger) {
-        // https://github.com/gabime/spdlog#asynchronous-logger-with-multi-sinks
-        spdlog::init_thread_pool(k_qSize, k_threadCount);
-
         // https://stackoverflow.com/a/74987040
         auto now = std::chrono::system_clock::now();
         auto sse = now.time_since_epoch();
         auto time = fmt::format("{:%FT%H:%M:}{:%S}", now, sse);
 
-        auto logFileName {fmt::format("{}/{}_{}.txt", __ZJ_PKG_BUILD_PATH__, __ZJ_PKG_NAME__, time)};
+        auto logFileName {fmt::format("{}/zj-logs/{}_{}.txt", __ZJ_PKG_BUILD_PATH__, __ZJ_PKG_NAME__, time)};
 
+        // https://github.com/gabime/spdlog#asynchronous-logger-with-multi-sinks
+        spdlog::init_thread_pool(k_qSize, k_threadCount);
         auto stdoutSink {std::make_shared<spdlog::sinks::stdout_color_sink_mt>()};
         auto rotatingFileSink {std::make_shared<spdlog::sinks::rotating_file_sink_mt>(logFileName, k_maxFileSize, k_maxNumFiles)};
 
