@@ -66,7 +66,7 @@ zj_combine_install_library("${zjLibsInOrder}" "${zjPkgRelIncDirsSlash}" "${zjHea
 
 if(BUILD_TESTING)
     enable_testing()
-    # Collect of first-level subfolders and files in the tests/ directory
+    # Collect all first-level subfolders and files in the tests/ directory
     file(GLOB zjAllTests RELATIVE "${CMAKE_SOURCE_DIR}/tests" "${CMAKE_SOURCE_DIR}/tests/*")
     zj_test_setup("${zjAllTests}")
 endif()
