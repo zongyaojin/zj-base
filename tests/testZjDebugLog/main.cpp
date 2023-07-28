@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include "zj-debug.hpp"
 
+#include <boost/filesystem.hpp>
+
 void testZjThrowIf(const bool flag, const std::string& msg = "")
 {
     if (msg.empty()) {
@@ -69,6 +71,10 @@ TEST(TestZjThrow, ThrowExceptions)
 
     EXPECT_THROW(_ZJ_THROW_FAILURE(), ZjFailure);
     EXPECT_THROW(_ZJ_THROW_FAILURE("foo"), ZjFailure);
+
+    auto logFileName = ZjLog::getInstance().getLogFileName();
+    _ZJ_INFO("output log file: {}", logFileName);
+    EXPECT_TRUE(boost::filesystem::exists(logFileName));
 }
 
 TEST(TestZjThrow, ThrowExceptionsIf)
@@ -84,6 +90,10 @@ TEST(TestZjThrow, ThrowExceptionsIf)
 
     EXPECT_NO_THROW(testZjThrowFailureIf(false));
     EXPECT_NO_THROW(testZjThrowFailureIf(false, "foo"));
+
+    auto logFileName = ZjLog::getInstance().getLogFileName();
+    _ZJ_INFO("output log file: {}", logFileName);
+    EXPECT_TRUE(boost::filesystem::exists(logFileName));
 }
 
 TEST(TestZjTry, TryCatchExceptions)
@@ -94,12 +104,19 @@ TEST(TestZjTry, TryCatchExceptions)
     EXPECT_THROW(testZjTry(4), ZjFailure);
     EXPECT_THROW(testZjTry(5), ZjFault);
     EXPECT_THROW(testZjTry(6), ZjFailure);
+
+    auto logFileName = ZjLog::getInstance().getLogFileName();
+    _ZJ_INFO("output log file: {}", logFileName);
+    EXPECT_TRUE(boost::filesystem::exists(logFileName));
 }
 
 TEST(TestZjAssert, AssertCases)
 {
     EXPECT_EQ(testZjAssert(true), 1);
     EXPECT_EQ(testZjAssert(true, "foo-bar"), 1);
-    EXPECT_DEATH(testZjAssert(false), "");
-    EXPECT_DEATH(testZjAssert(false, "asserted false"), "");
+
+    // https://stackoverflow.com/a/71257678
+    ::testing::GTEST_FLAG(death_test_style) = "threadsafe";
+    ASSERT_DEATH(testZjAssert(false), "");
+    ASSERT_DEATH(testZjAssert(false, "asserted false"), "");
 }

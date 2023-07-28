@@ -48,5 +48,5 @@ public:
         return std::chrono::time_point_cast<T>(Clock::now()).time_since_epoch().count();
     }
 
-    auto getTime(const Unit unit);
+    static auto getTime(const Unit unit);
 };

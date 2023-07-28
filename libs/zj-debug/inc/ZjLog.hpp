@@ -50,9 +50,14 @@ public:
     /// Shutdown the logger
     void shutdown();
 
+    inline const std::string& getLogFileName() const { return m_logFileName; }
+
 private:
     /// Log implementation's pointer
     CoreLogPtr m_logger;
+
+    /// Log file name
+    std::string m_logFileName;
 
     /// Log sinks
     std::vector<spdlog::sink_ptr> m_sinks;

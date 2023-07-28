@@ -74,7 +74,9 @@
         "unordered_set": "cpp"
     },
     "cSpell.words": [
+        "endforeach",
         "spdlog",
+        "subfolders",
         "tparam",
         "Zongyao"
     ],
