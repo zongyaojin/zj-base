@@ -10,10 +10,11 @@ script_abs_path="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 # Install system-level package managment dependencies
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt install -y build-essential pkg-config git wget autoconf libtool shfmt
+sudo apt install -y autoconf build-essential git libtool pkg-config shfmt wget
 sudo apt install -y cmake
 sudo apt install -y libgtest-dev libspdlog-dev libeigen3-dev libboost-all-dev
 
 # Install python dependencies
+sudo apt install -y python3-pip
 pip install --upgrade pip setuptools
 pip install --user cmakelang
