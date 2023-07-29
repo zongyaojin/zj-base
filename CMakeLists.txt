@@ -58,8 +58,13 @@ endforeach()
 # Use the function to combine all targets as one interface target and install the combined target
 set(zjHeaderPatterns "*.hpp" "*.h")
 set(zjDataFolders "specs")
-zj_combine_install_library("${zjLibsInOrder}" "${zjPkgRelIncDirsSlash}" "${zjHeaderPatterns}" "${zjExamples}"
-                           "${zjDataFolders}")
+zj_combine_install_library(
+    "${zjLibsInOrder}"
+    "${zjPkgRelIncDirsSlash}"
+    "${zjHeaderPatterns}"
+    "${zjExamples}"
+    "${zjDataFolders}"
+)
 
 # ######################################################################################################################
 # Tests
