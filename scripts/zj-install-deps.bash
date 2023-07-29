@@ -15,4 +15,5 @@ sudo apt install -y cmake
 sudo apt install -y libgtest-dev libspdlog-dev libeigen3-dev libboost-all-dev
 
 # Install python dependencies
+pip install --upgrade pip setuptools
 pip install --user cmakelang
