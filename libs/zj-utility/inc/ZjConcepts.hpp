@@ -3,6 +3,7 @@
 #include <concepts>
 #include <map>
 #include <unordered_map>
+#include <chrono>
 
 // Concept to check if a type is an enumeration
 template <typename T>
@@ -20,3 +21,6 @@ concept ZjDuration = std::is_same_v<T, std::chrono::nanoseconds> || std::is_same
 
 template <typename T>
 concept ZjRawPointer = std::is_pointer_v<T>;
+
+template <typename T>
+concept ZjArithmetic = std::is_arithmetic_v<T>;

@@ -10,8 +10,9 @@
 #pragma once
 
 #include "ZjSingleton.hpp"
-#include <unordered_map>
+#include "ZjLogsManager.hpp"
 
+#include <unordered_map>
 #include "spdlog/spdlog.h"
 
 /// Zj log level type enum
@@ -32,11 +33,8 @@ using ZjL = ZjLogLevel;
 /// ZjLog singleton class
 class ZjLog : public ZjSingleton<ZjLog>
 {
-    /// Alias for the underlying log implementation's log level
-    using CoreLogLevel = spdlog::level::level_enum;
-
-    /// Alias for the underlying log implementation's log pointer
-    using CoreLogPtr = std::shared_ptr<spdlog::logger>;
+    using CoreLogLevel = ZjLogsManager::CoreLogLevel;
+    using CoreLogPtr = ZjLogsManager::CoreLogPtr;
 
 public:
     /**
@@ -47,8 +45,8 @@ public:
      */
     void log(const ZjLogLevel level, std::string&& msg);
 
-    /// Shutdown the logger
-    void shutdown();
+    /// Drop the logger
+    void drop();
 
     inline const std::string& getLogFileName() const { return m_logFileName; }
 
