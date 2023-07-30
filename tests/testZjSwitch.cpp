@@ -20,31 +20,30 @@ void testTurnOffRoutine()
 
 void testTurnOffRoutine2()
 {
-    globalVar++;
+    globalVar += 9;
 }
 
 TEST(TestZjSwitch, One)
 {
+    EXPECT_EQ(ZjSwitch::getInstance().on(), false);
+
+    ZjSwitch::getInstance().turnOn();
     EXPECT_EQ(ZjSwitch::getInstance().on(), true);
 
     ZjSwitch::getInstance().turnOff();
     EXPECT_EQ(ZjSwitch::getInstance().on(), false);
 
-    ZjSwitch::getInstance().addRoutine(&testTurnOffRoutine);
-    ZjSwitch::getInstance().addRoutine(&testTurnOffRoutine2);
-    EXPECT_EQ(ZjSwitch::getInstance().numRoutines(), 2);
+    ZjSwitch::getInstance().registerTurnOffRoutine(&testTurnOffRoutine);
+    ZjSwitch::getInstance().registerTurnOffRoutine(&testTurnOffRoutine2);
 
     EXPECT_EQ(globalVar, 10);
     ZjSwitch::getInstance().turnOff();
     EXPECT_EQ(ZjSwitch::getInstance().on(), false);
-    EXPECT_EQ(globalVar, 12);
-
-    ZjSwitch::getInstance().removeRoutines();
-    EXPECT_EQ(ZjSwitch::getInstance().numRoutines(), 0);
+    EXPECT_EQ(globalVar, 20);
 
     testSwitchOn();
     EXPECT_EQ(ZjSwitch::getInstance().on(), true);
     testSwitchOff();
     EXPECT_EQ(ZjSwitch::getInstance().on(), false);
-    EXPECT_EQ(globalVar, 12);
+    EXPECT_EQ(globalVar, 20);
 }

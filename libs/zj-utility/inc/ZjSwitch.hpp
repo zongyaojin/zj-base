@@ -10,17 +10,14 @@ class ZjSwitch : public ZjSingleton<ZjSwitch>
 public:
     inline bool on() { return m_on; }
 
-    inline void turnOn() { m_on = true; }
+    void turnOn();
 
     void turnOff();
 
-    void addRoutine(const std::function<void()>& routine);
-
-    inline void removeRoutines() { m_routines.clear(); }
-    
-    inline auto numRoutines() { return m_routines.size(); }
+    void registerTurnOffRoutine(const std::function<void()>& routine);
 
 private:
-    bool m_on {true};
-    std::vector<std::function<void()>> m_routines;
+    bool m_on {false};
+    
+    std::vector<std::function<void()>> m_turnOffRoutine;
 };
