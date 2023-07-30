@@ -31,7 +31,7 @@
  * it again; which make the initialization easy to trace. In the contrast, calling `Singleton::getInstance(real_or_dummy...)` all over the
  * place isn't a good design.
  *
- * @see https://stackoverflow.com/a/1051076
+ * @see For example `tests/testZjSingleton.cpp`, also at https://stackoverflow.com/a/1051076
  */
 template <typename ChildType>
 class ZjSingleton
