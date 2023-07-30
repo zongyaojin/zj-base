@@ -21,7 +21,7 @@ private:
 
 private:
     using Filename = std::string;
-    using Size = Eigen::Index;
+    using DataSize = Eigen::Index;
 
     template <ZjArithmetic T>
     using EigenVecX = Eigen::Matrix<T, Eigen::Dynamic, 1>;
