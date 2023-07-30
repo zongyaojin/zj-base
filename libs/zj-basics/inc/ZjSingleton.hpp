@@ -1,6 +1,6 @@
 /**
  * @file ZjSingleton.hpp
- * 
+ *
  * @brief Singleton base class using CRTP
  *
  * @see https://stackoverflow.com/a/34519373/6291896
@@ -15,13 +15,15 @@
 
 #pragma once
 
-template <typename T>
+#include <utility>
+
+template <typename T, typename... Args>
 class ZjSingleton
 {
 public:
-    static T& getInstance()
+    static T& getInstance(Args&&... args)
     {
-        static T s_instance;
+        static T s_instance(std::forward<Args>(args)...);
         return s_instance;
     }
 

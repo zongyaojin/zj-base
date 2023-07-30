@@ -73,7 +73,8 @@
         "iomanip": "cpp",
         "unordered_set": "cpp",
         "core": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "forward_list": "cpp"
     },
     "cSpell.words": [
         "Eigen",
