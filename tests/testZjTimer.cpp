@@ -3,6 +3,7 @@
 
 #include "ZjTimer.hpp"
 #include "ZjLogMacrosExtension.hpp"
+#include "ZjLogsManager.hpp"
 
 ZjChrono::Count testZjTimer(unsigned hz, double sec)
 {
@@ -32,25 +33,30 @@ ZjChrono::Count testZjTimer(unsigned hz, double sec)
 TEST(TestZjTimer, One)
 {
     EXPECT_NEAR(testZjTimer(100, 0.1), 10, 1);
+    ZjLogsManager::getInstance().shutdown();
 }
 
 TEST(TestZjTimer, Two)
 {
     EXPECT_NEAR(testZjTimer(200, 0.2), 40, 1);
+    ZjLogsManager::getInstance().shutdown();
 }
 
 TEST(TestZjTimer, Three)
 {
     EXPECT_NEAR(testZjTimer(300, 0.1), 30, 1);
+    ZjLogsManager::getInstance().shutdown();
 }
 
 TEST(TestZjTimer, Four)
 {
-    // why the avg loop rate is far lower than 0.002s, but the while loop ran way less than expected???
+    // Why the avg loop rate is far lower than 0.002s, but the while loop ran way less than expected; probably due to linux non-realtime
     EXPECT_NEAR(testZjTimer(500, 0.3), 150, 10);
+    ZjLogsManager::getInstance().shutdown();
 }
 
 TEST(TestZjTimer, Five)
 {
     EXPECT_NEAR(testZjTimer(30, 0.1), 3, 1);
+    ZjLogsManager::getInstance().shutdown();
 }

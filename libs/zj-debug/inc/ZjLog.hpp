@@ -45,12 +45,12 @@ public:
      */
     void log(const ZjLogLevel level, std::string&& msg);
 
-    /// Drop the logger
-    void drop();
-
     inline const std::string& getLogFileName() const { return m_logFileName; }
 
 private:
+    /// Drop the logger
+    void drop();
+
     /// Log implementation's pointer
     CoreLogPtr m_logger;
 

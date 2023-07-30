@@ -1,4 +1,5 @@
 #include "ZjLog.hpp"
+#include "ZjColors.hpp"
 
 #include <chrono>
 
@@ -36,7 +37,7 @@ void ZjLog::log(const ZjLogLevel level, std::string&& msg)
 
         m_logger = std::make_shared<spdlog::async_logger>(
             __ZJ_PKG_NAME__, m_sinks.begin(), m_sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::block);
-        ZjLogsManager::getInstance().registerLogger(m_logger);
+        ZjLogsManager::getInstance().registerLogger(m_logger, []() { ZjLog::getInstance().drop(); });
 
         m_logger->flush_on(spdlog::level::info);
         m_logger->set_level(spdlog::level::trace);
@@ -54,7 +55,7 @@ void ZjLog::drop()
         m_logger->flush();
     }
 
+    // Reset the shared pointer so this class doesn't hold a count of it and the log manager can clean up the memory
     m_logger.reset();
     m_sinks.clear();
-    ZjLogsManager::getInstance().dropLogger(m_logger->name());
 }

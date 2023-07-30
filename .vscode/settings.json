@@ -78,6 +78,7 @@
     "cSpell.words": [
         "Eigen",
         "endforeach",
+        "GTEST",
         "spdlog",
         "subfolders",
         "tparam",

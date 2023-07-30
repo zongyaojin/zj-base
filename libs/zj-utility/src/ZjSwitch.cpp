@@ -1,5 +1,6 @@
 #include "ZjSwitch.hpp"
 #include "ZjLogMacrosExtension.hpp"
+#include "ZjLogsManager.hpp"
 
 void ZjSwitch::turnOff()
 {
@@ -9,6 +10,7 @@ void ZjSwitch::turnOff()
         }
     }
 
+    ZjLogsManager::getInstance().shutdown();
     m_on = false;
 }
 
