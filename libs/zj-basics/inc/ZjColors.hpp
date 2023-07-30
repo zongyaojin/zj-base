@@ -3,6 +3,9 @@
  *
  * @brief Color definitions
  *
+ * @note They appear good on console with nice colors, but in log files they may appear as the underlying literal characters or sometime
+ * even garbage characters
+ *
  * @author Zongyao Jin
  * @date 2023-07-26
  */
