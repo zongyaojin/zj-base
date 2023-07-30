@@ -5,19 +5,19 @@
 
 #include <vector>
 
-class ZjSwitch : public ZjSingleton<ZjSwitch>
+class ZjProgramSwitch : public ZjSingleton<ZjProgramSwitch>
 {
 public:
     inline bool on() { return m_on; }
 
-    void turnOn();
+    inline void turnOn() { m_on = true; }
 
     void turnOff();
 
     void registerTurnOffRoutine(const std::function<void()>& routine);
 
 private:
-    bool m_on {false};
-    
+    bool m_on {true};
+
     std::vector<std::function<void()>> m_turnOffRoutine;
 };

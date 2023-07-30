@@ -1,14 +1,6 @@
-#include "ZjSwitch.hpp"
-#include "ZjLogMacrosExtension.hpp"
-#include "ZjLogsManager.hpp"
+#include "ZjProgramSwitch.hpp"
 
-void ZjSwitch::turnOn()
-{
-    ZjLogsManager::getInstance().init();
-    m_on = true;
-}
-
-void ZjSwitch::turnOff()
+void ZjProgramSwitch::turnOff()
 {
     if (!m_on) {
         return;
@@ -20,12 +12,11 @@ void ZjSwitch::turnOff()
         }
     }
 
-    ZjLogsManager::getInstance().shutdown();
     m_turnOffRoutine.clear();
     m_on = false;
 }
 
-void ZjSwitch::registerTurnOffRoutine(const std::function<void()>& routine)
+void ZjProgramSwitch::registerTurnOffRoutine(const std::function<void()>& routine)
 {
     if (!m_on) {
         turnOn();

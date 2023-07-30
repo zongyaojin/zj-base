@@ -5,6 +5,12 @@
 #include <unordered_map>
 #include <functional>
 
+/**
+ * @brief A class that manages all log classes; Since all log classes share the same thread(s) from the underlying library, the
+ * responsibility are all put in this one single place to make it easier to work with.
+ * @note The init and shutdown of this class can be placed in ZjProgramSwitch, but that would introduce a strong coupling, which seems to
+ * outweigh the benefits, so let's not do that.
+ */
 class ZjLogsManager : public ZjSingleton<ZjLogsManager>
 {
 public:
@@ -33,7 +39,7 @@ public:
     /// Drop a logger if ZjLogsManager is initialized and there exists such a logger
     void dropLogger(const LoggerName& loggerName);
 
-    /// @brief Shutdown all loggers; @note ZjSwitch::turnOff will call this function
+    /// @brief Shutdown all loggers; @note ZjProgramSwitch::turnOff will call this function
     void shutdown();
 
 private:
