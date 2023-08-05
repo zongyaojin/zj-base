@@ -26,7 +26,7 @@ namespace zj {
 namespace debug {
 
 /// String for exceptions from upstream
-static constexpr const char* k_notTopOfChain = "ZJ_NOT_TOP_OF_CHAIN";
+static constexpr const char* k_notTopOfChain {"ZJ_NOT_TOP_OF_CHAIN"};
 
 /// Debugging information formatter string
 static constexpr const char* k_formatter {"{}:{}:{} @ `{}`; {}"};

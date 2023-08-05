@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "zj-debug.hpp"
 
-#include <boost/filesystem.hpp>
+#include "boost/filesystem.hpp"
 
 void testZjThrowIf(const bool flag, const std::string& msg = "")
 {
@@ -72,7 +72,7 @@ TEST(TestZjThrow, ThrowExceptions)
     EXPECT_THROW(_ZJ_THROW_FAILURE(), ZjFailure);
     EXPECT_THROW(_ZJ_THROW_FAILURE("foo"), ZjFailure);
 
-    auto logFileName = ZjLog::getInstance().getLogFileName();
+    auto logFileName = ZjLog::getInstance().fileName();
     _ZJ_INFO("output log file: {}", logFileName);
     EXPECT_TRUE(boost::filesystem::exists(logFileName));
 }
@@ -91,7 +91,7 @@ TEST(TestZjThrow, ThrowExceptionsIf)
     EXPECT_NO_THROW(testZjThrowFailureIf(false));
     EXPECT_NO_THROW(testZjThrowFailureIf(false, "foo"));
 
-    auto logFileName = ZjLog::getInstance().getLogFileName();
+    auto logFileName = ZjLog::getInstance().fileName();
     _ZJ_INFO("output log file: {}", logFileName);
     EXPECT_TRUE(boost::filesystem::exists(logFileName));
 }
@@ -105,7 +105,7 @@ TEST(TestZjTry, TryCatchExceptions)
     EXPECT_THROW(testZjTry(5), ZjFault);
     EXPECT_THROW(testZjTry(6), ZjFailure);
 
-    auto logFileName = ZjLog::getInstance().getLogFileName();
+    auto logFileName = ZjLog::getInstance().fileName();
     _ZJ_INFO("output log file: {}", logFileName);
     EXPECT_TRUE(boost::filesystem::exists(logFileName));
 }

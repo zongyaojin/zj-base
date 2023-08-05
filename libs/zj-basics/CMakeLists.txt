@@ -1,4 +1,3 @@
-# Use the folder name as the lib name
 get_filename_component(libName ${CMAKE_CURRENT_LIST_DIR} NAME)
 
 list(APPEND modulesAbsDirsNoSlash ${CMAKE_CURRENT_LIST_DIR})

@@ -10,7 +10,6 @@
 #pragma once
 
 #include "ZjSingleton.hpp"
-#include "ZjLogsManager.hpp"
 
 #include <unordered_map>
 #include "spdlog/spdlog.h"
@@ -30,11 +29,13 @@ enum class ZjLogLevel : std::uint8_t
 /// Zj log level short alias
 using ZjL = ZjLogLevel;
 
-/// ZjLog singleton class
+/// @brief ZjLog singleton class; @warning This class should NOT use any of the debugging or logging macros, since they rely on ZjLogAgents,
+/// which relies on this class to actually log information, using those macros in this class would cause "circular reference"
 class ZjLog : public ZjSingleton<ZjLog>
 {
-    using CoreLogLevel = ZjLogsManager::CoreLogLevel;
-    using CoreLogPtr = ZjLogsManager::CoreLogPtr;
+public:
+    using CoreLogLevel = spdlog::level::level_enum;
+    using CoreLogPtr = std::shared_ptr<spdlog::logger>;
 
 public:
     /**
@@ -45,17 +46,20 @@ public:
      */
     void log(const ZjLogLevel level, std::string&& msg);
 
-    inline const std::string& getLogFileName() const { return m_logFileName; }
+    /// @warning This initializes the spdlog thread, which means this should be initialized before any logging
+    void init();
+
+    /// @warning This shuts down the entire spdlog, which means this should be called only when the whole program terminates
+    void shutdown();
+
+    inline const std::string& fileName() const { return m_fileName; }
 
 private:
-    /// Drop the logger
-    void drop();
-
     /// Log implementation's pointer
     CoreLogPtr m_logger;
 
     /// Log file name
-    std::string m_logFileName;
+    std::string m_fileName;
 
     /// Log sinks
     std::vector<spdlog::sink_ptr> m_sinks;

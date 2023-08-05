@@ -12,7 +12,6 @@
 
 #include "ZjLog.hpp"
 #include "ZjColors.hpp"
-#include "ZjLogsManager.hpp"
 
 #include <source_location>
 #include <string>
@@ -24,8 +23,10 @@
 namespace zj {
 namespace log {
 namespace agents {
+
 static constexpr const char* k_assertFmt {"{}:{}:{} @ `{}` | [{}]\n{}\n"};
 static constexpr const char* k_traceFmt {"{}:{}:{} @ `{}`; {}"};
+
 }
 }
 }
@@ -36,7 +37,7 @@ void _ZjAssert(const char* condition, const std::source_location& s, const std::
     std::string userMsg {fmt::format(fmt::runtime(fmt), args...)};
     ZjLog::getInstance().log(ZjL::Critical,
         fmt::format(zj::log::agents::k_assertFmt, s.file_name(), s.line(), s.column(), s.function_name(), condition, std::move(userMsg)));
-    ZjLogsManager::getInstance().shutdown();
+    ZjLog::getInstance().shutdown();
     std::abort();
 }
 
