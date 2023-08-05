@@ -28,6 +28,7 @@ void ZjLog::log(const ZjLogLevel level, std::string&& msg)
     }
 
     init();
+    m_logger->log(mk_logLevelMap.at(level), msg);
 }
 
 void ZjLog::init()

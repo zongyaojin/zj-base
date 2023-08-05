@@ -14,11 +14,13 @@
 class ZjCsvDynamicLog : public ZjSingleton<ZjCsvDynamicLog>
 {
     using CoreLogPtr = ZjLog::CoreLogPtr;
-    using DataSize = Eigen::Index;
     using LogName = std::string;
 
-    template <ZjArithmetic T>
-    using EigenVecX = Eigen::Matrix<T, Eigen::Dynamic, 1>;
+    using DataSize = Eigen::Index;
+    using DataDimension = decltype(Eigen::Dynamic);
+
+    template <ZjArithmetic T, DataDimension N = -1>
+    using EigenVecX = Eigen::Matrix<T, N, 1>;
 
 private:
     class ZjCsvDynamicLogWorker
@@ -27,12 +29,18 @@ private:
         const Eigen::IOFormat k_eigenFmt {9, 0, ", "};
 
     public:
-        ZjCsvDynamicLogWorker(const std::string& logName, const DataSize dataSize);
+        ZjCsvDynamicLogWorker() = default;
         ~ZjCsvDynamicLogWorker() = default;
 
-        template <ZjArithmetic T>
-        void log(const EigenVecX<T>& data)
+        void init(const std::string& logName, const DataSize dataSize);
+
+    template <ZjArithmetic T, DataDimension N>
+        void log(const std::string& logName, const EigenVecX<T, N>& data)
         {
+            if (!m_logger) {
+                init(logName, data.size());
+            }
+
             _ZJ_THROW_IF(data.size() != m_dataSize, "inconsistent data size [{} | {}]", data.size(), m_dataSize);
             std::ostringstream oss;
             oss << data.transpose().format(k_eigenFmt);
@@ -44,20 +52,22 @@ private:
     private:
         CoreLogPtr m_logger;
         DataSize m_dataSize;
+
+        std::string m_logName;
         std::string m_fileName;
     };
 
 public:
-    template <ZjArithmetic T>
-    void log(const std::string& logName, const EigenVecX<T>& data)
+    template <ZjArithmetic T, DataDimension N>
+    void log(const std::string& logName, const EigenVecX<T, N>& data)
     {
         if (m_logWorkerMap.find(logName) != m_logWorkerMap.end()) {
-            m_logWorkerMap.at(logName).log(data);
+            m_logWorkerMap.at(logName).log(logName, data);
             return;
         }
 
-        m_logWorkerMap.emplace(logName, ZjCsvDynamicLogWorker {logName, data.size()});
-        m_logWorkerMap.at(logName).log(data);
+        m_logWorkerMap.emplace(logName, ZjCsvDynamicLogWorker {});
+        m_logWorkerMap.at(logName).log(logName, data);
     }
 
     void drop(const std::string& logName);

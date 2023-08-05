@@ -3,6 +3,8 @@
 #include "ZjLogMacrosExtension.hpp"
 
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 #include "Eigen/Eigen"
 #include "boost/filesystem.hpp"
@@ -56,7 +58,10 @@ TEST(TestZjCsvLog, TestZjCsvDynamicLog)
     v2 << 10, 20, 30;
     v3 << 100, 200, 300;
 
-    Eigen::VectorXd v;
+    Eigen::Vector4d v4, v5, v6;
+    v4 << 4, 3, 2, 1;
+    v5 << 40, 30, 20, 10;
+    v6 << 400, 300, 200, 100;
 
     ZjCsvDynamicLog::getInstance().log(log1, v1);
     EXPECT_EQ(ZjCsvDynamicLog::getInstance().numLogs(), 1);
@@ -68,15 +73,15 @@ TEST(TestZjCsvLog, TestZjCsvDynamicLog)
     std::string log1_fileName = ZjCsvDynamicLog::getInstance().fileName(log1);
     _ZJ_DEBUG("log 1 file: [{}]", log1_fileName);
 
-    ZjCsvDynamicLog::getInstance().log(log2, v3);
+    ZjCsvDynamicLog::getInstance().log(log2, v4);
     EXPECT_EQ(ZjCsvDynamicLog::getInstance().numLogs(), 2);
 
     ZjCsvDynamicLog::getInstance().drop(log1);
     EXPECT_EQ(ZjCsvDynamicLog::getInstance().numLogs(), 1);
 
-    ZjCsvDynamicLog::getInstance().log(log2, v2);
+    ZjCsvDynamicLog::getInstance().log(log2, v5);
     EXPECT_EQ(ZjCsvDynamicLog::getInstance().numLogs(), 1);
-    ZjCsvDynamicLog::getInstance().log(log2, v1);
+    ZjCsvDynamicLog::getInstance().log(log2, v6);
     EXPECT_EQ(ZjCsvDynamicLog::getInstance().numLogs(), 1);
 
     std::string log2_fileName = ZjCsvDynamicLog::getInstance().fileName(log2);
