@@ -11,7 +11,7 @@
 #include "Eigen/Eigen"
 #include "spdlog/spdlog.h"
 
-class ZjCsvDynamicLog : public ZjSingleton<ZjCsvDynamicLog>
+class ZjCsvLogDynamic : public ZjSingleton<ZjCsvLogDynamic>
 {
     using CoreLogPtr = ZjLog::CoreLogPtr;
     using LogName = std::string;
@@ -23,14 +23,14 @@ class ZjCsvDynamicLog : public ZjSingleton<ZjCsvDynamicLog>
     using EigenVecX = Eigen::Matrix<T, N, 1>;
 
 private:
-    class ZjCsvDynamicLogWorker
+    class ZjCsvLogDynamicWorker
     {
         /// @note https://eigen.tuxfamily.org/dox/structEigen_1_1IOFormat.html
         const Eigen::IOFormat k_eigenFmt {9, 0, ", "};
 
     public:
-        ZjCsvDynamicLogWorker() = default;
-        ~ZjCsvDynamicLogWorker() = default;
+        ZjCsvLogDynamicWorker() = default;
+        ~ZjCsvLogDynamicWorker() = default;
 
         void init(const std::string& logName, const DataSize dataSize);
 
@@ -66,7 +66,7 @@ public:
             return;
         }
 
-        m_logWorkerMap.emplace(logName, ZjCsvDynamicLogWorker {});
+        m_logWorkerMap.emplace(logName, ZjCsvLogDynamicWorker {});
         m_logWorkerMap.at(logName).log(logName, data);
     }
 
@@ -77,5 +77,5 @@ public:
     std::string fileName(const std::string& logName);
 
 private:
-    std::unordered_map<LogName, ZjCsvDynamicLogWorker> m_logWorkerMap;
+    std::unordered_map<LogName, ZjCsvLogDynamicWorker> m_logWorkerMap;
 };
