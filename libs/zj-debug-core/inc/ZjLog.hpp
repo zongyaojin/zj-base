@@ -39,8 +39,7 @@ public:
 
 public:
     /**
-     * @brief Log a message with specified log level
-     *
+     * @brief Log a message with specified log level; it will start the spdlog thread if it's not already started
      * @param level Log level
      * @param msg Log message
      */
