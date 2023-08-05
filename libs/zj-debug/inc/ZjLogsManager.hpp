@@ -14,7 +14,9 @@
 class ZjLogsManager : public ZjSingleton<ZjLogsManager>
 {
 public:
-    /// @{ https://github.com/gabime/spdlog#asynchronous-logger-with-multi-sinks
+    /// @{
+    /// @see https://github.com/gabime/spdlog#asynchronous-logger-with-multi-sinks
+    /// @note using default settings, and one thread should be enough for both ZjLog and ZjCsvLog
     static constexpr size_t s_defaultQSize = 8192;
     static constexpr size_t s_defaultThreadCount = 1;
     /// @}

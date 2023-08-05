@@ -1,7 +1,11 @@
 #pragma once
 
-#include <chrono>
 #include "ZjConcepts.hpp"
+
+#include <chrono>
+#include <string>
+
+
 
 class ZjChrono final
 {
@@ -49,4 +53,6 @@ public:
     }
 
     static auto getTime(const Unit unit);
+
+    static std::string getTimeIso();
 };

@@ -1,4 +1,5 @@
 #include "ZjChrono.hpp"
+#include "fmt/chrono.h"
 
 auto ZjChrono::getTime(const Unit unit)
 {
@@ -21,4 +22,14 @@ auto ZjChrono::getTime(const Unit unit)
     }
 
     return ZjChrono::getTimeCount<Ns>() * conversion;
+}
+
+std::string ZjChrono::getTimeIso()
+{
+    // https://stackoverflow.com/a/74987040
+    auto now = std::chrono::system_clock::now();
+    auto sse = now.time_since_epoch();
+    auto time = fmt::format("{:%F_%H:%M:}{:%S}", now, sse);
+
+    return time;
 }

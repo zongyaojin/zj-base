@@ -1,10 +1,8 @@
 #include "ZjLog.hpp"
 #include "ZjColors.hpp"
-
-#include <chrono>
+#include "ZjChrono.hpp"
 
 #include "fmt/format.h"
-#include "fmt/chrono.h"
 
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/sinks/rotating_file_sink.h"
@@ -20,12 +18,7 @@ constexpr size_t k_maxNumFiles = 3;
 void ZjLog::log(const ZjLogLevel level, std::string&& msg)
 {
     if (!m_logger) {
-        // https://stackoverflow.com/a/74987040
-        auto now = std::chrono::system_clock::now();
-        auto sse = now.time_since_epoch();
-        auto time = fmt::format("{:%F_%H:%M:}{:%S}", now, sse);
-
-        m_logFileName = fmt::format("{}/zj-logs/{}_{}.txt", __ZJ_PKG_BUILD_PATH__, __ZJ_PKG_NAME__, time);
+        m_logFileName = fmt::format("{}/zj-logs/{}_{}.txt", __ZJ_PKG_BUILD_PATH__, __ZJ_PKG_NAME__, ZjChrono::getTimeIso());
 
         // https://github.com/gabime/spdlog#asynchronous-logger-with-multi-sinks
         ZjLogsManager::getInstance().init();
