@@ -35,7 +35,7 @@ private:
         void log(const Filename& filename, const EigenVecX<T>& data)
         {
             if (m_logger) {
-                _ZJ_ASSERT(data.size() == m_dataSize, "inconsistent data size");
+                _ZJ_ASSERT(data.size() == m_dataSize, "inconsistent data size [{} | {}]", data.size(), m_dataSize);
                 std::ostringstream oss;
                 oss << data.format(k_csvFmt);
                 m_logger->info("{}", oss.str());
@@ -47,10 +47,11 @@ private:
 
         void init(const Filename& filename, const DataSize dataSize);
 
+        void finish();
+
     private:
         CoreLogPtr m_logger;
         DataSize m_dataSize {0};
-        std::ostringstream m_oss;
     };
 
 public:
