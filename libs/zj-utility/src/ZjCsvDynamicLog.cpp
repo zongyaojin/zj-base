@@ -13,6 +13,9 @@ static constexpr const char* k_csvLogFolderName {"zj-csv-logs"};
 
 void ZjCsvDynamicLog::ZjCsvDynamicLogWorker::init(const std::string& logName, const DataSize dataSize)
 {
+    // This will take care of spdlog thread initialization, if it's already initialized, it will do nothing
+    ZjLog::getInstance().init();
+
     m_logName = logName;
     m_dataSize = dataSize;
     _ZJ_THROW_IF(m_logName.empty(), "empty log name");
