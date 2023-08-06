@@ -18,8 +18,8 @@ jobs:
       - name: Checkout repository with submodules
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.ZJ_REPO_PAT }}
           submodules: recursive
+          token: ${{ secrets.ZJ_REPO_PAT }}
 
       # Multi-line command | https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
       - name: Install dependencies
