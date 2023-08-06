@@ -1,5 +1,4 @@
 # zj-base
 
-In order:
-
-- comments; otherwise, sometime later only GOD knows what I did...
+<!-- https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge -->
+![main branch workflow](https://github.com/zongyaojin/zj-base/actions/workflows/c-cpp.yml/badge.svg)
