@@ -11,6 +11,17 @@
 #include "Eigen/Eigen"
 #include "spdlog/spdlog.h"
 
+namespace zj {
+namespace csv {
+namespace log {
+
+template <decltype(Eigen::Dynamic) N>
+concept DataDimensionValid = (N != 0) && (N > -2);
+
+}
+}
+}
+
 class ZjCsvLog : public ZjSingleton<ZjCsvLog>
 {
     using CoreLogPtr = ZjLog::CoreLogPtr;
@@ -19,7 +30,8 @@ class ZjCsvLog : public ZjSingleton<ZjCsvLog>
     using DataSize = Eigen::Index;
     using DataDimension = decltype(Eigen::Dynamic);
 
-    template <ZjArithmetic T, DataDimension N = -1>
+    template <ZjArithmetic T, DataDimension N = Eigen::Dynamic>
+    requires zj::csv::log::DataDimensionValid<N>
     using EigenVec = Eigen::Matrix<T, N, 1>;
 
 private:
