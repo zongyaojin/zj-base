@@ -1,6 +1,5 @@
-#include "zj-base/zj-debug.hpp"
-#include "zj-base/ZjChrono.hpp"
-#include "zj-base/ZjCsvLog.hpp"
+#include "zj-base/zj-log.hpp"
+#include "zj-base/zj-utility.hpp"
 
 #include <iostream>
 #include <eigen3/Eigen/Dense>

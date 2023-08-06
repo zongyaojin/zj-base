@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include "ZjCsvLog.hpp"
 #include "ZjLogMacrosExtension.hpp"
 

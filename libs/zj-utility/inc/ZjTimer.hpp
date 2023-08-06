@@ -1,9 +1,9 @@
 #pragma once
 
-#include "fmt/format.h"
-
 #include "ZjDebug.hpp"
 #include "ZjChrono.hpp"
+
+#include "fmt/format.h"
 
 class ZjTimer
 {

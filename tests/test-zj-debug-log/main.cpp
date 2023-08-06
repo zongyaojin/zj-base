@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "zj-debug.hpp"
+#include "zj-log.hpp"
 
 #include "boost/filesystem.hpp"
 
