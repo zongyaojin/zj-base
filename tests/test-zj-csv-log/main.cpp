@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "ZjCsvLogDynamic.hpp"
+#include "ZjCsvLog.hpp"
 #include "ZjLogMacrosExtension.hpp"
 
 #include <iostream>
@@ -45,7 +45,7 @@ bool printFile(const std::string& fileName)
     return true;
 }
 
-TEST(TestZjCsvLog, TestZjCsvLogDynamic)
+TEST(TestZjCsvLog, TestZjCsvLog)
 {
     std::string log1 {"log1"};
     std::string log2 {"log2"};
@@ -63,28 +63,28 @@ TEST(TestZjCsvLog, TestZjCsvLogDynamic)
     v5 << 40, 30, 20, 10;
     v6 << 400, 300, 200, 100;
 
-    ZjCsvLogDynamic::getInstance().log(log1, v1);
-    EXPECT_EQ(ZjCsvLogDynamic::getInstance().numLogs(), 1);
-    ZjCsvLogDynamic::getInstance().log(log1, v2);
-    EXPECT_EQ(ZjCsvLogDynamic::getInstance().numLogs(), 1);
-    ZjCsvLogDynamic::getInstance().log(log1, v3);
-    EXPECT_EQ(ZjCsvLogDynamic::getInstance().numLogs(), 1);
+    ZjCsvLog::getInstance().log(log1, v1);
+    EXPECT_EQ(ZjCsvLog::getInstance().numLogs(), 1);
+    ZjCsvLog::getInstance().log(log1, v2);
+    EXPECT_EQ(ZjCsvLog::getInstance().numLogs(), 1);
+    ZjCsvLog::getInstance().log(log1, v3);
+    EXPECT_EQ(ZjCsvLog::getInstance().numLogs(), 1);
 
-    std::string log1_fileName = ZjCsvLogDynamic::getInstance().fileName(log1);
+    std::string log1_fileName = ZjCsvLog::getInstance().fileName(log1);
     _ZJ_DEBUG("log 1 file: [{}]", log1_fileName);
 
-    ZjCsvLogDynamic::getInstance().log(log2, v4);
-    EXPECT_EQ(ZjCsvLogDynamic::getInstance().numLogs(), 2);
+    ZjCsvLog::getInstance().log(log2, v4);
+    EXPECT_EQ(ZjCsvLog::getInstance().numLogs(), 2);
 
-    ZjCsvLogDynamic::getInstance().drop(log1);
-    EXPECT_EQ(ZjCsvLogDynamic::getInstance().numLogs(), 1);
+    ZjCsvLog::getInstance().drop(log1);
+    EXPECT_EQ(ZjCsvLog::getInstance().numLogs(), 1);
 
-    ZjCsvLogDynamic::getInstance().log(log2, v5);
-    EXPECT_EQ(ZjCsvLogDynamic::getInstance().numLogs(), 1);
-    ZjCsvLogDynamic::getInstance().log(log2, v6);
-    EXPECT_EQ(ZjCsvLogDynamic::getInstance().numLogs(), 1);
+    ZjCsvLog::getInstance().log(log2, v5);
+    EXPECT_EQ(ZjCsvLog::getInstance().numLogs(), 1);
+    ZjCsvLog::getInstance().log(log2, v6);
+    EXPECT_EQ(ZjCsvLog::getInstance().numLogs(), 1);
 
-    std::string log2_fileName = ZjCsvLogDynamic::getInstance().fileName(log2);
+    std::string log2_fileName = ZjCsvLog::getInstance().fileName(log2);
     _ZJ_DEBUG("log 2 file: [{}]", log2_fileName);
 
     EXPECT_TRUE(fs::exists(log1_fileName));
@@ -92,4 +92,6 @@ TEST(TestZjCsvLog, TestZjCsvLogDynamic)
 
     EXPECT_TRUE(printFile(log1_fileName));
     EXPECT_TRUE(printFile(log2_fileName));
+
+    EXPECT_THROW(ZjCsvLog::getInstance().log(log2, v1), ZjFault);
 }

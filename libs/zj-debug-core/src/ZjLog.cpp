@@ -42,14 +42,13 @@ void ZjLog::init()
     /// @see https://github.com/gabime/spdlog#asynchronous-logger-with-multi-sinks
     /// @note Using default thread settings, and one thread should be enough for both ZjLog and a few csv logs
     spdlog::init_thread_pool(k_defaultQSize, k_defaultThreadCount);
+
     auto stdoutSink {std::make_shared<spdlog::sinks::stdout_color_sink_mt>()};
     auto rotatingFileSink {std::make_shared<spdlog::sinks::rotating_file_sink_mt>(m_fileName, k_maxFileSize, k_maxNumFiles)};
-
-    m_sinks.push_back(stdoutSink);
-    m_sinks.push_back(rotatingFileSink);
+    std::vector<spdlog::sink_ptr> sinks {stdoutSink, rotatingFileSink};
 
     m_logger = std::make_shared<spdlog::async_logger>(
-        __ZJ_PKG_NAME__, m_sinks.begin(), m_sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::block);
+        __ZJ_PKG_NAME__, sinks.begin(), sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::block);
 
     m_logger->flush_on(spdlog::level::info);
     m_logger->set_level(spdlog::level::trace);
@@ -66,6 +65,5 @@ void ZjLog::shutdown()
     }
 
     m_logger.reset();
-    m_sinks.clear();
     spdlog::shutdown();
 }

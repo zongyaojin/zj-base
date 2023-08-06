@@ -11,7 +11,7 @@
 #include "Eigen/Eigen"
 #include "spdlog/spdlog.h"
 
-class ZjCsvLogDynamic : public ZjSingleton<ZjCsvLogDynamic>
+class ZjCsvLog : public ZjSingleton<ZjCsvLog>
 {
     using CoreLogPtr = ZjLog::CoreLogPtr;
     using LogName = std::string;
@@ -20,22 +20,22 @@ class ZjCsvLogDynamic : public ZjSingleton<ZjCsvLogDynamic>
     using DataDimension = decltype(Eigen::Dynamic);
 
     template <ZjArithmetic T, DataDimension N = -1>
-    using EigenVecX = Eigen::Matrix<T, N, 1>;
+    using EigenVec = Eigen::Matrix<T, N, 1>;
 
 private:
-    class ZjCsvLogDynamicWorker
+    class ZjCsvLogWorker
     {
-        /// @note https://eigen.tuxfamily.org/dox/structEigen_1_1IOFormat.html
+        /// @see https://eigen.tuxfamily.org/dox/structEigen_1_1IOFormat.html
         const Eigen::IOFormat k_eigenFmt {9, 0, ", "};
 
     public:
-        ZjCsvLogDynamicWorker() = default;
-        ~ZjCsvLogDynamicWorker() = default;
+        ZjCsvLogWorker() = default;
+        ~ZjCsvLogWorker() = default;
 
         void init(const std::string& logName, const DataSize dataSize);
 
-    template <ZjArithmetic T, DataDimension N>
-        void log(const std::string& logName, const EigenVecX<T, N>& data)
+        template <ZjArithmetic T, DataDimension N>
+        void log(const std::string& logName, const EigenVec<T, N>& data)
         {
             if (!m_logger) {
                 init(logName, data.size());
@@ -59,14 +59,14 @@ private:
 
 public:
     template <ZjArithmetic T, DataDimension N>
-    void log(const std::string& logName, const EigenVecX<T, N>& data)
+    void log(const std::string& logName, const EigenVec<T, N>& data)
     {
         if (m_logWorkerMap.find(logName) != m_logWorkerMap.end()) {
             m_logWorkerMap.at(logName).log(logName, data);
             return;
         }
 
-        m_logWorkerMap.emplace(logName, ZjCsvLogDynamicWorker {});
+        m_logWorkerMap.emplace(logName, ZjCsvLogWorker {});
         m_logWorkerMap.at(logName).log(logName, data);
     }
 
@@ -77,5 +77,5 @@ public:
     std::string fileName(const std::string& logName);
 
 private:
-    std::unordered_map<LogName, ZjCsvLogDynamicWorker> m_logWorkerMap;
+    std::unordered_map<LogName, ZjCsvLogWorker> m_logWorkerMap;
 };

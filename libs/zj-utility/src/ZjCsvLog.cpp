@@ -1,4 +1,4 @@
-#include "ZjCsvLogDynamic.hpp"
+#include "ZjCsvLog.hpp"
 #include "ZjChrono.hpp"
 #include "ZjLogMacrosExtension.hpp"
 #include "ZjLog.hpp"
@@ -11,7 +11,7 @@ namespace {
 static constexpr const char* k_csvLogFolderName {"zj-csv-logs"};
 }
 
-void ZjCsvLogDynamic::ZjCsvLogDynamicWorker::init(const std::string& logName, const DataSize dataSize)
+void ZjCsvLog::ZjCsvLogWorker::init(const std::string& logName, const DataSize dataSize)
 {
     // This will take care of spdlog thread initialization, if it's already initialized, it will do nothing
     ZjLog::getInstance().init();
@@ -36,12 +36,12 @@ void ZjCsvLogDynamic::ZjCsvLogDynamicWorker::init(const std::string& logName, co
     // Formatted as seconds since epoch, dot, microsecond part of the current second
     m_logger->set_pattern("%E.%f, %v");
 
-    _ZJ_INFO("ZjCsvLogDynamicWorker starts [{}]", m_logName);
+    _ZJ_INFO("ZjCsvLogWorker starts [{}]", m_logName);
 }
 
 // ---------------------------------------------------------
 
-void ZjCsvLogDynamic::drop(const std::string& logName)
+void ZjCsvLog::drop(const std::string& logName)
 {
     auto it = m_logWorkerMap.find(logName);
 
@@ -50,7 +50,7 @@ void ZjCsvLogDynamic::drop(const std::string& logName)
     }
 }
 
-std::string ZjCsvLogDynamic::fileName(const std::string& logName)
+std::string ZjCsvLog::fileName(const std::string& logName)
 {
     if (m_logWorkerMap.find(logName) != m_logWorkerMap.end()) {
         return m_logWorkerMap.at(logName).fileName();
@@ -58,3 +58,4 @@ std::string ZjCsvLogDynamic::fileName(const std::string& logName)
 
     return std::string {};
 }
+

@@ -60,9 +60,6 @@ private:
     /// Log file name
     std::string m_fileName;
 
-    /// Log sinks
-    std::vector<spdlog::sink_ptr> m_sinks;
-
     /// Zj log level to implementation's log level map
     const std::unordered_map<ZjLogLevel, CoreLogLevel> mk_logLevelMap {
         {ZjL::Trace, CoreLogLevel::trace},
