@@ -21,7 +21,11 @@ void ZjCsvLog::ZjCsvLogWorker::init(const std::string& logName, const DataSize d
     _ZJ_THROW_IF(m_logName.empty(), "empty log name");
     _ZJ_THROW_IF(m_dataSize < 1, "invalid data size [{}]", m_dataSize);
 
-    m_fileName = fmt::format("{}{}/{}_{}.csv", __ZJ_PKG_BUILD_PATH__, k_csvLogFolderName, m_logName, ZjChrono::getTimeIso());
+    std::string logSaveFolder = ZjLog::getInstance().getUserFolder().empty()
+                                    ? fmt::format("{}/{}", __ZJ_PKG_BUILD_PATH_NO_SLASH__, k_csvLogFolderName)
+                                    : fmt::format("{}/{}", ZjLog::getInstance().getUserFolder(), k_csvLogFolderName);
+
+    m_fileName = fmt::format("{}/{}_{}.csv", logSaveFolder, m_logName, ZjChrono::getTimeIso());
     m_logger = spdlog::basic_logger_mt(m_logName, m_fileName, true);
     _ZJ_THROW_IF(!m_logger, "failed to initialize logger [{}]", m_logName);
 
@@ -58,4 +62,3 @@ std::string ZjCsvLog::fileName(const std::string& logName)
 
     return std::string {};
 }
-

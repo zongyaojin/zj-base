@@ -1,5 +1,6 @@
 #include "zj-base/zj-debug.hpp"
 #include "zj-base/ZjChrono.hpp"
+#include "zj-base/ZjCsvLog.hpp"
 
 #include <iostream>
 #include <eigen3/Eigen/Dense>
@@ -19,6 +20,7 @@ void bar()
 
 int main()
 {
+    ZjLog::getInstance().init(std::string {__EXAMPLE_PKG_BUILD_PATH__});
 
     _ZJ_INFO("hello info");
     _ZJ_WARN("hello warn");
@@ -32,6 +34,13 @@ int main()
     } catch (const std::exception& e) {
         _ZJ_DEBUG("got intentional exception [{}]", e.what());
     }
+
+    Eigen::Vector2d v;
+    v << 11, 22;
+
+    ZjCsvLog::getInstance().log("csv-example", v);
+    ZjCsvLog::getInstance().log("csv-example", v);
+    ZjCsvLog::getInstance().log("csv-example", v);
 
     return 0;
 }

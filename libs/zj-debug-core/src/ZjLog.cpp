@@ -31,13 +31,18 @@ void ZjLog::log(const ZjLogLevel level, std::string&& msg)
     m_logger->log(mk_logLevelMap.at(level), msg);
 }
 
-void ZjLog::init()
+void ZjLog::init(const std::string& userFolderNoSlash)
 {
     if (m_logger) {
         return;
     }
 
-    m_fileName = fmt::format("{}{}/{}_{}.txt", __ZJ_PKG_BUILD_PATH__, k_logFolderName, __ZJ_PKG_NAME__, ZjChrono::getTimeIso());
+    m_userFolderNoSlash = userFolderNoSlash;
+
+    std::string logSaveFolder = m_userFolderNoSlash.empty() ? fmt::format("{}/{}", __ZJ_PKG_BUILD_PATH_NO_SLASH__, k_logFolderName)
+                                                            : fmt::format("{}/{}", m_userFolderNoSlash, k_logFolderName);
+
+    m_fileName = fmt::format("{}/{}_{}.txt", logSaveFolder, __ZJ_PKG_NAME__, ZjChrono::getTimeIso());
 
     /// @see https://github.com/gabime/spdlog#asynchronous-logger-with-multi-sinks
     /// @note Using default thread settings, and one thread should be enough for both ZjLog and a few csv logs

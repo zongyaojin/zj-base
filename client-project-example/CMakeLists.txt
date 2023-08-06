@@ -14,6 +14,8 @@ set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
 
+add_compile_definitions(__EXAMPLE_PKG_BUILD_PATH__="${CMAKE_BINARY_DIR}")
+
 add_executable(${PROJECT_NAME} main.cpp)
 
 find_package(zj-base REQUIRED)
