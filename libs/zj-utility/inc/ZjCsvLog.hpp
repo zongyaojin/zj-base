@@ -11,17 +11,6 @@
 #include "Eigen/Eigen"
 #include "spdlog/spdlog.h"
 
-namespace zj {
-namespace csv {
-namespace log {
-
-template <decltype(Eigen::Dynamic) N>
-concept DataDimensionValid = (N != 0) && (N > -2);
-
-}
-}
-}
-
 class ZjCsvLog : public ZjSingleton<ZjCsvLog>
 {
     using CoreLogPtr = ZjLog::CoreLogPtr;
@@ -30,8 +19,9 @@ class ZjCsvLog : public ZjSingleton<ZjCsvLog>
     using DataSize = Eigen::Index;
     using DataDimension = decltype(Eigen::Dynamic);
 
+    /// @see https://en.cppreference.com/w/cpp/language/constraints#Conjunctions
     template <ZjArithmetic T, DataDimension N = Eigen::Dynamic>
-    requires zj::csv::log::DataDimensionValid<N>
+    requires (N != 0 && N > -2)
     using EigenVec = Eigen::Matrix<T, N, 1>;
 
 private:
