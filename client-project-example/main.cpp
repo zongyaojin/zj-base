@@ -46,10 +46,14 @@ int main()
 
     ZjCsvLog::getInstance().log("csv-example-1", v);
     ZjCsvLog::getInstance().log("csv-example-2", v2);
-    
+
     ZjCsvLog::getInstance().log("csv-example-1", v);
     ZjCsvLog::getInstance().log("csv-example-2", v2);
     ZjCsvLog::getInstance().log("csv-example-2", v2);
 
+    _ZJ_DEBUG("");
+    _ZJ_INFO("===================================================");
+    _ZJ_INFO("Successfully reached the end of the example program");
+    _ZJ_INFO("===================================================");
     return 0;
 }

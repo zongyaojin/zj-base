@@ -65,6 +65,10 @@ void ZjLog::init(const std::string& userFolderNoSlash)
 void ZjLog::shutdown()
 {
     if (m_logger) {
+        m_logger->log(CoreLogLevel::info, "ZjLog shuting down in 3...");
+        m_logger->log(CoreLogLevel::info, "ZjLog shuting down in 2...");
+        m_logger->log(CoreLogLevel::info, "ZjLog shuting down in 1...");
+
         // since logger is set to flush only on info level, this forces a flush before shutdown to make sure all messages get logged
         m_logger->flush();
     }
