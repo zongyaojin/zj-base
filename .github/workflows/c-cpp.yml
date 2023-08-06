@@ -1,6 +1,6 @@
 # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
 
-name: C/C++ CI
+name: C/C++ Build, Test, Install
 
 on:
   push:
