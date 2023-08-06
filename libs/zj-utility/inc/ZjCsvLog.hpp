@@ -20,9 +20,27 @@ class ZjCsvLog : public ZjSingleton<ZjCsvLog>
     using DataDimension = decltype(Eigen::Dynamic);
 
     /// @see https://en.cppreference.com/w/cpp/language/constraints#Conjunctions
+    /// @note To reuse the requirement,
+
+    /**
+     * @brief Eigen vector alias
+     *
+     * @tparam T Numeric data type
+     * @tparam N Vector dimension
+     *
+     * @see For the constraint with keyword `requires`, https://en.cppreference.com/w/cpp/language/constraints#Conjunctions
+     * @note To reuse the constraint, one can do:
+     * ```cpp
+     *      template <decltype(Eigen::Dynamic) N>
+     *      concept DataDimensionValid = (N != 0) && (N > -2);
+     *
+     *      template <ZjArithmetic T, DataDimension N = Eigen::Dynamic>
+     *      requires zj::csv::log::DataDimensionValid<N>
+     *      using EigenVec = Eigen::Matrix<T, N, 1>;
+     * ```
+     */
     template <ZjArithmetic T, DataDimension N = Eigen::Dynamic>
-    requires (N != 0 && N > -2)
-    using EigenVec = Eigen::Matrix<T, N, 1>;
+    requires(N != 0 && N > -2) using EigenVec = Eigen::Matrix<T, N, 1>;
 
 private:
     class ZjCsvLogWorker

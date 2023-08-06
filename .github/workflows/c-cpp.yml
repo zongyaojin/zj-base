@@ -32,4 +32,4 @@ jobs:
         run: bash ./scripts/zj-install-pkg-example.bash
 
       - name: Run client project example
-        run: bash ./client-project-example.bash
+        run: bash ./client-project-example/build-and-run-client-example.bash
