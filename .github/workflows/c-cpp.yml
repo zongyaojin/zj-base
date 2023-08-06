@@ -1,23 +1,25 @@
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+
 name: C/C++ CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout@v3
-    - name: configure
-      run: ./configure
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+      # Github checkout action | https://github.com/actions/checkout
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      # Multi-line command | https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
+      - name: Install dependencies
+        run: bash /scripts/zj-install-deps.bash
+
+      - name: Build and test
+        run: bash /scripts/zj-build-test-pkg.bash
