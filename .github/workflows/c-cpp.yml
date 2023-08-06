@@ -14,12 +14,16 @@ jobs:
 
     steps:
       # Github checkout action | https://github.com/actions/checkout
-      - name: Check out repository
+      # Private repo checkout | https://github.com/actions/checkout/issues/116#issuecomment-644419389
+      - name: Checkout repository with submodules
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.ZJ_REPO_PAT }}
+          submodules: recursive
 
       # Multi-line command | https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
       - name: Install dependencies
         run: bash ./scripts/zj-install-deps.bash
 
-      - name: Build and test
-        run: bash ./scripts/zj-build-test-pkg.bash
+      - name: Build, test and install
+        run: bash ./scripts/zj-install-pkg-example.bash
