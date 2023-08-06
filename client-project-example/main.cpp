@@ -38,9 +38,19 @@ int main()
     Eigen::Vector2d v;
     v << 11, 22;
 
-    ZjCsvLog::getInstance().log("csv-example", v);
-    ZjCsvLog::getInstance().log("csv-example", v);
-    ZjCsvLog::getInstance().log("csv-example", v);
+    Eigen::VectorXd v2;
+    v2.resize(6);
+    v2 << 3.14, 3.14, 3.14, 3.14, 3.14, 3.14;
+
+    ZjCsvLog::getInstance().log("csv-example-1", v);
+    ZjCsvLog::getInstance().log("csv-example-2", v2);
+
+    ZjCsvLog::getInstance().log("csv-example-1", v);
+    ZjCsvLog::getInstance().log("csv-example-2", v2);
+    
+    ZjCsvLog::getInstance().log("csv-example-1", v);
+    ZjCsvLog::getInstance().log("csv-example-2", v2);
+    ZjCsvLog::getInstance().log("csv-example-2", v2);
 
     return 0;
 }
