@@ -7,12 +7,14 @@ set -e
 # Script absolute path
 script_abs_path="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
-# Install system-level package managment dependencies
-sudo apt update -y
-sudo apt upgrade -y
-sudo apt install -y autoconf build-essential git libtool pkg-config shfmt wget
-sudo apt install -y cmake
-sudo apt install -y libgtest-dev libspdlog-dev libeigen3-dev libboost-all-dev
+# Update and install system-level package managment dependencies
+sudo apt update -y && sudo apt upgrade -y
+# From top to bottom, build, cmake, doxygen related, and package specific dependencies
+sudo apt install -y \
+    autoconf build-essential git libtool pkg-config shfmt wget \
+    cmake \
+    doxygen doxygen-latex doxygen-doc doxygen-gui graphviz texlive-extra-utils texlive-latex-extra \
+    libgtest-dev libspdlog-dev libeigen3-dev libboost-all-dev
 
 # Install python dependencies
 sudo apt install -y python3-pip
