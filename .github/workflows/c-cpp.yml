@@ -15,6 +15,9 @@ jobs:
     steps:
       # Github checkout action | https://github.com/actions/checkout
       # Private repo checkout | https://github.com/actions/checkout/issues/116#issuecomment-644419389
+      # The PAT for a user (personal access token) can created in [Github -> settings -> Developer settings -> Personal access tokens]
+      # For the following "token" entry, it's giving the this repo's workflow via the PAT access to user's other private repos
+      # One has to set it for this repo in [Repo -> Settings -> Secrets and variables -> Actions]
       - name: Checkout repository with submodules
         uses: actions/checkout@v3
         with:
