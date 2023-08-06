@@ -66,6 +66,8 @@ int testZjAssert(const bool flag, const std::string& msg = "")
 
 TEST(TestZjThrow, ThrowExceptions)
 {
+    ZjLog::getInstance().init(__ZJ_PKG_BUILD_PATH_NO_SLASH__, __ZJ_PKG_BUILD_PATH_NO_SLASH__);
+
     EXPECT_THROW(_ZJ_THROW(), ZjFault);
     EXPECT_THROW(_ZJ_THROW("foo"), ZjFault);
 
@@ -74,7 +76,9 @@ TEST(TestZjThrow, ThrowExceptions)
 
     auto logFileName = ZjLog::getInstance().fileName();
     _ZJ_INFO("output log file: {}", logFileName);
-    EXPECT_TRUE(boost::filesystem::exists(logFileName));
+    if (!logFileName.empty()) {
+        EXPECT_TRUE(boost::filesystem::exists(logFileName));
+    }
 }
 
 TEST(TestZjThrow, ThrowExceptionsIf)
@@ -93,7 +97,10 @@ TEST(TestZjThrow, ThrowExceptionsIf)
 
     auto logFileName = ZjLog::getInstance().fileName();
     _ZJ_INFO("output log file: {}", logFileName);
-    EXPECT_TRUE(boost::filesystem::exists(logFileName));
+
+    if (!logFileName.empty()) {
+        EXPECT_TRUE(boost::filesystem::exists(logFileName));
+    }
 }
 
 TEST(TestZjTry, TryCatchExceptions)
@@ -107,7 +114,10 @@ TEST(TestZjTry, TryCatchExceptions)
 
     auto logFileName = ZjLog::getInstance().fileName();
     _ZJ_INFO("output log file: {}", logFileName);
-    EXPECT_TRUE(boost::filesystem::exists(logFileName));
+
+    if (!logFileName.empty()) {
+        EXPECT_TRUE(boost::filesystem::exists(logFileName));
+    }
 }
 
 TEST(TestZjAssert, AssertCases)

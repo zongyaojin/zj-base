@@ -19,7 +19,7 @@ void bar()
 
 int main()
 {
-    ZjLog::getInstance().init(std::string {__EXAMPLE_PKG_BUILD_PATH__});
+    ZjLog::getInstance().init(std::string {__EXAMPLE_PKG_BUILD_PATH__}, std::string {__EXAMPLE_PKG_BUILD_PATH__});
 
     _ZJ_INFO("hello info");
     _ZJ_WARN("hello warn");

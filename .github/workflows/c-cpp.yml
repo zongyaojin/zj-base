@@ -30,3 +30,6 @@ jobs:
 
       - name: Build, test and install
         run: bash ./scripts/zj-install-pkg-example.bash
+
+      - name: Run client project example
+        run: bash ./client-project-example.bash

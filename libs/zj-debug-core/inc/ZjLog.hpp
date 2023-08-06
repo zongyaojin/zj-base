@@ -46,14 +46,15 @@ public:
     void log(const ZjLogLevel level, std::string&& msg);
 
     /// @warning This initializes the spdlog thread, which means this should be initialized before any logging
-    void init(const std::string& userFolderNoSlash = "");
+    void init(const std::string& csvLogFolderNoSlash = "", const std::string& regularLogFolderNoSlash = "");
 
     /// @warning This shuts down the entire spdlog, which means this should be called only when the whole program terminates
     void shutdown();
 
     inline const std::string& fileName() const { return m_fileName; }
 
-    inline const std::string& getUserFolder() const { return m_userFolderNoSlash; }
+    inline const std::string& regularLogFolder() const { return m_regularLogFolderNoSlash; }
+    inline const std::string& csvLogFolder() const { return m_csvLogFolderNoSlash; }
 
 private:
     /// Log implementation's pointer
@@ -73,6 +74,6 @@ private:
         {ZjL::Off, CoreLogLevel::off},
     };
 
-    /// User provided folder
-    std::string m_userFolderNoSlash;
+    /// User provided csv log and regular log folder
+    std::string m_csvLogFolderNoSlash, m_regularLogFolderNoSlash;
 };
