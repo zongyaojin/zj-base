@@ -4,13 +4,13 @@
 #include "ZjLogMacrosExtension.hpp"
 
 #include <iostream>
-#include <chrono>
-#include <thread>
+#include <filesystem>
+#include <string>
+#include <fstream>
 
 #include "Eigen/Eigen"
-#include "boost/filesystem.hpp"
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 bool printFile(const std::string& fileName)
 {

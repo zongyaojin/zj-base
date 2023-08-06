@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "zj-log.hpp"
 
-#include "boost/filesystem.hpp"
+#include <filesystem>
 
 void testZjThrowIf(const bool flag, const std::string& msg = "")
 {
@@ -77,7 +77,7 @@ TEST(TestZjThrow, ThrowExceptions)
     auto logFileName = ZjLog::getInstance().fileName();
     _ZJ_INFO("output log file: {}", logFileName);
     if (!logFileName.empty()) {
-        EXPECT_TRUE(boost::filesystem::exists(logFileName));
+        EXPECT_TRUE(std::filesystem::exists(logFileName));
     }
 }
 
@@ -99,7 +99,7 @@ TEST(TestZjThrow, ThrowExceptionsIf)
     _ZJ_INFO("output log file: {}", logFileName);
 
     if (!logFileName.empty()) {
-        EXPECT_TRUE(boost::filesystem::exists(logFileName));
+        EXPECT_TRUE(std::filesystem::exists(logFileName));
     }
 }
 
@@ -116,7 +116,7 @@ TEST(TestZjTry, TryCatchExceptions)
     _ZJ_INFO("output log file: {}", logFileName);
 
     if (!logFileName.empty()) {
-        EXPECT_TRUE(boost::filesystem::exists(logFileName));
+        EXPECT_TRUE(std::filesystem::exists(logFileName));
     }
 }
 
