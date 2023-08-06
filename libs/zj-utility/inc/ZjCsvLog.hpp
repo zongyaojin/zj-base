@@ -7,6 +7,7 @@
 
 #include <unordered_map>
 #include <sstream>
+#include <utility>
 
 #include "Eigen/Eigen"
 #include "spdlog/spdlog.h"
@@ -52,6 +53,10 @@ private:
         ZjCsvLogWorker() = default;
         ~ZjCsvLogWorker() = default;
 
+        /// @note https://github.com/cpp-best-practices/cppbestpractices/blob/master/08-Considering_Performance.md#enable-move-operations
+        /// @note https://en.cppreference.com/w/cpp/language/move_constructor, enabling move constructor for default shallow coping
+        ZjCsvLogWorker(ZjCsvLogWorker&&) = default;
+
         void init(const std::string& logName, const DataSize dataSize);
 
         template <ZjArithmetic T, DataDimension N>
@@ -86,6 +91,7 @@ public:
             return;
         }
 
+        /// @note https://stackoverflow.com/a/27553958, with default move constructor, it will be moved
         m_logWorkerMap.emplace(logName, ZjCsvLogWorker {});
         m_logWorkerMap.at(logName).log(logName, data);
     }
