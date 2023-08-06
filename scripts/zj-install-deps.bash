@@ -1,5 +1,4 @@
 #!/bin/bash
-# Google style guide: https://google.github.io/styleguide/shellguide.html#s7.4-source-filenames
 
 # Exit the script on any error
 set -e
