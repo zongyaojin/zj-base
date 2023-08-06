@@ -19,7 +19,7 @@ jobs:
 
       # Multi-line command | https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
       - name: Install dependencies
-        run: bash /scripts/zj-install-deps.bash
+        run: bash ./scripts/zj-install-deps.bash
 
       - name: Build and test
-        run: bash /scripts/zj-build-test-pkg.bash
+        run: bash ./scripts/zj-build-test-pkg.bash
