@@ -11,4 +11,4 @@ add_executable(${exampleName} main.cpp ${exampleSources})
 target_include_directories(${exampleName} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/inc)
 
 # Link interal libraries, applying PRIVATE since they don't have to be exposed for installation
-target_link_libraries(${exampleName} PRIVATE zj-debug-interface)
+target_link_libraries(${exampleName} PRIVATE zj-debug-interface gcov)
