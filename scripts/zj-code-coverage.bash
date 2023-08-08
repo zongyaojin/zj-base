@@ -27,6 +27,6 @@ mkdir -p $build_path
     ctest
     # https://subscription.packtpub.com/book/programming/9781803239729/9/ch09lvl1sec56/generating-code-coverage-reports
     lcov --directory . --capture --output-file coverage.info
-    genhtml coverage.info --output-directory coverage_report
-    firefox coverage_report/index.html
+    genhtml coverage.info --output-directory coverage-report
+    firefox coverage-report/index.html
 )
