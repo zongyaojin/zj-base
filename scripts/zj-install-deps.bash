@@ -11,7 +11,7 @@ sudo apt update -y && sudo apt upgrade -y
 # From top to bottom, build, cmake, doxygen related, and package specific dependencies
 sudo apt install -y \
     autoconf build-essential git libtool pkg-config shfmt wget \
-    cmake \
+    cmake lcov \
     doxygen doxygen-latex doxygen-doc doxygen-gui graphviz texlive-extra-utils texlive-latex-extra \
     libgtest-dev libspdlog-dev libeigen3-dev libboost-all-dev
 

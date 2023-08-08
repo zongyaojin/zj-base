@@ -8,25 +8,25 @@ script_abs_path="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 # Path definitions
 build_path=$script_abs_path/../build
-client_project_example_path=$script_abs_path/../client-project-example
-install_path=$client_project_example_path/install
 
 # Remove the build and install path for a fresh start
 rm -rf $build_path
-rm -rf $install_path
 
 # Make directories
 mkdir -p $build_path
-mkdir -p $install_path
 
 # Go to the build directory, build and install
 (
     cd $build_path
     cmake .. \
-        -D CMAKE_INSTALL_PREFIX=$install_path \
         -D CMAKE_BUILD_TYPE=Release \
         -D BUILD_SHARED_LIBS=OFF \
-        -D BUILD_TESTING=ON
-    make install
+        -D BUILD_TESTING=ON \
+        -D ZJ_CODE_COVERAGE=ON
+    make
     ctest
+    # https://subscription.packtpub.com/book/programming/9781803239729/9/ch09lvl1sec56/generating-code-coverage-reports
+    lcov --directory . --capture --output-file coverage.info
+    genhtml coverage.info --output-directory coverage_report
+    firefox coverage_report/index.html
 )
