@@ -29,7 +29,7 @@ jobs:
         run: bash ./scripts/zj-install-deps.bash
 
       - name: Build, test and install
-        run: bash ./scripts/zj-install-pkg-example.bash
+        run: bash ./scripts/zj-build-install-example.bash
 
       - name: Run client project example
-        run: bash ./client-project-example/build-and-run-client-example.bash
+        run: bash ./client-project-example/build-run-client-example.bash
