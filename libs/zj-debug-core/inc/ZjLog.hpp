@@ -45,22 +45,34 @@ public:
      */
     void log(const ZjLogLevel level, std::string&& msg);
 
-    /// @warning This initializes the spdlog thread, which means this should be initialized before any logging
+    /**
+     * @brief Initialize ZjLog and the spdlog thread, which means this should be initialized before any logging
+     *
+     * @param csvLogFolderNoSlash Csv log file save folder
+     * @param regularLogFolderNoSlash Regular log file save folder
+     *
+     * @note If csv log folder is empty, csv log files will be saved to this package's build folder
+     * @note If regular log folder is empty, regular log will only be printed in the console, no file will be saved
+     */
     void init(const std::string& csvLogFolderNoSlash = "", const std::string& regularLogFolderNoSlash = "");
 
-    /// @warning This shuts down the entire spdlog, which means this should be called only when the whole program terminates
+    /// Shut down ZjLog and the entire spdlog thread, which means this should be called only when the whole program terminates
     void shutdown();
 
+    /// Log file name
     inline const std::string& fileName() const { return m_fileName; }
 
+    /// Regular log folder w/o trailing slash
     inline const std::string& regularLogFolder() const { return m_regularLogFolderNoSlash; }
+
+    /// Csv log folder w/o trailing slash
     inline const std::string& csvLogFolder() const { return m_csvLogFolderNoSlash; }
 
 private:
-    /// Log implementation's pointer
+    /// Log implementation pointer
     CoreLogPtr m_logger;
 
-    /// Log file name
+    /// Regular log file name
     std::string m_fileName;
 
     /// Zj log level to implementation's log level map

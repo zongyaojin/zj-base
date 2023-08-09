@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ZjDebug.hpp"
-#include "ZjLogMacrosExtension.hpp"
+#include "ZjLogMacroExtensions.hpp"
 #include "ZjConcepts.hpp"
 
 #include <sstream>
@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <string>
 
+/// Get key by value from an std::map or unordered_map
 template <ZjMapType MapType, typename ValueType>
 typename MapType::key_type _GetKeyByValue(const MapType& map, const ValueType& value)
 {
@@ -24,6 +25,7 @@ typename MapType::key_type _GetKeyByValue(const MapType& map, const ValueType& v
     return typename MapType::key_type {};
 }
 
+/// Get enum (key) by string (value) from an unordered_map of enum and string
 template <ZjEnumType T>
 T _GetEnumByString(const std::unordered_map<T, std::string>& map, const std::string& name)
 {
@@ -37,6 +39,7 @@ T _GetEnumByString(const std::unordered_map<T, std::string>& map, const std::str
     return T {};
 }
 
+/// Delete raw pointer
 template <ZjRawPointer T>
 void _DeleteRawPointer(T& ptr)
 {

@@ -24,13 +24,27 @@ namespace zj {
 namespace log {
 namespace agents {
 
+/// Assertion message formatter
 static constexpr const char* k_assertFmt {"{}:{}:{} @ `{}` | [{}]\n{}\n"};
+
+/// Trace message formatter
 static constexpr const char* k_traceFmt {"{}:{}:{} @ `{}`; {}"};
 
 }
 }
 }
 
+/**
+ * @brief Assertion with source location, user messages, and log support
+ *
+ * @tparam Args Variadic template arguments for fmt formatted messages
+ * @param condition Condition from macro converted to const char pointer
+ * @param s Source location
+ * @param fmt Formatter string
+ * @param args Variadic template arguments
+ *
+ * @warning Client code should use macro _ZJ_ASSERT, not this function, to get condition evaluated and source location taken care of
+ */
 template <typename... Args>
 void _ZjAssert(const char* condition, const std::source_location& s, const std::string& fmt = "", Args&&... args)
 {
@@ -41,6 +55,17 @@ void _ZjAssert(const char* condition, const std::source_location& s, const std::
     std::abort();
 }
 
+/**
+ * @brief Message function with source location, user message, and log support
+ *
+ * @tparam Args Args Variadic template arguments for fmt formatted messages
+ * @param level Logging level
+ * @param s Source location
+ * @param fmt Formatter string
+ * @param args Variadic template arguments
+ *
+ * @warning Client code should use macros in ZjLogMacroExtensions.hpp, not this function, to get source location taken care of
+ */
 template <typename... Args>
 void _ZjMessage(const ZjLogLevel level, const std::source_location& s, const std::string& fmt = "", Args&&... args)
 {

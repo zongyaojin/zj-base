@@ -2,7 +2,7 @@
 #include <thread>
 
 #include "ZjTimer.hpp"
-#include "ZjLogMacrosExtension.hpp"
+#include "ZjLogMacroExtensions.hpp"
 
 ZjChrono::Count testZjTimer(unsigned hz, double sec)
 {

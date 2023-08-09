@@ -1,7 +1,7 @@
 #include "ZjChrono.hpp"
 #include "fmt/chrono.h"
 
-auto ZjChrono::getTime(const Unit unit)
+double ZjChrono::getTimeEpoch(const Unit unit)
 {
     double conversion {0.0};
     switch (unit) {
@@ -21,7 +21,7 @@ auto ZjChrono::getTime(const Unit unit)
             conversion = 0.0;
     }
 
-    return ZjChrono::getTimeCount<Ns>() * conversion;
+    return ZjChrono::getTimeEpochCount<Ns>() * conversion;
 }
 
 std::string ZjChrono::getTimeIso()

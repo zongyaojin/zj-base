@@ -1,5 +1,5 @@
 #include "ZjTimer.hpp"
-#include "ZjLogMacrosExtension.hpp"
+#include "ZjLogMacroExtensions.hpp"
 
 #include <thread>
 

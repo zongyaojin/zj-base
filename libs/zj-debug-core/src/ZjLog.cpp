@@ -12,19 +12,20 @@
 
 namespace {
 
-static constexpr size_t k_defaultQSize = 8192;
-static constexpr size_t k_defaultThreadCount = 1;
+// https://github.com/gabime/spdlog#asynchronous-logger-with-multi-sinks
+static constexpr size_t k_defaultLogThreadQSize = 8192;
+static constexpr size_t k_defaultLogThreadCount = 1;
 
-static constexpr size_t k_maxFileSize {1024 * 1024 * 10};
-static constexpr size_t k_maxNumFiles {3};
+static constexpr size_t k_maxLogFileSize {1024 * 1024 * 10};
+static constexpr size_t k_maxLogNumFiles {3};
 
-static constexpr const char* k_logFolderName {"zj-logs"};
+static constexpr const char* k_logSubFolderName {"zj-logs"};
 
 }
 
 void ZjLog::log(const ZjLogLevel level, std::string&& msg)
 {
-    if (m_logger) {
+    if (m_logger) [[likely]] {
         m_logger->log(mk_logLevelMap.at(level), msg);
         return;
     }
@@ -51,12 +52,14 @@ void ZjLog::init(const std::string& csvLogFolderNoSlash, const std::string& regu
                                  ? fmt::format(ZJ_B_GREEN "ZjLog using default csv log folder root" ZJ_PLAIN)
                                  : fmt::format(ZJ_B_GREEN "ZjLog sets csv log folder root to [{}]" ZJ_PLAIN, m_csvLogFolderNoSlash);
 
+        // Logger not initialized, using raw console print
         printf("\n\t%s\n", regularFolderInfo.c_str());
         printf("\t%s\n\n", csvFolderInfo.c_str());
     }
 
+    // If regular log folder folder is empty, do not create log file, only log to console
     if (!m_regularLogFolderNoSlash.empty()) {
-        std::string logSaveFolder {fmt::format("{}/{}", m_regularLogFolderNoSlash, k_logFolderName)};
+        std::string logSaveFolder {fmt::format("{}/{}", m_regularLogFolderNoSlash, k_logSubFolderName)};
         m_fileName = fmt::format("{}/{}_{}.txt", logSaveFolder, __ZJ_PKG_NAME__, ZjChrono::getTimeIso());
     } else {
         m_fileName.clear();
@@ -65,12 +68,13 @@ void ZjLog::init(const std::string& csvLogFolderNoSlash, const std::string& regu
     try {
         /// @see https://github.com/gabime/spdlog#asynchronous-logger-with-multi-sinks
         /// @note Using default thread settings, and one thread should be enough for both ZjLog and a few csv logs
-        spdlog::init_thread_pool(k_defaultQSize, k_defaultThreadCount);
+        spdlog::init_thread_pool(k_defaultLogThreadQSize, k_defaultLogThreadCount);
         auto stdoutSink {std::make_shared<spdlog::sinks::stdout_color_sink_mt>()};
         std::vector<spdlog::sink_ptr> sinks {stdoutSink};
 
+        // If file name is empty, won't create rotating file sink, so no log file will be saved
         if (!m_fileName.empty()) {
-            auto rotatingFileSink {std::make_shared<spdlog::sinks::rotating_file_sink_mt>(m_fileName, k_maxFileSize, k_maxNumFiles)};
+            auto rotatingFileSink {std::make_shared<spdlog::sinks::rotating_file_sink_mt>(m_fileName, k_maxLogFileSize, k_maxLogNumFiles)};
             sinks.push_back(rotatingFileSink);
         }
 
@@ -85,6 +89,7 @@ void ZjLog::init(const std::string& csvLogFolderNoSlash, const std::string& regu
     m_logger->set_level(spdlog::level::trace);
 
     // https://github.com/gabime/spdlog/wiki/3.-Custom-formatting#pattern-flags
+    // Set time to 3 digits precision after the decimal point
     m_logger->set_pattern("[%Y-%m-%d %H:%M:%S.%e][%^%l%$] %v");
 }
 
@@ -92,7 +97,7 @@ void ZjLog::shutdown()
 {
     if (m_logger) {
         m_logger->log(CoreLogLevel::info, "ZjLog shuting down in 3, 2, 1...");
-        // since logger is set to flush only on info level, this forces a flush before shutdown to make sure all messages get logged
+        // Force a flush before shutdown to make sure all messages get logged
         m_logger->flush();
     }
 

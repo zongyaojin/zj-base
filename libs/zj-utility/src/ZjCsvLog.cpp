@@ -1,6 +1,6 @@
 #include "ZjCsvLog.hpp"
 #include "ZjChrono.hpp"
-#include "ZjLogMacrosExtension.hpp"
+#include "ZjLogMacroExtensions.hpp"
 #include "ZjLog.hpp"
 
 #include "fmt/format.h"

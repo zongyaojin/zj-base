@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "ZjCsvLog.hpp"
-#include "ZjLogMacrosExtension.hpp"
+#include "ZjLogMacroExtensions.hpp"
 
 #include <iostream>
 #include <filesystem>

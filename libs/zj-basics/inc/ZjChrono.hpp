@@ -1,3 +1,12 @@
+/**
+ * @file ZjChrono.hpp
+ *
+ * @brief Time utility class with some convenient definitions
+ *
+ * @author Zongyao Jin
+ * @date 2023-08-08
+ */
+
 #pragma once
 
 #include "ZjConcepts.hpp"
@@ -44,13 +53,16 @@ public:
     static constexpr double s_secToNs {1.0e+9};
 
 public:
+    /// Get epoch time as count in second or sub-second unit
     template <ZjDuration T>
-    inline static auto getTimeCount()
+    inline static auto getTimeEpochCount()
     {
         return std::chrono::time_point_cast<T>(Clock::now()).time_since_epoch().count();
     }
 
-    static auto getTime(const Unit unit);
+    /// Get epoch time as double in second
+    static double getTimeEpoch(const Unit unit);
 
+    /// Get ISO time
     static std::string getTimeIso();
 };
