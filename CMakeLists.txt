@@ -32,7 +32,7 @@ endif()
 set(zjLibsInOrder
     "zj-basics"
     "zj-debug-core"
-    "zj-debug-interface"
+    "zj-log-interface"
     "zj-utility"
     "zj-all-headers"
 )

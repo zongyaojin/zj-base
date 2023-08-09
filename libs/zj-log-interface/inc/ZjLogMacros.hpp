@@ -1,3 +1,13 @@
+/**
+ * @file ZjLogMacros.hpp
+ *
+ * @brief Log macro interfaces
+ * @note Client code is recommended to use macros in ZjLogMacroExtensions, not in this file
+ *
+ * @author Zongyao Jin
+ * @date 2023-08-08
+ */
+
 #pragma once
 
 #include "ZjLogAgents.hpp"
@@ -7,16 +17,7 @@
 #include <type_traits>
 #include <chrono>
 
-/// Assertion interface for client code
-#define _ZJ_ASSERT(condition, ...)                                                                                                         \
-    do {                                                                                                                                   \
-        _ZJ_STATIC_BOOLEAN_CHECK(condition);                                                                                               \
-        if (!(condition)) {                                                                                                                \
-            _ZjAssert(#condition, std::source_location::current(), ##__VA_ARGS__);                                                         \
-        }                                                                                                                                  \
-    } while (0)
-
-/// Message interface for ZjLogMacroExtensions
+/// Message interface
 #define _ZJ_MSG(level, msg, ...)                                                                                                           \
     do {                                                                                                                                   \
         static_assert(std::is_same_v<decltype(level), ZjL>, "level has to be a ZjL");                                                      \
@@ -24,7 +25,7 @@
         _ZjMessage(level, std::source_location::current(), msg, ##__VA_ARGS__);                                                            \
     } while (0)
 
-/// Message interface for ZjLogMacroExtensions, but this one only logs/prints if the condition is true
+/// @brief Message interface, but this one only logs/prints if the condition is true
 #define _ZJ_MSG_IF(condition, level, msg, ...)                                                                                             \
     do {                                                                                                                                   \
         _ZJ_STATIC_BOOLEAN_CHECK(condition);                                                                                               \
