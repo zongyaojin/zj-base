@@ -26,6 +26,12 @@ int main()
     _ZJ_DEBUG("hello debug");
     _ZJ_TRACE("hello trace");
 
+    spdlog::critical("=======================================================================");
+    spdlog::critical("Note that all external dependencies are ported to the client project");
+    spdlog::critical("To change this, adjust settings in the CMake install function");
+    spdlog::critical("Consider selecting PUBLIC, INTERFACE, or PRIVATE");
+    spdlog::critical("=======================================================================");
+
     _ZJ_INFO("time iso: {}", ZjChrono::getTimeIso());
 
     try {

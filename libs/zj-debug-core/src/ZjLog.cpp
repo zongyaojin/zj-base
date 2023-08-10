@@ -47,10 +47,10 @@ void ZjLog::init(const std::string& csvLogFolderNoSlash, const std::string& regu
         auto regularFolderInfo
             = m_regularLogFolderNoSlash.empty()
                   ? fmt::format(ZJ_B_GREEN "ZjLog not saving regular log to file" ZJ_PLAIN)
-                  : fmt::format(ZJ_B_GREEN "ZjLog sets regular log folder root to [{}]" ZJ_PLAIN, m_regularLogFolderNoSlash);
+                  : fmt::format(ZJ_B_GREEN "ZjLog sets regular log base folder to [{}]" ZJ_PLAIN, m_regularLogFolderNoSlash);
         auto csvFolderInfo = m_csvLogFolderNoSlash.empty()
-                                 ? fmt::format(ZJ_B_GREEN "ZjLog using default csv log folder root" ZJ_PLAIN)
-                                 : fmt::format(ZJ_B_GREEN "ZjLog sets csv log folder root to [{}]" ZJ_PLAIN, m_csvLogFolderNoSlash);
+                                 ? fmt::format(ZJ_B_GREEN "ZjLog using default csv log base folder" ZJ_PLAIN)
+                                 : fmt::format(ZJ_B_GREEN "ZjLog sets csv log base folder to [{}]" ZJ_PLAIN, m_csvLogFolderNoSlash);
 
         // Logger not initialized, using raw console print
         printf("\n\t%s\n", regularFolderInfo.c_str());
@@ -90,7 +90,7 @@ void ZjLog::init(const std::string& csvLogFolderNoSlash, const std::string& regu
 
     // https://github.com/gabime/spdlog/wiki/3.-Custom-formatting#pattern-flags
     // Set time to 3 digits precision after the decimal point
-    m_logger->set_pattern("[%Y-%m-%d %H:%M:%S.%e][%^%l%$] %v");
+    m_logger->set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%^%l%$] %v");
 }
 
 void ZjLog::shutdown()
