@@ -17,5 +17,4 @@
 
 - `examples/sigint-sigsegv-handling` provides an example showing how to handle a Ctrl-C or a Segmentation Fault terminated program
 
-
 See [version history](./version-history.md).
