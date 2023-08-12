@@ -33,3 +33,6 @@ jobs:
 
       - name: Run client project example
         run: bash ./client-project-example/build-run-client-example.bash
+
+      - name: Setup and run pre-commit
+        run: bash ./scripts/zj-pre-commit.bash

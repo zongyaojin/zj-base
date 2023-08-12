@@ -18,4 +18,4 @@ sudo apt install -y \
 # Install python dependencies
 sudo apt install -y python3-pip
 pip install --upgrade pip setuptools
-pip install --user cmakelang pre-commit
+pip install --user cmakelang pre-commit isort
