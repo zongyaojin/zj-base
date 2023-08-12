@@ -4,6 +4,8 @@
 [![Build status](https://github.com/zongyaojin/zj-base/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/zongyaojin/zj-base/actions/workflows/c-cpp.yml)
 [![GitHub license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/zongyaojin/zj-base/blob/main/LICENSE)
 
+This package contains some handy tools such as logging and debugging for C++ projects.
+
 - `ZjChrono` provides some time-related functions, definitions, and aliases
 - `ZjSingleton` provides a singleton base class using the Curiously Recurring Template Pattern
 

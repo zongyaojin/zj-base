@@ -4,9 +4,9 @@ name: C/C++ CI
 
 on:
   push:
-    branches: ["main", "v1.0"]
+    branches: ["main", "release-*"]
   pull_request:
-    branches: ["main", "v1.0"]
+    branches: ["main", "release-*"]
 
 jobs:
   build:
