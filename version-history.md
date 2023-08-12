@@ -2,4 +2,4 @@
 
 | Version | Notes |
 | --- | --- |
-| v1.0 | All basic features implemented |
+| release-v1.0 | All basic features implemented |

@@ -1,0 +1,52 @@
+# To use:
+#
+#     pre-commit run -a
+#
+# Or:
+#
+#     pre-commit install  # (runs every time you commit in git)
+#
+# To update this file:
+#
+#     pre-commit autoupdate
+#
+# See https://github.com/pre-commit/pre-commit
+
+repos:
+  # Standard hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-xml
+      - id: check-yaml
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+
+  # https://pre-commit.com/#repository-local-hooks
+  # https://github.com/ros-planning/srdfdom/blob/noetic-devel/.pre-commit-config.yaml
+  - repo: local
+    hooks:
+      - id: clang-format
+        name: clang-format
+        description: Format files with clang-format
+        entry: clang-format
+        language: system
+        files: \.(c|cc|cxx|cpp|frag|glsl|h|hpp|hqq|hxx|ih|ispc|ipp|java|js|m|proto|vert)$
+        args: ['-fallback-style=none', '-i']
+
+  # https://cmake-format.readthedocs.io/en/latest/
+  - repo: local
+    hooks:
+      - id: cmake-format
+        name: cmake-format
+        description: Format CMake files with cmake-format
+        language: system
+        entry: cmake-format
+        exclude: .pre-commit-config.yaml|README.md
+        type: [cmake]

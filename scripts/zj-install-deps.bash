@@ -16,6 +16,6 @@ sudo apt install -y \
     libgtest-dev libspdlog-dev libeigen3-dev libboost-all-dev
 
 # Install python dependencies
-sudo apt install -y python3-pip
+sudo apt install -y python3-pip pre-commit
 pip install --upgrade pip setuptools
 pip install --user cmakelang
