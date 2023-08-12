@@ -1,19 +1,15 @@
 # To use:
-#
 #     pre-commit run -a
 #
 # Or:
-#
 #     pre-commit install  # (runs every time you commit in git)
 #
 # To update this file:
-#
 #     pre-commit autoupdate
 #
 # See https://github.com/pre-commit/pre-commit
 
 repos:
-  # Standard hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
@@ -38,15 +34,25 @@ repos:
         entry: clang-format
         language: system
         files: \.(c|cc|cxx|cpp|frag|glsl|h|hpp|hqq|hxx|ih|ispc|ipp|java|js|m|proto|vert)$
-        args: ['-fallback-style=none', '-i']
+        exclude: .pre-commit-config.yaml|README.md
 
   # https://cmake-format.readthedocs.io/en/latest/
-  - repo: local
+  # https://cmake-format.readthedocs.io/en/latest/lint-example.html
+  - repo: https://github.com/cheshirekow/cmake-format-precommit
+    rev: v0.6.13
     hooks:
       - id: cmake-format
-        name: cmake-format
-        description: Format CMake files with cmake-format
-        language: system
-        entry: cmake-format
-        exclude: .pre-commit-config.yaml|README.md
-        type: [cmake]
+      - id: cmake-lint
+
+  # https://pycqa.github.io/isort/docs/configuration/pre-commit.html
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        name: isort (Python)
+
+  - repo: https://github.com/lovesegfault/beautysh
+    rev: v6.2.1
+    hooks:
+      - id: beautysh
+        name: beautysh (Bash)

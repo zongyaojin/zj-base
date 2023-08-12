@@ -1,8 +1,8 @@
 /**
  * @file ZjConcepts.hpp
- * 
+ *
  * @brief Some concepts for templates
- * 
+ *
  * @author Zongyao Jin
  * @date 2023-08-08
  */

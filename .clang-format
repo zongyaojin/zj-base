@@ -1,9 +1,3 @@
-# Proto configuration
-Language: Proto
-BasedOnStyle: Google
-
----
-
 # C++ configuration
 Language: Cpp
 AccessModifierOffset: -4
@@ -30,7 +24,7 @@ BreakBeforeBraces: Mozilla
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializersBeforeComma: true
 ColumnLimit: 140
-CommentPragmas: '^ IWYU pragma:'
+CommentPragmas: "^ IWYU pragma:"
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
 ConstructorInitializerIndentWidth: 0
 ContinuationIndentWidth: 4
@@ -38,13 +32,13 @@ Cpp11BracedListStyle: true
 DerivePointerAlignment: false
 DisableFormat: false
 ExperimentalAutoDetectBinPacking: false
-ForEachMacros: [ foreach, Q_FOREACH, BOOST_FOREACH ]
+ForEachMacros: [foreach, Q_FOREACH, BOOST_FOREACH]
 IndentCaseLabels: true
 IndentWidth: 4
 IndentWrappedFunctionNames: false
 KeepEmptyLinesAtTheStartOfBlocks: true
-MacroBlockBegin: ''
-MacroBlockEnd: ''
+MacroBlockBegin: ""
+MacroBlockEnd: ""
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: None
 PenaltyBreakBeforeFirstCallParameter: 100

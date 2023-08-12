@@ -27,3 +27,13 @@ with section("format"):
 
     # If a statement is wrapped to more than one line, than dangle the closing parenthesis on its own line.
     dangle_parens = True
+
+# ----------------------------
+# Options affecting the linter
+# https://github.com/cheshirekow/cmake_format/issues/197
+# Code C0103 is for variable names linting
+# ----------------------------
+with section("lint"):
+
+    # A list of lint codes to disable
+    disabled_codes = ['C0103']
