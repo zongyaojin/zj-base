@@ -1,8 +1,8 @@
 /**
  * @file ZjUtility.hpp
- * 
+ *
  * @brief Utility functions
- * 
+ *
  * @author Zongyao Jin
  * @date 2023-08-08
  */

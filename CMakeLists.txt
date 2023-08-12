@@ -63,7 +63,7 @@ endforeach()
 
 # Define healder patterns for install
 set(zjHeaderPatterns "*.hpp" "*.h")
-# Define folders that need to be copied by install, *LEAVE IT EMPTY* if no such folder so install won't fail finding them
+# Define folders that need to be copied by install, LEAVE IT EMPTY if no such folder so install won't fail finding them
 set(zjDataFolders "")
 # Use the function to combine all targets as one interface target and install the combined target
 zj_combine_install_library(

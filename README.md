@@ -1,8 +1,10 @@
-# ZJ Cpp Tools
+# ZJ C++ Tools
 
 <!-- https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge -->
 [![Build status](https://github.com/zongyaojin/zj-base/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/zongyaojin/zj-base/actions/workflows/c-cpp.yml)
 [![GitHub license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/zongyaojin/zj-base/blob/main/LICENSE)
+
+This package contains some handy tools such as logging and debugging for C++ projects.
 
 - `ZjChrono` provides some time-related functions, definitions, and aliases
 - `ZjSingleton` provides a singleton base class using the Curiously Recurring Template Pattern
@@ -15,7 +17,8 @@
 - `ZjTimer` provides a timer class that can be used to guard a periodic loop of a certain frequency
 - `ZjUtility` provides some functions for map access and pointer clean up
 
-- `examples/sigint-sigsegv-handling` provides an example showing how to handle a Ctrl-C or a Segmentation Fault terminated program
+- `examples/sigint-sigsegv-handling` shows how to handle a Ctrl-C or a Segmentation Fault terminated program
+- `examples/compile-definitions` shows how the usage of some compile definitions provided by the `zj-cmake` submodule
 
 ---
 
