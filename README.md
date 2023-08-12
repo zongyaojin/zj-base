@@ -17,7 +17,8 @@ This package contains some handy tools such as logging and debugging for C++ pro
 - `ZjTimer` provides a timer class that can be used to guard a periodic loop of a certain frequency
 - `ZjUtility` provides some functions for map access and pointer clean up
 
-- `examples/sigint-sigsegv-handling` provides an example showing how to handle a Ctrl-C or a Segmentation Fault terminated program
+- `examples/sigint-sigsegv-handling` shows how to handle a Ctrl-C or a Segmentation Fault terminated program
+- `examples/compile-definitions` shows how to use some compile definitions provided by the zj-cmake package
 
 ---
 
