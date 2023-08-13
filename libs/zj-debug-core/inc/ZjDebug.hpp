@@ -7,6 +7,7 @@
  * @date 2023-07-26
  */
 
+
 #pragma once
 
 #include "ZjExceptions.hpp"
@@ -32,8 +33,8 @@ static constexpr const char* k_notTopOfChain {"ZJ_NOT_TOP_OF_CHAIN"};
 /// Debugging information formatter string
 static constexpr const char* k_formatter {"{}:{}:{} @ `{}`; {}"};
 
-}  // namespace debug
-}  // namespace zj
+} // namespace debug
+} // namespace zj
 
 /**
  * @brief Throw a zj-customized exception; @warning Intended to be wrapped by zj macros, not directly used by client

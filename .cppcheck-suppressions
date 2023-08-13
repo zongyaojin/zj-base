@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<!-- https://github.com/danmar/cppcheck/blob/main/man/manual.md#xml-suppressions -->
+
+<suppressions>
+    <suppress note="cppcheck doesn't like Eigen matrix with the << operator and comma expression">
+        <id>constStatement</id>
+    </suppress>
+    <suppress note="Same reason as in CPPLINT.cfg">
+        <id>missingInclude</id>
+    </suppress>
+</suppressions>

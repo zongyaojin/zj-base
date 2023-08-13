@@ -122,12 +122,9 @@ public:
     template <ZjArithmetic T, DataDimension N>
     void log(const std::string& logName, const EigenVec<T, N>& data)
     {
-        // Create a worker if not already exists
-        if (m_logWorkerMap.find(logName) == m_logWorkerMap.end()) [[unlikely]] {
-            /// @note https://stackoverflow.com/a/27553958, with default move constructor, it will be moved
-            m_logWorkerMap.emplace(logName, ZjCsvLogWorker {});
-        }
-
+        /// @note `m_logWorkerMap` is a map, it will automatically handle/ignore duplication, no need to manually search here
+        /// @note https://stackoverflow.com/a/27553958, with default move constructor, it will be moved
+        m_logWorkerMap.emplace(logName, ZjCsvLogWorker {});
         m_logWorkerMap.at(logName).log(logName, data);
     }
 

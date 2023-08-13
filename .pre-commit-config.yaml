@@ -60,5 +60,7 @@ repos:
   - repo: https://github.com/pocc/pre-commit-hooks
     rev: v1.3.5
     hooks:
-      # - id: cppcheck
+      - id: cppcheck
+        # https://github.com/danmar/cppcheck/blob/main/man/manual.md#xml-suppressions
+        args: [--suppress-xml=.cppcheck-suppressions, --inline-suppr]
       - id: cpplint

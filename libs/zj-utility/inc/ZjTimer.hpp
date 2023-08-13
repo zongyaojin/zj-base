@@ -19,7 +19,7 @@
 class ZjTimer
 {
 public:
-    explicit ZjTimer(const std::string name = "");
+    explicit ZjTimer(const std::string& name = "");
     ~ZjTimer() = default;
 
     /**

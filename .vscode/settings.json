@@ -79,6 +79,8 @@
         "codecvt": "cpp"
     },
     "cSpell.words": [
+        "cppcheck",
+        "cpplint",
         "Eigen",
         "endforeach",
         "GTEST",

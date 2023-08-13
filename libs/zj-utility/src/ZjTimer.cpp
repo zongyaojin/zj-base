@@ -3,7 +3,7 @@
 
 #include <thread>
 
-ZjTimer::ZjTimer(const std::string name)
+ZjTimer::ZjTimer(const std::string& name)
 {
     if (!name.empty()) {
         m_name = fmt::format("ZjTimer-{}", name);
@@ -35,6 +35,7 @@ ZjChrono::Count ZjTimer::guard()
         m_overtimeCount++;
     }
 
+    // There should be an [[unlikely]] here, but the current version of cpplint doesn't get it
     if (m_overtimeCountLimit > 0 && m_overtimeCount > m_overtimeCountLimit) {
         auto&& loopAvgMs = static_cast<double>(m_totalTimeSpent) / m_totalCount * ZjChrono::s_nsToMs;
         auto&& periodMs = m_period.count() * ZjChrono::s_nsToMs;
