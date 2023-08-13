@@ -1,11 +1,11 @@
 /**
  * @file ZjLogAgents.hpp
+ * @author Zongyao Jin (zongyaojin@outlook.com)
+ * @date 2023-08
+ * @copyright Copyright (c) 2023 by Zongyao Jin
  *
  * @brief Logging agents to be used in the log macros, the agents deal with the ZjLog class
- * @note Client code should use the macros, the log macros use the agents, and the agents interact with the ZjLog
- *
- * @author Zongyao Jin
- * @date 2023-07-26
+ * @warning Client code should use the macros, not functions here; the log macros use the agents, and the agents interact with the ZjLog
  */
 
 #pragma once
@@ -33,9 +33,9 @@ static constexpr const char* k_assertFmt {"{}:{}:{} @ `{}` | [{}]\n{}\n"};
 /// Trace message formatter
 static constexpr const char* k_traceFmt {"{}:{}:{} @ `{}`; {}"};
 
-}  // namespace agents
-}  // namespace log
-}  // namespace zj
+} // namespace agents
+} // namespace log
+} // namespace zj
 
 /**
  * @brief Assertion with source location, user messages, and log support

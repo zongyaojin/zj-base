@@ -1,10 +1,8 @@
 /**
- * @file ZjExceptions.hpp
- *
- * @brief Zj exceptions and exception types enum
- *
- * @author Zongyao Jin
- * @date 2023-07-26
+ * @file ZjExceptions.hpplibs/zj-debug-core/inc/ZjExceptions.hpp:0:
+ * @author Zongyao Jin (zongyaojin@outlook.com)
+ * @date 2023-08
+ * @copyright Copyright (c) 2023 by Zongyao Jin
  */
 
 #pragma once
