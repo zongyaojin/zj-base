@@ -1,3 +1,10 @@
+/**
+ * @file ZjLog.cpp
+ * @author Zongyao Jin (zongyaojin@outlook.com)
+ * @date 2023-08
+ * @copyright Copyright (c) 2023 by Zongyao Jin
+ */
+
 #include "ZjLog.hpp"
 #include "ZjColors.hpp"
 #include "ZjChrono.hpp"
@@ -21,11 +28,11 @@ static constexpr size_t k_maxLogNumFiles {3};
 
 static constexpr const char* k_logSubFolderName {"zj-logs"};
 
-}
+}  // namespace
 
 void ZjLog::log(const ZjLogLevel level, std::string&& msg)
 {
-    if (m_logger) [[likely]] {
+    if (m_logger) {
         m_logger->log(mk_logLevelMap.at(level), msg);
         return;
     }

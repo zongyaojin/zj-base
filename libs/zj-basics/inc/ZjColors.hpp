@@ -1,13 +1,11 @@
 /**
  * @file ZjColors.hpp
- *
- * @brief Color definitions
+ * @author Zongyao Jin (zongyaojin@outlook.com)
+ * @date 2023-08
+ * @copyright Copyright (c) 2023 by Zongyao Jin
  *
  * @note They appear good on console with nice colors, but in log files they may appear as the underlying literal characters or sometime
  * even garbage characters
- *
- * @author Zongyao Jin
- * @date 2023-07-26
  */
 
 #pragma once

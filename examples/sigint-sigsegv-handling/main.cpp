@@ -50,7 +50,7 @@ int main()
         _ZJ_INFO_T(1, "Ctrl-C to terminate, or wait 5 sec to trigger segmentation fault, current count: [{}]", timeSpent.count());
         if (timeSpent.count() > 5000) {
             _ZJ_WARN("triggering segmentation fault now");
-            ptr->push_back(1);
+            ptr->push_back(1); // cppcheck-suppress nullPointer
         }
     }
 

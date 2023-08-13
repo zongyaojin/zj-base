@@ -1,11 +1,10 @@
 /**
  * @file ZjLogMacros.hpp
+ * @author Zongyao Jin (zongyaojin@outlook.com)
+ * @date 2023-08
+ * @copyright Copyright (c) 2023 by Zongyao Jin
  *
- * @brief Log macro interfaces
- * @note Client code is recommended to use macros in ZjLogMacroExtensions, not in this file
- *
- * @author Zongyao Jin
- * @date 2023-08-08
+ * @warning Client code is recommended to use macros in ZjLogMacroExtensions, not in this file
  */
 
 #pragma once

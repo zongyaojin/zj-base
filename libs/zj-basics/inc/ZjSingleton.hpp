@@ -1,6 +1,13 @@
 /**
  * @file ZjSingleton.hpp
- *
+ * @author Zongyao Jin (zongyaojin@outlook.com)
+ * @date 2023-08
+ * @copyright Copyright (c) 2023 by Zongyao Jin
+ */
+
+#pragma once
+
+/**
  * @brief Singleton base class using CRTP
  *
  * @see https://stackoverflow.com/a/34519373/6291896
@@ -9,13 +16,6 @@
  * @see https://stackoverflow.com/a/12249115
  * @see https://docs.microsoft.com/en-us/cpp/cpp/explicitly-defaulted-and-deleted-functions?view=msvc-160
  *
- * @author Zongyao Jin
- * @date 2023-07-30
- */
-
-#pragma once
-
-/**
  * @warning If the child class needs constructor arguments, then you SHOULD design another wrapper class with the class that requires
  * constructor arguments as a member variable. For example, you can have a `unique_ptr<ClassRequiresConstructorArgument>` member variable,
  * and an `Singleton::getInstance().init(...)` function to deal with the initialization of ClassRequiresConstructorArgument.

@@ -75,9 +75,12 @@
         "core": "cpp",
         "fstream": "cpp",
         "forward_list": "cpp",
-        "csignal": "cpp"
+        "csignal": "cpp",
+        "codecvt": "cpp"
     },
     "cSpell.words": [
+        "cppcheck",
+        "cpplint",
         "Eigen",
         "endforeach",
         "GTEST",

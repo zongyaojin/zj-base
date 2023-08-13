@@ -1,10 +1,8 @@
 /**
  * @file ZjDebug.hpp
- *
- * @brief Debug functions and macros
- *
- * @author Zongyao Jin
- * @date 2023-07-26
+ * @author Zongyao Jin (zongyaojin@outlook.com)
+ * @date 2023-08
+ * @copyright Copyright (c) 2023 by Zongyao Jin
  */
 
 #pragma once
@@ -18,9 +16,10 @@
 #include <source_location>
 #include <string>
 #include <type_traits>
+#include <utility>
 
-#include <spdlog/spdlog.h>
-#include <fmt/format.h>
+#include "spdlog/spdlog.h"
+#include "fmt/format.h"
 
 namespace zj {
 namespace debug {
@@ -31,8 +30,8 @@ static constexpr const char* k_notTopOfChain {"ZJ_NOT_TOP_OF_CHAIN"};
 /// Debugging information formatter string
 static constexpr const char* k_formatter {"{}:{}:{} @ `{}`; {}"};
 
-}
-}
+} // namespace debug
+} // namespace zj
 
 /**
  * @brief Throw a zj-customized exception; @warning Intended to be wrapped by zj macros, not directly used by client
@@ -49,7 +48,8 @@ static constexpr const char* k_formatter {"{}:{}:{} @ `{}`; {}"};
 template <typename... Args>
 void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& s, const std::string& fmt = "", Args&&... args)
 {
-    using namespace zj::debug;
+    using zj::debug::k_formatter;
+    using zj::debug::k_notTopOfChain;
 
     std::string msg {fmt::format(fmt::runtime(fmt), std::forward<Args>(args)...)};
     std::string fmtMsg {fmt::format(k_formatter, s.file_name(), s.line(), s.column(), s.function_name(), std::move(msg))};

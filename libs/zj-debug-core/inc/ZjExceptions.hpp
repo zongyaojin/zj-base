@@ -1,10 +1,8 @@
 /**
- * @file ZjExceptions.hpp
- *
- * @brief Zj exceptions and exception types enum
- *
- * @author Zongyao Jin
- * @date 2023-07-26
+ * @file ZjExceptions.hpplibs/zj-debug-core/inc/ZjExceptions.hpp:0:
+ * @author Zongyao Jin (zongyaojin@outlook.com)
+ * @date 2023-08
+ * @copyright Copyright (c) 2023 by Zongyao Jin
  */
 
 #pragma once
@@ -31,7 +29,7 @@ protected:
     ZjException() = default;
     virtual ~ZjException() noexcept = default;
 
-    ZjException(const std::string& msg)
+    explicit ZjException(const std::string& msg)
     : m_msg(msg)
     {
     }
@@ -50,7 +48,7 @@ public:
     ZjBug() = default;
     virtual ~ZjBug() noexcept = default;
 
-    ZjBug(const std::string& msg)
+    explicit ZjBug(const std::string& msg)
     : ZjException(msg)
     {
     }
@@ -63,7 +61,7 @@ public:
     ZjFault() = default;
     virtual ~ZjFault() noexcept = default;
 
-    ZjFault(const std::string& msg)
+    explicit ZjFault(const std::string& msg)
     : ZjException(msg)
     {
     }
@@ -76,7 +74,7 @@ public:
     ZjFailure() = default;
     virtual ~ZjFailure() noexcept = default;
 
-    ZjFailure(const std::string& msg)
+    explicit ZjFailure(const std::string& msg)
     : ZjException(msg)
     {
     }

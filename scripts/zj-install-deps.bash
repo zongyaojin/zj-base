@@ -15,7 +15,13 @@ sudo apt install -y \
     doxygen doxygen-latex doxygen-doc doxygen-gui graphviz texlive-extra-utils texlive-latex-extra \
     libgtest-dev libspdlog-dev libeigen3-dev libboost-all-dev
 
-# Install python dependencies
+# Python dependencies
 sudo apt install -y python3-pip
 pip install --upgrade pip setuptools
-pip install --user cmakelang pre-commit isort
+
+# Code format and check tools
+sudo apt install -y \
+    cppcheck
+
+pip install --user pre-commit \
+    cmakelang isort cpplint

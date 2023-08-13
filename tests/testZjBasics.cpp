@@ -1,4 +1,4 @@
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 #include "zj-utility.hpp"
 
 int testStaticBoolCheckValid()
@@ -8,7 +8,7 @@ int testStaticBoolCheckValid()
 
     int i = 10;
     _ZJ_STATIC_BOOLEAN_CHECK(i == 1);
-    _ZJ_STATIC_BOOLEAN_CHECK(i == 10);
+    _ZJ_STATIC_BOOLEAN_CHECK(i == 10); // cppcheck-suppress knownConditionTrueFalse
 
     return 1;
 }
