@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 
-<suppressions ref="https://github.com/danmar/cppcheck/blob/main/man/manual.md#xml-suppressions">
-    <suppress note="cppcheck doesn't like Eigen matrix with the << operator and comma expression">
+<suppressions>
+    <suppress>
         <id>constStatement</id>
     </suppress>
-    <suppress note="Same reason as in CPPLINT.cfg">
+    <suppress>
         <id>missingInclude</id>
     </suppress>
 </suppressions>
