@@ -62,5 +62,5 @@ repos:
     hooks:
       - id: cppcheck
         # https://github.com/danmar/cppcheck/blob/main/man/manual.md#xml-suppressions
-        args: [--suppress-xml=.cppcheck-suppressions.xml, --inline-suppr]
+        args: [--suppress-xml=.cppcheck-suppressions, --inline-suppr]
       - id: cpplint
