@@ -1,4 +1,4 @@
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 #include "ZjUtility.hpp"
 
@@ -56,6 +56,6 @@ TEST(TestDeleteRawPointer, One)
     EXPECT_EQ(*i, 10);
     EXPECT_NE(i, nullptr);
 
-    _DeleteRawPointer(i);
+    _DeleteRawPointer(&i);
     EXPECT_EQ(i, nullptr);
 }

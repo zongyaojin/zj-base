@@ -15,6 +15,9 @@
 
 #include <source_location>
 #include <string>
+#include <memory>
+#include <utility>
+
 #include <cstdint>
 
 #include "spdlog/spdlog.h"
@@ -30,9 +33,9 @@ static constexpr const char* k_assertFmt {"{}:{}:{} @ `{}` | [{}]\n{}\n"};
 /// Trace message formatter
 static constexpr const char* k_traceFmt {"{}:{}:{} @ `{}`; {}"};
 
-}
-}
-}
+}  // namespace agents
+}  // namespace log
+}  // namespace zj
 
 /**
  * @brief Assertion with source location, user messages, and log support

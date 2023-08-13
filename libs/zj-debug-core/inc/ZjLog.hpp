@@ -5,6 +5,7 @@
  *
  * @author Zongyao Jin
  * @date 2023-07-26
+ *
  */
 
 #pragma once
@@ -12,6 +13,9 @@
 #include "ZjSingleton.hpp"
 
 #include <unordered_map>
+#include <memory>
+#include <string>
+
 #include "spdlog/spdlog.h"
 
 /// Zj log level type enum

@@ -50,10 +50,10 @@ T _GetEnumByString(const std::unordered_map<T, std::string>& map, const std::str
 
 /// Delete raw pointer
 template <ZjRawPointer T>
-void _DeleteRawPointer(T& ptr)
+void _DeleteRawPointer(T* ptr)
 {
-    if (ptr) {
-        delete ptr;
-        ptr = nullptr;
+    if (*ptr) {
+        delete *ptr;
+        *ptr = nullptr;
     }
 }

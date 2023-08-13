@@ -1,4 +1,4 @@
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 #include "ZjProgramSwitch.hpp"
 
 int globalVar = 10;

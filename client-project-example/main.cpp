@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <eigen3/Eigen/Dense>
-#include <spdlog/spdlog.h>
+#include "spdlog/spdlog.h"
 
 void foo()
 {

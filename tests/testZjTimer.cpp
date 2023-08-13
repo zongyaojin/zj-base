@@ -1,15 +1,16 @@
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 #include <thread>
+#include <chrono>
 
 #include "ZjTimer.hpp"
 #include "ZjLogMacroExtensions.hpp"
 
 ZjChrono::Count testZjTimer(unsigned hz, double sec)
 {
-    using namespace std::chrono_literals;
+    using std::literals::chrono_literals::operator""s;
 
     auto start = ZjChrono::Clock::now();
-    auto targetNsCount = ZjChrono::Ns(static_cast<long>(sec * ZjChrono::s_secToNs));
+    auto targetNsCount = ZjChrono::Ns(static_cast<ZjChrono::Ns::rep>(sec * ZjChrono::s_secToNs));
 
     ZjTimer timer(fmt::format("test: {}hz, {}s", hz, sec));
     timer.init(hz);

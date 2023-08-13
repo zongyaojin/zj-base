@@ -17,6 +17,7 @@
 #include <unordered_map>
 #include <sstream>
 #include <utility>
+#include <string>
 
 #include "Eigen/Eigen"
 #include "spdlog/spdlog.h"

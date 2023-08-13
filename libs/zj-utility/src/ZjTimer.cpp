@@ -35,7 +35,7 @@ ZjChrono::Count ZjTimer::guard()
         m_overtimeCount++;
     }
 
-    if (m_overtimeCountLimit > 0 && m_overtimeCount > m_overtimeCountLimit) [[unlikely]] {
+    if (m_overtimeCountLimit > 0 && m_overtimeCount > m_overtimeCountLimit) {
         auto&& loopAvgMs = static_cast<double>(m_totalTimeSpent) / m_totalCount * ZjChrono::s_nsToMs;
         auto&& periodMs = m_period.count() * ZjChrono::s_nsToMs;
         _ZJ_WARN("[{}] ========== ==========", m_name);

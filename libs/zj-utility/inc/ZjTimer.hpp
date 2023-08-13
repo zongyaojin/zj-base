@@ -12,12 +12,14 @@
 #include "ZjDebug.hpp"
 #include "ZjChrono.hpp"
 
+#include <string>
+
 #include "fmt/format.h"
 
 class ZjTimer
 {
 public:
-    ZjTimer(const std::string name = "");
+    explicit ZjTimer(const std::string name = "");
     ~ZjTimer() = default;
 
     /**
@@ -56,7 +58,7 @@ public:
     inline const std::string& name() const { return m_name; }
 
     /// Total number of counts of all cycles
-    inline ZjChrono::Count totalCount() const { return m_totalCount; };
+    inline ZjChrono::Count totalCount() const { return m_totalCount; }
 
     /// Total loop average of all cycles
     double totalLoopAvg(const ZjChrono::Unit unit) const;

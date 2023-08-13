@@ -21,11 +21,11 @@ static constexpr size_t k_maxLogNumFiles {3};
 
 static constexpr const char* k_logSubFolderName {"zj-logs"};
 
-}
+}  // namespace
 
 void ZjLog::log(const ZjLogLevel level, std::string&& msg)
 {
-    if (m_logger) [[likely]] {
+    if (m_logger) {
         m_logger->log(mk_logLevelMap.at(level), msg);
         return;
     }
