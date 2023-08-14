@@ -28,7 +28,7 @@ static constexpr size_t k_maxLogNumFiles {3};
 
 static constexpr const char* k_logSubFolderName {"zj-logs"};
 
-}  // namespace
+} // namespace
 
 void ZjLog::log(const ZjLogLevel level, std::string&& msg)
 {
@@ -60,8 +60,7 @@ void ZjLog::init(const std::string& csvLogFolderNoSlash, const std::string& regu
                                  : fmt::format(ZJ_B_GREEN "ZjLog sets csv log base folder to [{}]" ZJ_PLAIN, m_csvLogFolderNoSlash);
 
         // Logger not initialized, using raw console print
-        printf("\n\t%s\n", regularFolderInfo.c_str());
-        printf("\t%s\n\n", csvFolderInfo.c_str());
+        printf("[%s | %s]\n", regularFolderInfo.c_str(), csvFolderInfo.c_str());
     }
 
     // If regular log folder folder is empty, do not create log file, only log to console
@@ -97,7 +96,7 @@ void ZjLog::init(const std::string& csvLogFolderNoSlash, const std::string& regu
 
     // https://github.com/gabime/spdlog/wiki/3.-Custom-formatting#pattern-flags
     // Set time to 3 digits precision after the decimal point
-    m_logger->set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%^%l%$] %v");
+    m_logger->set_pattern("%Y-%m-%d %H:%M:%S.%e | %^%l%$ | %v");
 }
 
 void ZjLog::shutdown()

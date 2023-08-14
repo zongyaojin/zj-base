@@ -15,9 +15,6 @@ add_library(${libName} ${libAbsCpps})
 zj_target_include_directories_genex(${libName} "${libRelIncDirs}")
 target_link_libraries(${libName} zj-log-interface)
 
-find_package(Eigen3 REQUIRED)
-target_link_libraries(${libName} Eigen3::Eigen)
-
 # ######################################################################################################################
 
 zj_paths_add_slash("${libRelIncDirs}" libRelIncDirsSlash)

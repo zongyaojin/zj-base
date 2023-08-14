@@ -16,7 +16,8 @@ zj_target_include_directories_genex(${libName} "${libRelIncDirs}")
 target_link_libraries(${libName})
 
 find_package(Boost REQUIRED)
-target_link_libraries(${libName} Boost::boost)
+find_package(Eigen3 REQUIRED)
+target_link_libraries(${libName} Boost::boost Eigen3::Eigen)
 
 # ######################################################################################################################
 

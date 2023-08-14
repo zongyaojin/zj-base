@@ -31,7 +31,7 @@ namespace agents {
 static constexpr const char* k_assertFmt {"{}:{}:{} @ `{}` | [{}]\n{}\n"};
 
 /// Trace message formatter
-static constexpr const char* k_traceFmt {"{}:{}:{} @ `{}`; {}"};
+static constexpr const char* k_traceFmt {"{}:{}:{} @ `{}` | {}"};
 
 } // namespace agents
 } // namespace log
