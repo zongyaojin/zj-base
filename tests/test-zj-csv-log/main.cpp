@@ -8,7 +8,7 @@
 #include <string>
 #include <fstream>
 
-#include "Eigen/Eigen"
+#include "Eigen/Dense"
 
 namespace fs = std::filesystem;
 

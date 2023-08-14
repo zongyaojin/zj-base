@@ -14,6 +14,8 @@
 #include <unordered_map>
 #include <chrono>
 
+#include "Eigen/Dense"
+
 // Concept for enums
 template <typename T>
 concept ZjEnumType = std::is_enum_v<T>;
@@ -35,3 +37,7 @@ concept ZjRawPointer = std::is_pointer_v<T>;
 /// Concept for arithmetics
 template <typename T>
 concept ZjArithmetic = std::is_arithmetic_v<T>;
+
+/// Concept for Eigen matrix dimensionality constraint
+template <decltype(Eigen::Dynamic) N>
+concept ZjEigenSizeValid = (N != 0) && (N > -2);

@@ -17,7 +17,7 @@
 #include <utility>
 #include <string>
 
-#include "Eigen/Eigen"
+#include "Eigen/Dense"
 #include "spdlog/spdlog.h"
 
 /// @brief A csv log class that can create and log to as many files as needed in a thread safe fashion
@@ -29,32 +29,17 @@ class ZjCsvLog : public ZjSingleton<ZjCsvLog>
     using DataSize = Eigen::Index;
     using DataDimension = decltype(Eigen::Dynamic);
 
-    /**
-     * @brief Eigen vector alias
-     *
-     * @tparam T Numeric data type
-     * @tparam N Vector dimension
-     *
-     * @see For the constraint with keyword `requires`, https://en.cppreference.com/w/cpp/language/constraints#Conjunctions
-     * @note To reuse the constraint, one can do:
-     * ```cpp
-     *      template <decltype(Eigen::Dynamic) N>
-     *      concept DataDimensionValid = (N != 0) && (N > -2);
-     *
-     *      template <ZjArithmetic T, DataDimension N = Eigen::Dynamic>
-     *      requires zj::csv::log::DataDimensionValid<N>
-     *      using EigenVec = Eigen::Matrix<T, N, 1>;
-     * ```
-     */
+    /// Eigen vector alias
     template <ZjArithmetic T, DataDimension N = Eigen::Dynamic>
-    requires(N != 0 && N > -2) using EigenVec = Eigen::Matrix<T, N, 1>;
+    requires ZjEigenSizeValid<N>
+    using EigenVec = Eigen::Matrix<T, N, 1>;
 
 private:
     /// @brief A inner class that represents a logger that only logs data to a single file for the outer class to create and employ
     class ZjCsvLogWorker
     {
         /// @see https://eigen.tuxfamily.org/dox/structEigen_1_1IOFormat.html
-        const Eigen::IOFormat k_eigenFmt {9, 0, ", "};
+        const Eigen::IOFormat mk_eigenFmt {9, 0, ", "};
 
     public:
         ZjCsvLogWorker() = default;
@@ -89,7 +74,7 @@ private:
 
             _ZJ_THROW_IF(data.size() != m_dataSize, "inconsistent data size [{} | {}]", data.size(), m_dataSize);
             std::ostringstream oss;
-            oss << data.transpose().format(k_eigenFmt);
+            oss << data.transpose().format(mk_eigenFmt);
             m_logger->info("{}", oss.str());
         }
 

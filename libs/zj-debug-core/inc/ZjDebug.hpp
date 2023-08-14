@@ -24,17 +24,24 @@
 namespace zj {
 namespace debug {
 
-/// String for exceptions from upstream
-static constexpr const char* k_notTopOfChain {"ZJ_NOT_TOP_OF_CHAIN"};
-
 /// Debugging information formatter string
-static constexpr const char* k_formatter {"{}:{}:{} @ `{}`; {}"};
+static constexpr const char* k_formatter {"{}:{}:{} @ `{}` | {}"};
 
 } // namespace debug
 } // namespace zj
 
 /**
- * @brief Throw a zj-customized exception; @warning Intended to be wrapped by zj macros, not directly used by client
+ * @brief Throw a zj-customized exception
+ *
+ * @note ZjBug is reserved for catching and re-throwing external, non-zj exceptions
+ *
+ * @warning This function is intended to be wrapped by zj macros, not directly used by client; client code should use the macros
+ * @warning There's an known issue. If _ZjThrow or any of the `_ZJ_THROW*` macros is used to as the one and only thing is a program
+ * to throw an exception without being caught. The program will terminate (expected); yet the error message may or may not be logged. Not
+ * sure why even if the logger's `flush()` is explicitly called in between calling _ZjMessage to log the message and throwing the exception.
+ * I think it may due to `spdlog` creates a async thread, yet the program in this case terminates too fast to the thread to handle the
+ * logging. However, since the error message is written to the exception, the exception `what()` message can still help display the error
+ * message.
  *
  * @tparam Args Variadic template type
  * @param t Exception type
@@ -42,14 +49,11 @@ static constexpr const char* k_formatter {"{}:{}:{} @ `{}`; {}"};
  * @param s Source location
  * @param fmt Formatter string
  * @param args Variadic argument for the message
- *
- * @note ZjBug is reserved for catching and re-throwing external, non-zj exceptions
  */
 template <typename... Args>
 void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& s, const std::string& fmt = "", Args&&... args)
 {
     using zj::debug::k_formatter;
-    using zj::debug::k_notTopOfChain;
 
     std::string msg {fmt::format(fmt::runtime(fmt), std::forward<Args>(args)...)};
     std::string fmtMsg {fmt::format(k_formatter, s.file_name(), s.line(), s.column(), s.function_name(), std::move(msg))};
@@ -57,30 +61,49 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
     switch (t) {
         case ZjE::Failure: {
             _ZjMessage(ZjLogLevel::Critical, s, fmtMsg);
-            throw ZjFailure();
+            throw ZjFailure(e.what());
         } break;
         case ZjE::Fault: {
             _ZjMessage(ZjLogLevel::Error, s, fmtMsg);
-            throw ZjFault();
+            throw ZjFault(e.what());
+        } break;
+        case ZjE::Singular: {
+            _ZjMessage(ZjLogLevel::Error, s, fmtMsg);
+            throw ZjSingular(e.what());
         } break;
         case ZjE::Bug: {
-            /// @note Here we define two cases when throwing a ZjBug, which is reserved for when an external exception is caught; (1) at the
-            /// site, top of the call chain, where the external exception is caught, we throw a ZjBug and attached the expression being
-            /// evaluated as the error message; (2) because ZjBug is reserved for external exceptions, if we catch a ZjBug at a lower level
-            /// of the call chain, we know the error-inducing expression is already logged with an error message when throwing the first
-            /// ZjBug; thus we throw another ZjBut with the exception message "k_notTopOfChain", indicating the error message is already
-            /// logged, and we attached an empty message to avoid logging the error message more than once
-            bool notTopOfChain {std::strcmp(e.what(), k_notTopOfChain) == 0};
-            fmtMsg = notTopOfChain ? fmt::format(k_formatter, s.file_name(), s.line(), s.column(), s.function_name(), "")
-                                   : fmt::format(k_formatter, s.file_name(), s.line(), s.column(), s.function_name(),
-                                       fmt::format("external exception [{}, {}] from [{}]", _ZJ_DEMANGLE(e), e.what(), msg));
             _ZjMessage(ZjLogLevel::Error, s, fmtMsg);
-            throw ZjBug("caught external exception, see log trace top for details");
+            throw ZjBug(e.what());
         } break;
         default:
-            _ZjAssert("N/A", s, "illegal exception type [{}], check code logic", static_cast<std::uint8_t>(t));
+            _ZjAssert("N/A", s, "invalid exception type [{}], check code logic", static_cast<std::uint8_t>(t));
     }
 }
+
+/**
+ * @brief A try-catch macro that throws and re-throws zj exception types and provides call site source location
+ */
+#define _ZJ_TRY(expression)                                                                                                                \
+    do {                                                                                                                                   \
+        try {                                                                                                                              \
+            expression;                                                                                                                    \
+        } catch (const ZjFailure& e) {                                                                                                     \
+            _ZjThrow(ZjE::Failure, e, std::source_location::current());                                                                    \
+        } catch (const ZjFault& e) {                                                                                                       \
+            _ZjThrow(ZjE::Fault, e, std::source_location::current());                                                                      \
+        } catch (const ZjSingular& e) {                                                                                                    \
+            _ZjThrow(ZjE::Singular, e, std::source_location::current());                                                                   \
+        } catch (const ZjBug& e) {                                                                                                         \
+            _ZjThrow(ZjE::Bug, e, std::source_location::current());                                                                        \
+        } catch (const std::exception& e) {                                                                                                \
+            auto s {std::source_location::current()};                                                                                      \
+            auto errMsg {fmt::format("external exception, type [{}], what [{}], from [{}]", _ZJ_DEMANGLE(e), e.what(), #expression)};      \
+            auto fmtMsg {fmt::format(zj::debug::k_formatter, s.file_name(), s.line(), s.column(), s.function_name(), std::move(errMsg))};  \
+            _ZjThrow(ZjE::Bug, ZjBug(std::move(fmtMsg)), std::source_location::current());                                                 \
+        } catch (...) {                                                                                                                    \
+            _ZjAssert("N/A", std::source_location::current(), "unknown exception, package cannot trace it");                               \
+        }                                                                                                                                  \
+    } while (0)
 
 /**
  * @brief A macro that throws with call site source location and a ZjException specified by an input argument
@@ -88,8 +111,9 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
  */
 #define _ZJ_THROW_EXCEPTION(t, ...)                                                                                                        \
     do {                                                                                                                                   \
-        static_assert(std::is_same_v<decltype(t), ZjE>, "first argument of `_ZJ_THROW()` has to be an ZjE");                               \
+        static_assert(std::is_same_v<decltype(t), ZjE>, "first argument of `_ZJ_THROW()` has to be a ZjExceptionType");                    \
         static_assert(t != ZjE::Bug, "ZjBug is reserved for `_ZJ_TRY()` to pass upstream exceptions");                                     \
+        static_assert(t != ZjE::Singular, "ZjSingular is reserved for `_ZJ_VERIFY()` to check numerics");                                   \
         switch (t) {                                                                                                                       \
             case ZjE::Failure:                                                                                                             \
                 _ZjThrow(t, ZjFailure(), std::source_location::current(), ##__VA_ARGS__);                                                  \
@@ -103,27 +127,6 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
         }                                                                                                                                  \
     } while (0)
 
-/**
- * @brief A try-catch macro that throws and re-throws zj exception types and provides call site source location, @see _ZjThrow for the two
- * cases for ZjBug and the throwing rules
- */
-#define _ZJ_TRY(expression)                                                                                                                \
-    do {                                                                                                                                   \
-        try {                                                                                                                              \
-            expression;                                                                                                                    \
-        } catch (const ZjFailure& e) {                                                                                                     \
-            _ZjThrow(ZjE::Failure, e, std::source_location::current());                                                                    \
-        } catch (const ZjFault& e) {                                                                                                       \
-            _ZjThrow(ZjE::Fault, e, std::source_location::current());                                                                      \
-        } catch (const ZjBug& e) {                                                                                                         \
-            _ZjThrow(ZjE::Bug, ZjBug(zj::debug::k_notTopOfChain), std::source_location::current());                                        \
-        } catch (const std::exception& e) {                                                                                                \
-            _ZjThrow(ZjE::Bug, e, std::source_location::current(), std::string {#expression});                                             \
-        } catch (...) {                                                                                                                    \
-            _ZjAssert("N/A", std::source_location::current(), "unknown exception, package cannot trace it");                               \
-        }                                                                                                                                  \
-    } while (0)
-
 // ---------------------------------------------------------
 // Convenient wrappers
 // ---------------------------------------------------------
@@ -134,7 +137,8 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
 /// Throw ZjFailure
 #define _ZJ_THROW_FAILURE(...) _ZJ_THROW_EXCEPTION(ZjE::Failure, ##__VA_ARGS__)
 
-/// Throw ZjFault if condition is satisfied
+/// @brief Throw ZjFault if condition not satisfied
+/// @note No need to log the condition since source location will take client to the call site where the condition is present
 #define _ZJ_THROW_IF(condition, ...)                                                                                                       \
     do {                                                                                                                                   \
         _ZJ_STATIC_BOOLEAN_CHECK(condition);                                                                                               \
@@ -143,7 +147,7 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
         }                                                                                                                                  \
     } while (0)
 
-/// Throw ZjFailure if condition is satisfied
+/// @brief Throw ZjFailure if condition not satisfied, @see Notes in _ZJ_THROW_IF
 #define _ZJ_THROW_FAILURE_IF(condition, ...)                                                                                               \
     do {                                                                                                                                   \
         _ZJ_STATIC_BOOLEAN_CHECK(condition);                                                                                               \

@@ -1,5 +1,5 @@
 /**
- * @file ZjExceptions.hpplibs/zj-debug-core/inc/ZjExceptions.hpp:0:
+ * @file ZjExceptions.hpp
  * @author Zongyao Jin (zongyaojin@outlook.com)
  * @date 2023-08
  * @copyright Copyright (c) 2023 by Zongyao Jin
@@ -7,14 +7,16 @@
 
 #pragma once
 
-#include <cstdint>
-#include <exception>
 #include <string>
+#include <exception>
+#include <source_location>
+#include <cstdint>
 
 /// ZjException types enum
 enum class ZjExceptionType : std::uint8_t
 {
     Bug = 0,
+    Singular,
     Fault,
     Failure,
 };
@@ -38,7 +40,7 @@ public:
     virtual const char* what() const noexcept { return m_msg.c_str(); }
 
 protected:
-    std::string m_msg {"see log trace for details"};
+    std::string m_msg {"refer to log trace top for more information"};
 };
 
 /// External level, reserved for catching and re-throwing external, non-zj exceptions
@@ -49,6 +51,19 @@ public:
     virtual ~ZjBug() noexcept = default;
 
     explicit ZjBug(const std::string& msg)
+    : ZjException(msg)
+    {
+    }
+};
+
+/// Numerical singular level exception
+class ZjSingular : public ZjException
+{
+public:
+    ZjSingular() = default;
+    virtual ~ZjSingular() noexcept = default;
+
+    explicit ZjSingular(const std::string& msg)
     : ZjException(msg)
     {
     }

@@ -1,14 +1,15 @@
 #include "ZjDebug.hpp"
+#include "ZjLogMacroExtensions.hpp"
 
 void f1(int i)
 {
     spdlog::info("in f1");
 
     if (i == 2) {
-        throw std::invalid_argument("i == 2 causing throw std error");
+        throw std::invalid_argument("throwing std exception");
     }
 
-    _ZJ_THROW_IF(i != 2, "i != 2 causing throw ZjFault");
+    _ZJ_THROW_IF(i != 2, "throwing ZjFault");
 }
 
 void f2(int i)
@@ -27,14 +28,19 @@ int main()
 {
     try {
         _ZJ_TRY(f3(2));
-    } catch (...) {
-        spdlog::info("got f3(2) exception");
+    } catch (const std::exception& e) {
+        spdlog::info("got f3(2) exception: {}", e.what());
     }
+
+    _ZJ_DEBUG("");
+    _ZJ_DEBUG("");
+    _ZJ_DEBUG("");
+    _ZJ_DEBUG("");
 
     try {
         _ZJ_TRY(f3(1));
-    } catch (...) {
-        spdlog::info("got f3(1) exception");
+    } catch (const std::exception& e) {
+        spdlog::info("got f3(1) exception: {}", e.what());
     }
 
     return 0;
