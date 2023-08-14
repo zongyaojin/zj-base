@@ -113,7 +113,7 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
     do {                                                                                                                                   \
         static_assert(std::is_same_v<decltype(t), ZjE>, "first argument of `_ZJ_THROW()` has to be a ZjExceptionType");                    \
         static_assert(t != ZjE::Bug, "ZjBug is reserved for `_ZJ_TRY()` to pass upstream exceptions");                                     \
-        static_assert(t != ZjE::Singular, "ZjSingular is reserved for `_ZJ_CHECK()` to check numerics");                                   \
+        static_assert(t != ZjE::Singular, "ZjSingular is reserved for `_ZJ_VERIFY()` to check numerics");                                   \
         switch (t) {                                                                                                                       \
             case ZjE::Failure:                                                                                                             \
                 _ZjThrow(t, ZjFailure(), std::source_location::current(), ##__VA_ARGS__);                                                  \

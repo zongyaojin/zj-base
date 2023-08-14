@@ -10,6 +10,7 @@ This package contains some handy tools such as logging and debugging for C++ pro
 - `ZjSingleton` provides a singleton base class using the Curiously Recurring Template Pattern
 
 - `ZjDebug` provides macros for try, catch, and throw mechanisms that can report error with the call stack information
+- `ZjVerifyNumeric` provides a macro to check Eigen or std variable singularity
 - `ZjLogMacroExtensions` provides macros for assertion and regular, condition-based, and periodic message with built-in log support
 
 - `ZjCsvLog` provides a singleton class that can create as many files as needed and log Eigen vectors with time stamp to a given file in a thread-safe fashion
