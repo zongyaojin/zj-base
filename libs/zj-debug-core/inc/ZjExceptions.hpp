@@ -16,7 +16,7 @@
 enum class ZjExceptionType : std::uint8_t
 {
     Bug = 0,
-    Singular,
+    Singularity,
     Fault,
     Failure,
 };
@@ -57,13 +57,13 @@ public:
 };
 
 /// Numerical singular level exception
-class ZjSingular : public ZjException
+class ZjSingularity : public ZjException
 {
 public:
-    ZjSingular() = default;
-    virtual ~ZjSingular() noexcept = default;
+    ZjSingularity() = default;
+    virtual ~ZjSingularity() noexcept = default;
 
-    explicit ZjSingular(const std::string& msg)
+    explicit ZjSingularity(const std::string& msg)
     : ZjException(msg)
     {
     }

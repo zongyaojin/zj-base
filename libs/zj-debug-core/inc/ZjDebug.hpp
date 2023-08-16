@@ -67,9 +67,9 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
             _ZjMessage(ZjLogLevel::Error, s, fmtMsg);
             throw ZjFault(e.what());
         } break;
-        case ZjE::Singular: {
+        case ZjE::Singularity: {
             _ZjMessage(ZjLogLevel::Error, s, fmtMsg);
-            throw ZjSingular(e.what());
+            throw ZjSingularity(e.what());
         } break;
         case ZjE::Bug: {
             _ZjMessage(ZjLogLevel::Error, s, fmtMsg);
@@ -82,28 +82,35 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
 
 /**
  * @brief A try-catch macro that throws and re-throws zj exception types and provides call site source location
+ *
+ * @note For the time being, Boost::stacktrace provides similar functionalities but the output information isn't as good as expected; it
+ * takes a lot of platform-dependent compile option to make the stacktrace to print files and line numbers, and sometime the information is
+ * still incomplete
+ * @see https://www.boost.org/doc/libs/1_83_0/doc/html/stacktrace.html
+ *
+ * @note Once most compilers have the <stacktrace> proposed in C++ 23 implemented, we should give that a try; currently, at the moment, even
+ * the latest major compilers don't have it
+ * @see https://en.cppreference.com/w/cpp/utility/basic_stacktrace
  */
 #define _ZJ_TRY(expression)                                                                                                                \
-    do {                                                                                                                                   \
-        try {                                                                                                                              \
-            expression;                                                                                                                    \
-        } catch (const ZjFailure& e) {                                                                                                     \
-            _ZjThrow(ZjE::Failure, e, std::source_location::current());                                                                    \
-        } catch (const ZjFault& e) {                                                                                                       \
-            _ZjThrow(ZjE::Fault, e, std::source_location::current());                                                                      \
-        } catch (const ZjSingular& e) {                                                                                                    \
-            _ZjThrow(ZjE::Singular, e, std::source_location::current());                                                                   \
-        } catch (const ZjBug& e) {                                                                                                         \
-            _ZjThrow(ZjE::Bug, e, std::source_location::current());                                                                        \
-        } catch (const std::exception& e) {                                                                                                \
-            auto s {std::source_location::current()};                                                                                      \
-            auto errMsg {fmt::format("external exception, type [{}], what [{}], from [{}]", _ZJ_DEMANGLE(e), e.what(), #expression)};      \
-            auto fmtMsg {fmt::format(zj::debug::k_formatter, s.file_name(), s.line(), s.column(), s.function_name(), std::move(errMsg))};  \
-            _ZjThrow(ZjE::Bug, ZjBug(std::move(fmtMsg)), std::source_location::current());                                                 \
-        } catch (...) {                                                                                                                    \
-            _ZjAssert("N/A", std::source_location::current(), "unknown exception, package cannot trace it");                               \
-        }                                                                                                                                  \
-    } while (0)
+    try {                                                                                                                                  \
+        expression;                                                                                                                        \
+    } catch (const ZjFailure& e) {                                                                                                         \
+        _ZjThrow(ZjE::Failure, e, std::source_location::current());                                                                        \
+    } catch (const ZjFault& e) {                                                                                                           \
+        _ZjThrow(ZjE::Fault, e, std::source_location::current());                                                                          \
+    } catch (const ZjSingularity& e) {                                                                                                     \
+        _ZjThrow(ZjE::Singularity, e, std::source_location::current());                                                                    \
+    } catch (const ZjBug& e) {                                                                                                             \
+        _ZjThrow(ZjE::Bug, e, std::source_location::current());                                                                            \
+    } catch (const std::exception& e) {                                                                                                    \
+        auto s {std::source_location::current()};                                                                                          \
+        auto errMsg {fmt::format("external exception, type [{}], what [{}], from [{}]", _ZJ_DEMANGLE(e), e.what(), #expression)};          \
+        auto fmtMsg {fmt::format(zj::debug::k_formatter, s.file_name(), s.line(), s.column(), s.function_name(), std::move(errMsg))};      \
+        _ZjThrow(ZjE::Bug, ZjBug(std::move(fmtMsg)), std::source_location::current());                                                     \
+    } catch (...) {                                                                                                                        \
+        _ZjAssert("N/A", std::source_location::current(), "unknown exception, package cannot trace it");                                   \
+    }
 
 /**
  * @brief A macro that throws with call site source location and a ZjException specified by an input argument
@@ -113,7 +120,7 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
     do {                                                                                                                                   \
         static_assert(std::is_same_v<decltype(t), ZjE>, "first argument of `_ZJ_THROW()` has to be a ZjExceptionType");                    \
         static_assert(t != ZjE::Bug, "ZjBug is reserved for `_ZJ_TRY()` to pass upstream exceptions");                                     \
-        static_assert(t != ZjE::Singular, "ZjSingular is reserved for `_ZJ_VERIFY()` to check numerics");                                   \
+        static_assert(t != ZjE::Singularity, "ZjSingularity is reserved for `_ZJ_VERIFY()` to check numerics");                            \
         switch (t) {                                                                                                                       \
             case ZjE::Failure:                                                                                                             \
                 _ZjThrow(t, ZjFailure(), std::source_location::current(), ##__VA_ARGS__);                                                  \

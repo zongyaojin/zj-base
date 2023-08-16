@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Exit the script on any error
-set -e
+# https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425
+set -euxo pipefail
 
 # Script absolute path
 script_abs_path="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"

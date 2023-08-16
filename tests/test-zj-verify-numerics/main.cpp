@@ -50,15 +50,15 @@ TEST(TestZjVerify, DirectVerify)
     v << 1, 2, i;
     Eigen::Matrix2d m;
     m << 1, 2, 3, i;
-    EXPECT_THROW(_ZJ_VERIFY(i), ZjSingular);
-    EXPECT_THROW(_ZJ_VERIFY(v), ZjSingular);
-    EXPECT_THROW(_ZJ_VERIFY(m), ZjSingular);
+    EXPECT_THROW(_ZJ_VERIFY(i), ZjSingularity);
+    EXPECT_THROW(_ZJ_VERIFY(v), ZjSingularity);
+    EXPECT_THROW(_ZJ_VERIFY(m), ZjSingularity);
 }
 
 TEST(TestZjThrow, TraceVerify)
 {
-    EXPECT_THROW(_ZJ_TRY(world(true)), ZjSingular);
-    EXPECT_THROW(_ZJ_TRY(world(false)), ZjSingular);
+    EXPECT_THROW(_ZJ_TRY(world(true)), ZjSingularity);
+    EXPECT_THROW(_ZJ_TRY(world(false)), ZjSingularity);
 
     _ZJ_DEBUG("");
     EXPECT_NO_THROW(_ZJ_TRY(noThrow()));
