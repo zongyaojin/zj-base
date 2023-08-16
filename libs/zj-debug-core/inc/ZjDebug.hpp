@@ -91,6 +91,9 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
  * @note Once most compilers have the <stacktrace> proposed in C++ 23 implemented, we should give that a try; currently, at the moment, even
  * the latest major compilers don't have it
  * @see https://en.cppreference.com/w/cpp/utility/basic_stacktrace
+ *
+ * @warning Macros are not very smart when dealing with expressions with commas; try to avoid writing an expression such as `v << 1, 2, 3;`
+ * with macros, if you have to do it, you may have to wrap the expression with parentheses or brackets
  */
 #define _ZJ_TRY(expression)                                                                                                                \
     try {                                                                                                                                  \
