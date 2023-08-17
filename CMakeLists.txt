@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.22.1)
 #   the ${PROJECT_NAME} is used to generate the package config file:
 # * If the project name is formatted as "project-name", then the config file should be "${PROJECT_NAME}-config.cmake"
 # * If the project name is formatted as "ProjectName", then the config file should be "${PROJECT_NAME}Config.cmake"
-project(zj-base VERSION 0.0.1)
+project(zj-base VERSION 1.0.0)
 
 # ######################################################################################################################
 # Scripts
@@ -65,6 +65,8 @@ endforeach()
 set(zjHeaderPatterns "*.hpp" "*.h")
 # Define folders that need to be copied by install, LEAVE IT EMPTY if no such folder so install won't fail finding them
 set(zjDataFolders "")
+# Define the path in which the config-in file for install is located
+set(zjConfigInFilePathNoSlash "${CMAKE_SOURCE_DIR}/cmake/in-files")
 # Use the function to combine all targets as one interface target and install the combined target
 zj_combine_install_library(
     "${zjLibsInOrder}"
@@ -72,6 +74,7 @@ zj_combine_install_library(
     "${zjHeaderPatterns}"
     "${zjExamples}"
     "${zjDataFolders}"
+    "${zjConfigInFilePathNoSlash}"
 )
 
 # ######################################################################################################################
