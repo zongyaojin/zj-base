@@ -64,6 +64,12 @@ int testZjAssert(const bool flag, const std::string& msg = "")
     return 1;
 }
 
+int testZjAbort(const bool flag, const std::string& msg = "")
+{
+    _ZJ_ABORT_IF(flag, msg);
+    return 1;
+}
+
 TEST(TestZjThrow, ThrowExceptions)
 {
     ZjLog::getInstance().init(__ZJ_PKG_BUILD_PATH_NO_SLASH__, __ZJ_PKG_BUILD_PATH_NO_SLASH__);
@@ -129,4 +135,19 @@ TEST(TestZjAssert, AssertCases)
     ::testing::GTEST_FLAG(death_test_style) = "threadsafe";
     ASSERT_DEATH(testZjAssert(false), "");
     ASSERT_DEATH(testZjAssert(false, "asserted false"), "");
+}
+
+TEST(TestZjAbortIf, AbortCases)
+{
+    bool flag;
+
+    flag = false;
+    EXPECT_EQ(testZjAbort(flag), 1);
+    EXPECT_EQ(testZjAbort(flag, "dummy"), 1);
+
+    ::testing::GTEST_FLAG(death_test_style) = "threadsafe";
+
+    flag = true;
+    ASSERT_DEATH(testZjAbort(flag), "");
+    ASSERT_DEATH(testZjAbort(flag, "abort message"), "");
 }

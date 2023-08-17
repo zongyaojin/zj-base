@@ -14,7 +14,7 @@ project(zj-base VERSION 0.0.1)
 # ######################################################################################################################
 # Scripts
 
-include(${CMAKE_SOURCE_DIR}/cmake/zj-include-all.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/zj-cmake/zj-include-all.cmake)
 
 # ######################################################################################################################
 # System check

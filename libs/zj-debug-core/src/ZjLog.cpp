@@ -32,6 +32,7 @@ static constexpr const char* k_logSubFolderName {"zj-logs"};
 
 void ZjLog::log(const ZjLogLevel level, std::string&& msg)
 {
+    // The current version of cpplint doesn't like it, but it could be `if (m_logger) [[unlikely]] {}` with C++ 23 to improve performance
     if (m_logger) {
         m_logger->log(mk_logLevelMap.at(level), msg);
         return;
@@ -39,6 +40,11 @@ void ZjLog::log(const ZjLogLevel level, std::string&& msg)
 
     init();
     m_logger->log(mk_logLevelMap.at(level), msg);
+
+    if (level == ZjL::Critical) {
+        // Make sure it flushes the logger if the message is critical
+        m_logger->flush();
+    }
 }
 
 void ZjLog::init(const std::string& csvLogFolderNoSlash, const std::string& regularLogFolderNoSlash)
