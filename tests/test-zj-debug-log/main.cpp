@@ -64,9 +64,9 @@ int testZjAssert(const bool flag, const std::string& msg = "")
     return 1;
 }
 
-int testZjAbort(const bool flag, const std::string& msg = "")
+int testZjPrint(const bool flag, const std::string& msg = "")
 {
-    _ZJ_ABORT_IF(flag, msg);
+    _ZJ_PRINT_IF(flag, msg);
     return 1;
 }
 
@@ -97,6 +97,12 @@ TEST(TestZjThrow, ThrowExceptionsIf)
 
     EXPECT_THROW(testZjThrowFailureIf(true), ZjFailure);
     EXPECT_THROW(testZjThrowFailureIf(true, "foo"), ZjFailure);
+
+    try {
+        testZjThrowFailureIf(true, "foo");
+    } catch (const std::exception& e) {
+        std::cout << "\n\n\n" << e.what() << "\n\n\n" << std::endl;
+    }
 
     EXPECT_NO_THROW(testZjThrowFailureIf(false));
     EXPECT_NO_THROW(testZjThrowFailureIf(false, "foo"));
@@ -137,17 +143,15 @@ TEST(TestZjAssert, AssertCases)
     ASSERT_DEATH(testZjAssert(false, "asserted false"), "");
 }
 
-TEST(TestZjAbortIf, AbortCases)
+TEST(TestZjPrintIf, PrintCases)
 {
     bool flag;
 
     flag = false;
-    EXPECT_EQ(testZjAbort(flag), 1);
-    EXPECT_EQ(testZjAbort(flag, "dummy"), 1);
-
-    ::testing::GTEST_FLAG(death_test_style) = "threadsafe";
+    EXPECT_EQ(testZjPrint(flag), 1);
+    EXPECT_EQ(testZjPrint(flag, "dummy"), 1);
 
     flag = true;
-    ASSERT_DEATH(testZjAbort(flag), "");
-    ASSERT_DEATH(testZjAbort(flag, "abort message"), "");
+    EXPECT_EQ(testZjPrint(flag), 1);
+    EXPECT_EQ(testZjPrint(flag, "printer message"), 1);
 }

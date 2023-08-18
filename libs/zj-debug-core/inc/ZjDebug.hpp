@@ -29,45 +29,44 @@ namespace debug {
 static constexpr const char* k_formatter {"{}:{}:{} @ `{}` | {}"};
 
 /// Abort message formatter
-static constexpr const char* k_abortFmt {ZJ_B_PURPLE "  ZJ-ABORT" ZJ_PLAIN " | " ZJ_B_WHITE "{}:{}:{} @ `{}`" ZJ_PLAIN " | {}\n"};
+static constexpr const char* k_printFmt {ZJ_B_PURPLE "  ZJ-PRINT" ZJ_PLAIN " | " ZJ_B_WHITE "{}:{}:{} @ `{}`" ZJ_PLAIN " | {}\n"};
 
 } // namespace debug
 } // namespace zj
 
 /**
- * @brief A debugging helper that aborts the program if enabled, and allows call site trace and an optional user message
+ * @brief A debugging helper that immediately prints without logging; it provides call site trace and takes an optional user message
  *
  * @tparam Args Variadic template type
  * @param[in] s Source location
  * @param[in] fmt Formatter
  * @param[in] args Variadic argument for the message
  *
- * @note This is intended to be used in functions that would run into segmentation fault, but you don't know which line triggers the fault
+ * @note This is intended to be used in functions that would run into segmentation fault, yet you don't know which line triggers the fault
  * (e.g., GDB indicates a function causes the segmentation fault, but the function is very long, you don't know which line causes it); by
  * inserting this macro in between lines of the faulty function, it's easy to see until which line the function still runs
  *
- * @warning Client code shouldn't use this function directly, they should use macro _ZJ_ABORT_IF instead
+ * @warning Client code shouldn't use this function directly, they should use macro _ZJ_PRINT_IF instead
  */
 template <typename... Args>
-void _ZjAbort(const std::source_location& s, const std::string& fmt = "", Args&&... args)
+void _ZjPrint(const std::source_location& s, const std::string& fmt = "", Args&&... args)
 {
-    using zj::debug::k_abortFmt;
+    using zj::debug::k_printFmt;
 
     std::string userMsg {fmt::format(fmt::runtime(fmt), args...)};
     if (userMsg.empty()) {
         userMsg = "...";
     }
-    std::string fmtMsg {fmt::format(k_abortFmt, s.file_name(), s.line(), s.column(), s.function_name(), std::move(userMsg))};
+    std::string fmtMsg {fmt::format(k_printFmt, s.file_name(), s.line(), s.column(), s.function_name(), std::move(userMsg))};
     printf("%s\n", fmtMsg.c_str());
-    std::abort();
 }
 
-/// The macro wrapper for _ZjAbort that provide in-place source location for call site tracing
-#define _ZJ_ABORT_IF(enabled, ...)                                                                                                         \
+/// A macro wrapper for _ZjPrint that provides in-place source location for call site tracing
+#define _ZJ_PRINT_IF(enabled, ...)                                                                                                         \
     do {                                                                                                                                   \
         _ZJ_STATIC_BOOLEAN_CHECK(enabled);                                                                                                 \
         if (enabled) {                                                                                                                     \
-            _ZjAbort(std::source_location::current(), ##__VA_ARGS__);                                                                      \
+            _ZjPrint(std::source_location::current(), ##__VA_ARGS__);                                                                      \
         }                                                                                                                                  \
     } while (0)
 
