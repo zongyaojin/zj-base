@@ -9,7 +9,7 @@ This package contains some handy tools such as logging and debugging for C++ pro
 - `ZjChrono` provides some time-related functions, definitions, and aliases
 - `ZjSingleton` provides a singleton base class using the Curiously Recurring Template Pattern
 
-- `ZjDebug.hpp` provides macros for abort, try, catch, and throw mechanisms that can report error with the call site/stack information
+- `ZjDebug.hpp` provides macros for print, try-catch, and throw mechanisms that can report error with call site and stack trace information
 - `ZjVerifyNumerics.hpp` provides a macro to check Eigen or std variable singularity
 - `ZjLogMacroExtensions.hpp` provides macros for assertion and regular, condition-based, and periodic message with built-in log support
 
