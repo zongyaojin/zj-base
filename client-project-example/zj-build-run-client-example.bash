@@ -16,7 +16,7 @@ rm -rf $build_path
 # Make directories
 mkdir -p $build_path
 
-# Go to the build directory, build and install
+# Go to the build path, build and install
 (
     cd $build_path
     cmake .. \
