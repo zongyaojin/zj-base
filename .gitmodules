@@ -1,3 +1,6 @@
 [submodule "cmake/zj-cmake"]
 	path = cmake/zj-cmake
 	url = git@github.com:zongyaojin/zj-cmake.git
+[submodule "scripts/zj-common-scripts"]
+	path = scripts/zj-common-scripts
+	url = git@github.com:zongyaojin/zj-common-scripts.git

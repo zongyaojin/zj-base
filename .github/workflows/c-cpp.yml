@@ -25,14 +25,17 @@ jobs:
           token: ${{ secrets.ZJ_REPO_PAT }}
 
       # Multi-line command | https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
-      - name: Install dependencies
-        run: bash ./scripts/zj-install-deps.bash
+      - name: Install common dependencies
+        run: bash ./scripts/zj-common-scripts/zj-dependencies.bash
+
+      - name: Install package dependencies
+        run: bash ./scripts/zj-package-dependencies.bash
 
       - name: Build, test and install
-        run: bash ./scripts/zj-build-install-example.bash
+        run: bash ./scripts/zj-common-scripts/zj-build-install-example.bash
 
-      - name: Run client project example
-        run: bash ./client-project-example/build-run-client-example.bash
+      - name: Build and run client project example
+        run: bash ./client-project-example/zj-build-run-client-example.bash
 
       - name: Setup and run pre-commit
-        run: bash ./scripts/zj-pre-commit.bash
+        run: bash ./scripts/zj-common-scripts/zj-pre-commit.bash

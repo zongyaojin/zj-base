@@ -25,6 +25,5 @@ This package contains some handy tools such as logging and debugging for C++ pro
 
 See also:
 
-- [Version history](./version-history.md)
 - [Create and push tags](https://stackoverflow.com/a/18223354)
 - [Delete and push tags](https://stackoverflow.com/a/5480292)
