@@ -34,7 +34,7 @@ jobs:
       - name: Build, test and install
         run: bash ./scripts/zj-common-scripts/zj-build-install-example.bash
 
-      - name: Run client project example
+      - name: Build and run client project example
         run: bash ./client-project-example/zj-build-run-client-example.bash
 
       - name: Setup and run pre-commit
