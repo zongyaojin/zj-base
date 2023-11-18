@@ -1,5 +1,4 @@
 # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
-
 name: C/C++ CI
 
 on:
@@ -15,23 +14,21 @@ jobs:
     steps:
       # Github checkout action | https://github.com/actions/checkout
       # Private repo checkout | https://github.com/actions/checkout/issues/116#issuecomment-644419389
-      # The PAT for a user (personal access token) can created in [Github -> settings -> Developer settings -> Personal access tokens]
-      # For the following "token" entry, it's giving the this repo's workflow via the PAT access to user's other private repos
-      # You have to set it for this repo in [Repo -> Settings -> Secrets and variables -> Actions]
+      # Generate a PAT (personal access token) for your account, then add the PAT to repositories
+      #   that need it (as a `secret`) to access other private repositories in your account for GitHub Action
       - name: Checkout repository with submodules
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: recursive
           token: ${{ secrets.ZJ_REPO_PAT }}
 
-      # Multi-line command | https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
       - name: Install common dependencies
         run: bash ./scripts/zj-common-scripts/zj-dependencies.bash
 
       - name: Install package dependencies
         run: bash ./scripts/zj-package-dependencies.bash
 
-      - name: Build, test and install
+      - name: Build, test, and install
         run: bash ./scripts/zj-common-scripts/zj-build-install-example.bash
 
       - name: Build and run client project example
