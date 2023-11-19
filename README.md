@@ -20,10 +20,3 @@ This package contains some basic tools such as logging and debugging for C++ pro
 
 - `[./examples/sigint-sigsegv-handling/]` shows how to handle a Ctrl-C or a Segmentation Fault terminated program
 - `[./examples/compile-definitions/]` shows the usage of some compile definitions provided by the [zj-cmake](https://github.com/zongyaojin/zj-cmake/tree/main) submodule
-
----
-
-See also:
-
-- [Create and push tags](https://stackoverflow.com/a/18223354)
-- [Delete and push tags](https://stackoverflow.com/a/5480292)
