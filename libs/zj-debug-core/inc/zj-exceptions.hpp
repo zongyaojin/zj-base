@@ -1,5 +1,5 @@
 /**
- * @file ZjExceptions.hpp
+ * @file zj-exceptions.hpp
  * @author Zongyao Jin (zongyaojin@outlook.com)
  * @date 2023-08
  * @copyright Copyright (c) 2023 by Zongyao Jin
@@ -15,10 +15,10 @@
 /// ZjException types enum
 enum class ZjExceptionType : std::uint8_t
 {
-    Bug = 0,
-    Singularity,
-    Fault,
-    Failure,
+    kBug = 0,
+    kSingularity,
+    kFault,
+    kFailure,
 };
 
 /// ZjExceptionType short alias
@@ -32,15 +32,15 @@ protected:
     virtual ~ZjException() noexcept = default;
 
     explicit ZjException(const std::string& msg)
-    : m_msg(msg)
+    : msg_(msg)
     {
     }
 
 public:
-    virtual const char* what() const noexcept { return m_msg.c_str(); }
+    virtual const char* what() const noexcept { return msg_.c_str(); }
 
 protected:
-    std::string m_msg {"refer to log trace top for more information"};
+    std::string msg_ {"refer to log trace top for more information"};
 };
 
 /// External level, reserved for catching and re-throwing external, non-zj exceptions

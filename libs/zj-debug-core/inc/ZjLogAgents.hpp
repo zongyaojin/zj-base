@@ -12,6 +12,7 @@
 
 #include "ZjLog.hpp"
 #include "zj-colors.hpp"
+#include "zj-formatters.hpp"
 
 #include <source_location>
 #include <string>
@@ -22,20 +23,6 @@
 
 #include "spdlog/spdlog.h"
 #include "fmt/format.h"
-
-namespace zj {
-namespace log {
-namespace agents {
-
-/// Assertion message formatter
-static constexpr const char* k_assertFmt {"{}:{}:{} @ `{}` | [{}]\n  {}\n"};
-
-/// Trace message formatter
-static constexpr const char* k_traceFmt {"{}:{}:{} @ `{}` | {}"};
-
-} // namespace agents
-} // namespace log
-} // namespace zj
 
 /**
  * @brief Assertion with source location, user messages, and log support
@@ -53,7 +40,7 @@ void _ZjAssert(const char* condition, const std::source_location& s, const std::
 {
     std::string user_msg {fmt::format(fmt::runtime(fmt), args...)};
     ZjLog::GetInstance().log(ZjL::Critical,
-        fmt::format(zj::log::agents::k_assertFmt, s.file_name(), s.line(), s.column(), s.function_name(), condition, std::move(user_msg)));
+        fmt::format(zj::kAssertFmt, s.file_name(), s.line(), s.column(), s.function_name(), condition, std::move(user_msg)));
     ZjLog::GetInstance().shutdown();
     std::abort();
 }
@@ -76,7 +63,7 @@ void _ZjMessage(const ZjLogLevel level, const std::source_location& s, const std
         case ZjLogLevel::Trace: {
             std::string user_msg {fmt::format(fmt::runtime(fmt), args...)};
             ZjLog::GetInstance().log(ZjL::Trace,
-                fmt::format(zj::log::agents::k_traceFmt, s.file_name(), s.line(), s.column(), s.function_name(), std::move(user_msg)));
+                fmt::format(zj::kTraceFmt, s.file_name(), s.line(), s.column(), s.function_name(), std::move(user_msg)));
         } break;
         case ZjLogLevel::Debug: {
             ZjLog::GetInstance().log(ZjL::Debug, fmt::format(fmt::runtime(fmt), args...));

@@ -62,7 +62,7 @@ void _ZjVerifyNumerics(const Eigen::Matrix<Type, M, N>& var, const std::string& 
 
         std::string err_msg {fmt::format("singular eigen variable [{}]\n{}", varLiteral, oss.str())};
         std::string fmt_msg {fmt::format(k_exceptionFmt, s.file_name(), s.line(), s.column(), s.function_name(), err_msg)};
-        _ZjThrow(ZjE::Singularity, ZjSingularity(std::move(fmt_msg)), s, err_msg);
+        _ZjThrow(ZjE::kSingularity, ZjSingularity(std::move(fmt_msg)), s, err_msg);
     }
 }
 
@@ -83,7 +83,7 @@ void _ZjVerifyNumerics(const Type var, const std::string& varLiteral, const std:
     if (!std::isnormal(var)) {
         std::string err_msg {fmt::format("singular std variable [{} = {}]", varLiteral, var)};
         std::string fmt_msg {fmt::format(k_exceptionFmt, s.file_name(), s.line(), s.column(), s.function_name(), err_msg)};
-        _ZjThrow(ZjE::Singularity, ZjSingularity(std::move(fmt_msg)), s, err_msg);
+        _ZjThrow(ZjE::kSingularity, ZjSingularity(std::move(fmt_msg)), s, err_msg);
     }
 }
 
