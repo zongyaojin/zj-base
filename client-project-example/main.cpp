@@ -1,20 +1,21 @@
 #include "zj-base/zj-logging.hpp"
-#include "zj-base/zj-utility.hpp"
+#include "zj-base/zj-tools.hpp"
 
 #include <iostream>
-#include <eigen3/Eigen/Dense>
+
+#include "Eigen/Dense"
 #include "spdlog/spdlog.h"
 
-void foo()
+void Foo()
 {
     _ZJ_DEBUG("\n\nin foo\n\n");
     _ZJ_THROW("intentional fault");
 }
 
-void bar()
+void Bar()
 {
     _ZJ_DEBUG("\n\nin bar\n\n");
-    _ZJ_TRY(foo());
+    _ZJ_TRY(Foo());
 }
 
 int main()
@@ -32,10 +33,10 @@ int main()
     spdlog::critical("Consider selecting PUBLIC, INTERFACE, or PRIVATE");
     spdlog::critical("=======================================================================");
 
-    _ZJ_INFO("time iso: {}", ZjChrono::ZjGetTimeIso());
+    _ZJ_INFO("time iso: {}", ZjGetTimeIso());
 
     try {
-        bar();
+        Bar();
     } catch (const std::exception& e) {
         _ZJ_DEBUG("got intentional exception [{}]", e.what());
     }

@@ -5,6 +5,10 @@
         "*.prototxt": "proto",
         "*.hqt": "cpp",
         "*.primitives": "xml",
+        "*.lr": "jinja-html",
+        "*.lektorproject": "ini",
+        "*.ini": "ini",
+        "*.html": "html",
         "cctype": "cpp",
         "clocale": "cpp",
         "cmath": "cpp",
@@ -76,7 +80,8 @@
         "fstream": "cpp",
         "forward_list": "cpp",
         "csignal": "cpp",
-        "codecvt": "cpp"
+        "codecvt": "cpp",
+        "dense": "cpp"
     },
     "cSpell.words": [
         "cppcheck",

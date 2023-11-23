@@ -4,6 +4,6 @@
 int main()
 {
     _ZJ_INFO("in main");
-    foo();
+    Foo();
     return 0;
 }

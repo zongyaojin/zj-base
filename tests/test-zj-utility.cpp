@@ -5,12 +5,12 @@
 #include <map>
 #include <unordered_map>
 
-const std::map<double, int> k_map {
+const std::map<double, int> kMap {
     {1.1, 1},
     {2.2, 2},
 };
 
-const std::unordered_map<double, int> k_unorderedMap {
+const std::unordered_map<double, int> kUnorderedMap {
     {1.1, 1},
     {2.2, 2},
 };
@@ -21,32 +21,32 @@ enum class TestType
     B,
 };
 
-const std::map<TestType, std::string> k_enumStringMap {
+const std::map<TestType, std::string> kEnumStringMap {
     {TestType::A, "A"},
     {TestType::B, "B"},
 };
 
-const std::unordered_map<TestType, std::string> k_enumStringUnorderedMap {
+const std::unordered_map<TestType, std::string> kEnumStringUnorderedMap {
     {TestType::A, "A"},
     {TestType::B, "B"},
 };
 
 TEST(TestMap, GeneralMaps)
 {
-    EXPECT_NEAR(ZjGetKeyByValue(k_map, 1), 1.1, std::numeric_limits<double>::min());
-    EXPECT_NEAR(ZjGetKeyByValue(k_map, 2), 2.2, std::numeric_limits<double>::min());
+    EXPECT_NEAR(ZjGetKeyByValue(kMap, 1), 1.1, std::numeric_limits<double>::min());
+    EXPECT_NEAR(ZjGetKeyByValue(kMap, 2), 2.2, std::numeric_limits<double>::min());
 
-    EXPECT_NEAR(ZjGetKeyByValue(k_unorderedMap, 1), 1.1, std::numeric_limits<double>::min());
-    EXPECT_NEAR(ZjGetKeyByValue(k_unorderedMap, 2), 2.2, std::numeric_limits<double>::min());
+    EXPECT_NEAR(ZjGetKeyByValue(kUnorderedMap, 1), 1.1, std::numeric_limits<double>::min());
+    EXPECT_NEAR(ZjGetKeyByValue(kUnorderedMap, 2), 2.2, std::numeric_limits<double>::min());
 }
 
 TEST(TestMap, EnumStringMaps)
 {
-    EXPECT_EQ(ZjGetKeyByValue(k_enumStringMap, "A"), TestType::A);
-    EXPECT_EQ(ZjGetKeyByValue(k_enumStringMap, "B"), TestType::B);
+    EXPECT_EQ(ZjGetKeyByValue(kEnumStringMap, "A"), TestType::A);
+    EXPECT_EQ(ZjGetKeyByValue(kEnumStringMap, "B"), TestType::B);
 
-    EXPECT_EQ(ZjGetKeyByValue(k_enumStringUnorderedMap, "A"), TestType::A);
-    EXPECT_EQ(ZjGetKeyByValue(k_enumStringUnorderedMap, "B"), TestType::B);
+    EXPECT_EQ(ZjGetKeyByValue(kEnumStringUnorderedMap, "A"), TestType::A);
+    EXPECT_EQ(ZjGetKeyByValue(kEnumStringUnorderedMap, "B"), TestType::B);
 }
 
 TEST(TestDeleteRawPointer, One)

@@ -3,22 +3,22 @@
 
 int globalVar = 10;
 
-void testSwitchOff()
+void TestSwitchOff()
 {
     ZjProgramSwitch::GetInstance().TurnOff();
 }
 
-void testSwitchOn()
+void TestSwitchOn()
 {
     ZjProgramSwitch::GetInstance().TurnOn();
 }
 
-void testTurnOffRoutine()
+void TestTurnOffRoutine()
 {
     globalVar++;
 }
 
-void testTurnOffRoutine2()
+void TestTurnOffRoutine2()
 {
     globalVar += 9;
 }
@@ -33,17 +33,17 @@ TEST(TestZjProgramSwitch, One)
     ZjProgramSwitch::GetInstance().TurnOff();
     EXPECT_EQ(ZjProgramSwitch::GetInstance().On(), false);
 
-    ZjProgramSwitch::GetInstance().RegisterTurnOffRoutine(&testTurnOffRoutine);
-    ZjProgramSwitch::GetInstance().RegisterTurnOffRoutine(&testTurnOffRoutine2);
+    ZjProgramSwitch::GetInstance().RegisterTurnOffRoutine(&TestTurnOffRoutine);
+    ZjProgramSwitch::GetInstance().RegisterTurnOffRoutine(&TestTurnOffRoutine2);
 
     EXPECT_EQ(globalVar, 10);
     ZjProgramSwitch::GetInstance().TurnOff();
     EXPECT_EQ(ZjProgramSwitch::GetInstance().On(), false);
     EXPECT_EQ(globalVar, 20);
 
-    testSwitchOn();
+    TestSwitchOn();
     EXPECT_EQ(ZjProgramSwitch::GetInstance().On(), true);
-    testSwitchOff();
+    TestSwitchOff();
     EXPECT_EQ(ZjProgramSwitch::GetInstance().On(), false);
     EXPECT_EQ(globalVar, 20);
 }

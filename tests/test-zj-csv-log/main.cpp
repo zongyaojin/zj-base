@@ -12,7 +12,7 @@
 
 namespace fs = std::filesystem;
 
-bool printFile(const std::string& Filename)
+bool PrintFile(const std::string& Filename)
 {
     std::stringstream ss;
 
@@ -71,8 +71,8 @@ TEST(TestZjCsvLog, TestZjCsvLog)
     ZjCsvLogger::GetInstance().Log(log1, v3);
     EXPECT_EQ(ZjCsvLogger::GetInstance().NumLogs(), 1);
 
-    std::string log1_fileName = ZjCsvLogger::GetInstance().Filename(log1);
-    _ZJ_DEBUG("log 1 file: [{}]", log1_fileName);
+    std::string log1_filename = ZjCsvLogger::GetInstance().Filename(log1);
+    _ZJ_DEBUG("log 1 file: [{}]", log1_filename);
 
     ZjCsvLogger::GetInstance().Log(log2, v4);
     EXPECT_EQ(ZjCsvLogger::GetInstance().NumLogs(), 2);
@@ -85,14 +85,14 @@ TEST(TestZjCsvLog, TestZjCsvLog)
     ZjCsvLogger::GetInstance().Log(log2, v6);
     EXPECT_EQ(ZjCsvLogger::GetInstance().NumLogs(), 1);
 
-    std::string log2_fileName = ZjCsvLogger::GetInstance().Filename(log2);
-    _ZJ_DEBUG("log 2 file: [{}]", log2_fileName);
+    std::string log2_filename = ZjCsvLogger::GetInstance().Filename(log2);
+    _ZJ_DEBUG("log 2 file: [{}]", log2_filename);
 
-    EXPECT_TRUE(fs::exists(log1_fileName));
-    EXPECT_TRUE(fs::exists(log2_fileName));
+    EXPECT_TRUE(fs::exists(log1_filename));
+    EXPECT_TRUE(fs::exists(log2_filename));
 
-    EXPECT_TRUE(printFile(log1_fileName));
-    EXPECT_TRUE(printFile(log2_fileName));
+    EXPECT_TRUE(PrintFile(log1_filename));
+    EXPECT_TRUE(PrintFile(log2_filename));
 
     EXPECT_THROW(ZjCsvLogger::GetInstance().Log(log2, v1), ZjFault);
 }

@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "zj-utility.hpp"
 
-int testStaticBoolCheckValid()
+int TestStaticBoolCheckValid()
 {
     _ZJ_STATIC_BOOLEAN_CHECK(true);
     _ZJ_STATIC_BOOLEAN_CHECK(false);
@@ -14,14 +14,14 @@ int testStaticBoolCheckValid()
 }
 
 template <typename T>
-std::string testZjDemangle(T input)
+std::string TestZjDemangle(T input)
 {
     return _ZJ_DEMANGLE(input);
 }
 
 TEST(TestZjStaticBooleanCheck, ValidCases)
 {
-    EXPECT_EQ(testStaticBoolCheckValid(), 1);
+    EXPECT_EQ(TestStaticBoolCheckValid(), 1);
 }
 
 TEST(TestZjTypeTraits, Demangle)
@@ -29,14 +29,14 @@ TEST(TestZjTypeTraits, Demangle)
     int i {0};
     double j {1.2};
     float k {2.3};
-    ZjFault zjFault;
-    ZjFailure zjFailure;
+    ZjFault zj_fault;
+    ZjFailure zj_failure;
 
-    EXPECT_EQ(testZjDemangle(i), "int");
-    EXPECT_EQ(testZjDemangle(j), "double");
-    EXPECT_EQ(testZjDemangle(k), "float");
-    EXPECT_EQ(testZjDemangle(zjFault), "ZjFault");
-    EXPECT_EQ(testZjDemangle(zjFailure), "ZjFailure");
+    EXPECT_EQ(TestZjDemangle(i), "int");
+    EXPECT_EQ(TestZjDemangle(j), "double");
+    EXPECT_EQ(TestZjDemangle(k), "float");
+    EXPECT_EQ(TestZjDemangle(zj_fault), "ZjFault");
+    EXPECT_EQ(TestZjDemangle(zj_failure), "ZjFailure");
 }
 
 TEST(TestZjTypeTraits, TypeId)
