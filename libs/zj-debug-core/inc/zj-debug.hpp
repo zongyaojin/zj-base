@@ -11,7 +11,7 @@
 #include "zj-basic-macros.hpp"
 #include "zj-colors.hpp"
 #include "zj-formatters.hpp"
-#include "ZjLogAgents.hpp"
+#include "zj-logging-agents.hpp"
 
 #include <cstring>
 #include <source_location>
@@ -87,19 +87,19 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
 
     switch (t) {
         case ZjE::kFailure: {
-            _ZjMessage(ZjLogLevel::Critical, s, fmt_msg);
+            _ZjMessage(ZjLogLevel::kCritical, s, fmt_msg);
             throw ZjFailure(e.what());
         } break;
         case ZjE::kFault: {
-            _ZjMessage(ZjLogLevel::Error, s, fmt_msg);
+            _ZjMessage(ZjLogLevel::kError, s, fmt_msg);
             throw ZjFault(e.what());
         } break;
         case ZjE::kSingularity: {
-            _ZjMessage(ZjLogLevel::Error, s, fmt_msg);
+            _ZjMessage(ZjLogLevel::kError, s, fmt_msg);
             throw ZjSingularity(e.what());
         } break;
         case ZjE::kBug: {
-            _ZjMessage(ZjLogLevel::Error, s, fmt_msg);
+            _ZjMessage(ZjLogLevel::kError, s, fmt_msg);
             throw ZjBug(e.what());
         } break;
         default:

@@ -27,7 +27,7 @@ public:
      * @param overtimeCountLimit  The limit of overtime count; if 0 is used, they loop running over time won't trigger anything; otherwise,
      * it will trigger designed behaviors in the implementation
      */
-    void init(const unsigned frequency, const unsigned overtimeCountLimit = 0);
+    void Init(const unsigned frequency, const unsigned overtimeCountLimit = 0);
 
     /// Start time a loop
     inline void start() { m_startTime = ZjChronoClock::now(); }

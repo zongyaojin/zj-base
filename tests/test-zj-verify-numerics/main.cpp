@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "zj-log.hpp"
+#include "zj-logging.hpp"
 
 Eigen::Vector3d invalidEigen()
 {

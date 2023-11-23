@@ -1,11 +1,11 @@
 /**
- * @file ZjLog.cpp
+ * @file zj-logger.cpp
  * @author Zongyao Jin (zongyaojin@outlook.com)
  * @date 2023-08
  * @copyright Copyright (c) 2023 by Zongyao Jin
  */
 
-#include "ZjLog.hpp"
+#include "zj-logger.hpp"
 #include "zj-colors.hpp"
 #include "zj-chrono.hpp"
 #include "zj-basic-macros.hpp"
@@ -30,89 +30,89 @@ static constexpr const char* k_logSubFolderName {"zj-logs"};
 
 } // namespace
 
-void ZjLog::log(const ZjLogLevel level, std::string&& msg)
+void ZjLogger::Log(const ZjLogLevel level, std::string&& msg)
 {
-    // The current version of cpplint doesn't like it, but it could be `if (m_logger) [[unlikely]] {}` with C++ 23 to improve performance
-    if (m_logger) {
-        m_logger->log(mk_logLevelMap.at(level), msg);
+    // The current version of cpplint doesn't like it, but it could be `if (logger_) [[unlikely]] {}` with C++ 23 to improve performance
+    if (logger_) {
+        logger_->log(log_level_map_.at(level), msg);
         return;
     }
 
-    init();
-    m_logger->log(mk_logLevelMap.at(level), msg);
+    Init();
+    logger_->log(log_level_map_.at(level), msg);
 
-    if (level == ZjL::Critical) {
+    if (level == ZjL::kCritical) {
         // Make sure it flushes the logger if the message is critical
-        m_logger->flush();
+        logger_->flush();
     }
 }
 
-void ZjLog::init(const std::string& csvLogFolderNoSlash, const std::string& regularLogFolderNoSlash)
+void ZjLogger::Init(const std::string& csv_log_folder_no_slash, const std::string& regular_log_folder_no_slash)
 {
-    if (m_logger) {
+    if (logger_) {
         return;
     }
 
-    m_csvLogFolderNoSlash = csvLogFolderNoSlash;
-    m_regularLogFolderNoSlash = regularLogFolderNoSlash;
+    csv_log_folder_no_slash_ = csv_log_folder_no_slash;
+    regular_log_folder_no_slash_ = regular_log_folder_no_slash;
 
     {
         auto regularFolderInfo
-            = m_regularLogFolderNoSlash.empty()
-                  ? fmt::format(ZJ_B_GREEN "ZjLog not saving regular log to file" ZJ_PLAIN)
-                  : fmt::format(ZJ_B_GREEN "ZjLog sets regular log base folder to [{}]" ZJ_PLAIN, m_regularLogFolderNoSlash);
-        auto csvFolderInfo = m_csvLogFolderNoSlash.empty()
-                                 ? fmt::format(ZJ_B_GREEN "ZjLog using default csv log base folder" ZJ_PLAIN)
-                                 : fmt::format(ZJ_B_GREEN "ZjLog sets csv log base folder to [{}]" ZJ_PLAIN, m_csvLogFolderNoSlash);
+            = regular_log_folder_no_slash_.empty()
+                  ? fmt::format(ZJ_B_GREEN "ZjLogger not saving regular log to file" ZJ_PLAIN)
+                  : fmt::format(ZJ_B_GREEN "ZjLogger sets regular log base folder to [{}]" ZJ_PLAIN, regular_log_folder_no_slash);
+        auto csvFolderInfo = csv_log_folder_no_slash_.empty()
+                                 ? fmt::format(ZJ_B_GREEN "ZjLogger using default csv log base folder" ZJ_PLAIN)
+                                 : fmt::format(ZJ_B_GREEN "ZjLogger sets csv log base folder to [{}]" ZJ_PLAIN, csv_log_folder_no_slash_);
 
         // Logger not initialized, using raw console print
         printf("[%s | %s]\n", regularFolderInfo.c_str(), csvFolderInfo.c_str());
     }
 
     // If regular log folder folder is empty, do not create log file, only log to console
-    if (!m_regularLogFolderNoSlash.empty()) {
-        std::string logSaveFolder {fmt::format("{}/{}", m_regularLogFolderNoSlash, k_logSubFolderName)};
-        m_fileName = fmt::format("{}/{}_{}.txt", logSaveFolder, __ZJ_PKG_NAME__, ZjGetTimeIso());
+    if (!regular_log_folder_no_slash_.empty()) {
+        std::string logSaveFolder {fmt::format("{}/{}", regular_log_folder_no_slash_, k_logSubFolderName)};
+        filename_ = fmt::format("{}/{}_{}.txt", logSaveFolder, __ZJ_PKG_NAME__, ZjGetTimeIso());
     } else {
-        m_fileName.clear();
+        filename_.clear();
     }
 
     try {
         /// @see https://github.com/gabime/spdlog#asynchronous-logger-with-multi-sinks
-        /// @note Using default thread settings, and one thread should be enough for both ZjLog and a few csv logs
+        /// @note Using default thread settings, and one thread should be enough for both ZjLogger and a few csv logs
         spdlog::init_thread_pool(k_defaultLogThreadQSize, k_defaultLogThreadCount);
         auto stdoutSink {std::make_shared<spdlog::sinks::stdout_color_sink_mt>()};
         std::vector<spdlog::sink_ptr> sinks {stdoutSink};
 
         // If file name is empty, won't create rotating file sink, so no log file will be saved
-        if (!m_fileName.empty()) {
-            auto rotatingFileSink {std::make_shared<spdlog::sinks::rotating_file_sink_mt>(m_fileName, k_maxLogFileSize, k_maxLogNumFiles)};
+        if (!filename_.empty()) {
+            auto rotatingFileSink {std::make_shared<spdlog::sinks::rotating_file_sink_mt>(filename_, k_maxLogFileSize, k_maxLogNumFiles)};
             sinks.push_back(rotatingFileSink);
         }
 
-        m_logger = std::make_shared<spdlog::async_logger>(
+        logger_ = std::make_shared<spdlog::async_logger>(
             __ZJ_PKG_NAME__, sinks.begin(), sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::block);
     } catch (const std::exception& e) {
         auto err_msg {fmt::format(ZJ_B_RED "Regular log initialization failed, exception [{} | {}]" ZJ_PLAIN, _ZJ_DEMANGLE(e), e.what())};
         printf("%s\n", err_msg.c_str());
     }
 
-    m_logger->flush_on(spdlog::level::info);
-    m_logger->set_level(spdlog::level::trace);
+    logger_->flush_on(spdlog::level::info);
+    logger_->set_level(spdlog::level::trace);
 
     // https://github.com/gabime/spdlog/wiki/3.-Custom-formatting#pattern-flags
     // Set time to 3 digits precision after the decimal point
-    m_logger->set_pattern("%Y-%m-%d %H:%M:%S.%e | %^%l%$ | %v");
+    logger_->set_pattern("%Y-%m-%d %H:%M:%S.%e | %^%l%$ | %v");
 }
 
-void ZjLog::shutdown()
+void ZjLogger::Shutdown()
 {
-    if (m_logger) {
-        m_logger->log(CoreLogLevel::info, "ZjLog shuting down in 3, 2, 1...");
+    if (logger_) {
+        logger_->log(CoreLogLevel::info, "ZjLogger shuting down in 3, 2, 1...");
         // Force a flush before shutdown to make sure all messages get logged
-        m_logger->flush();
+        logger_->flush();
     }
 
-    m_logger.reset();
+    logger_.reset();
     spdlog::shutdown();
 }

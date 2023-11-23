@@ -1,5 +1,5 @@
 #include "zj-debug.hpp"
-#include "ZjLogMacroExtensions.hpp"
+#include "zj-logging-macros-simplified.hpp"
 
 void f1(int i)
 {

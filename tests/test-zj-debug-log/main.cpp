@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "zj-log.hpp"
+#include "zj-logging.hpp"
 
 #include <filesystem>
 
@@ -72,7 +72,7 @@ int testZjPrint(const bool flag, const std::string& msg = "")
 
 TEST(TestZjThrow, ThrowExceptions)
 {
-    ZjLog::GetInstance().init(__ZJ_PKG_BUILD_PATH_NO_SLASH__, __ZJ_PKG_BUILD_PATH_NO_SLASH__);
+    ZjLogger::GetInstance().Init(__ZJ_PKG_BUILD_PATH_NO_SLASH__, __ZJ_PKG_BUILD_PATH_NO_SLASH__);
 
     EXPECT_THROW(_ZJ_THROW(), ZjFault);
     EXPECT_THROW(_ZJ_THROW("foo"), ZjFault);
@@ -80,7 +80,7 @@ TEST(TestZjThrow, ThrowExceptions)
     EXPECT_THROW(_ZJ_THROW_FAILURE(), ZjFailure);
     EXPECT_THROW(_ZJ_THROW_FAILURE("foo"), ZjFailure);
 
-    auto logFileName = ZjLog::GetInstance().fileName();
+    auto logFileName = ZjLogger::GetInstance().Filename();
     _ZJ_INFO("output log file: {}", logFileName);
     if (!logFileName.empty()) {
         EXPECT_TRUE(std::filesystem::exists(logFileName));
@@ -107,7 +107,7 @@ TEST(TestZjThrow, ThrowExceptionsIf)
     EXPECT_NO_THROW(testZjThrowFailureIf(false));
     EXPECT_NO_THROW(testZjThrowFailureIf(false, "foo"));
 
-    auto logFileName = ZjLog::GetInstance().fileName();
+    auto logFileName = ZjLogger::GetInstance().Filename();
     _ZJ_INFO("output log file: {}", logFileName);
 
     if (!logFileName.empty()) {
@@ -124,7 +124,7 @@ TEST(TestZjTry, TryCatchExceptions)
     EXPECT_THROW(testZjTry(5), ZjFault);
     EXPECT_THROW(testZjTry(6), ZjFailure);
 
-    auto logFileName = ZjLog::GetInstance().fileName();
+    auto logFileName = ZjLogger::GetInstance().Filename();
     _ZJ_INFO("output log file: {}", logFileName);
 
     if (!logFileName.empty()) {

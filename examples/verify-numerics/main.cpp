@@ -1,5 +1,5 @@
-#include "ZjVerifyNumerics.hpp"
-#include "ZjLogMacroExtensions.hpp"
+#include "zj-verify-numerics.hpp"
+#include "zj-logging-macros-simplified.hpp"
 
 Eigen::Vector3d invalidEigen()
 {

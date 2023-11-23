@@ -18,7 +18,7 @@
  *
  * @warning If the child class needs constructor arguments, then you SHOULD design another wrapper class with the class that requires
  * constructor arguments as a member variable. For example, you can have a `unique_ptr<ClassRequiresConstructorArgument>` member variable,
- * and an `Singleton::GetInstance().init(...)` function to deal with the initialization of ClassRequiresConstructorArgument.
+ * and an `Singleton::GetInstance().Init(...)` function to deal with the initialization of ClassRequiresConstructorArgument.
  *
  * @warning If you apply variadic template arguments to the `GetInstance(...)` function, it's very confusing since only the input arguments
  * used by the first time `Singleton::GetInstance(real...)` is called are applied to constructor the instance. The following calls still
@@ -27,7 +27,7 @@
  * `Singleton::GetInstance(any_dummy...)` makes it very difficult to the reader to trace what are the real constructor arguments used by the
  * instance specially in a program with multiple threads.
  *
- * @warning To summarize, with an `Singleton::GetInstance().init(...)` function, the whole program can call it only once, and never use
+ * @warning To summarize, with an `Singleton::GetInstance().Init(...)` function, the whole program can call it only once, and never use
  * it again; which make the initialization easy to trace. In the contrast, calling `Singleton::GetInstance(real_or_dummy...)` all over the
  * place isn't a good design.
  *

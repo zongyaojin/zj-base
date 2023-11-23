@@ -8,7 +8,7 @@
 #pragma once
 
 #include "zj-debug.hpp"
-#include "ZjLogMacroExtensions.hpp"
+#include "zj-logging-macros-simplified.hpp"
 #include "zj-concepts.hpp"
 
 #include <sstream>

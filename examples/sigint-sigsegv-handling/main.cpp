@@ -1,4 +1,4 @@
-#include "zj-log.hpp"
+#include "zj-logger.hpp"
 #include "zj-utility.hpp"
 
 #include <csignal>
@@ -8,7 +8,7 @@ void sigintHandler(int signal)
 {
     _ZJ_WARN("Program terminated by Ctrl-C (SIGINT).");
 
-    ZjLog::GetInstance().shutdown();
+    ZjLogger::GetInstance().Shutdown();
     ZjProgramSwitch::GetInstance().turnOff();
 
     exit(signal);
@@ -19,7 +19,7 @@ void sigsegvHandler(int signal)
 {
     _ZJ_WARN("Segmentation fault (SIGSEGV) occurred.");
 
-    ZjLog::GetInstance().shutdown();
+    ZjLogger::GetInstance().Shutdown();
     ZjProgramSwitch::GetInstance().turnOff();
 
     exit(signal);

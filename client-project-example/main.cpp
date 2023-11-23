@@ -1,4 +1,4 @@
-#include "zj-base/zj-log.hpp"
+#include "zj-base/zj-logging.hpp"
 #include "zj-base/zj-utility.hpp"
 
 #include <iostream>
@@ -19,7 +19,7 @@ void bar()
 
 int main()
 {
-    ZjLog::GetInstance().init(std::string {__EXAMPLE_PKG_BUILD_PATH__}, std::string {__EXAMPLE_PKG_BUILD_PATH__});
+    ZjLogger::GetInstance().Init(std::string {__EXAMPLE_PKG_BUILD_PATH__}, std::string {__EXAMPLE_PKG_BUILD_PATH__});
 
     _ZJ_INFO("hello info");
     _ZJ_WARN("hello warn");
@@ -47,15 +47,15 @@ int main()
     v2.resize(6);
     v2 << 3.14, 3.14, 3.14, 3.14, 3.14, 3.14;
 
-    ZjCsvLog::GetInstance().log("csv-example-1", v);
-    ZjCsvLog::GetInstance().log("csv-example-2", v2);
+    ZjCsvLog::GetInstance().Log("csv-example-1", v);
+    ZjCsvLog::GetInstance().Log("csv-example-2", v2);
 
-    ZjCsvLog::GetInstance().log("csv-example-1", v);
-    ZjCsvLog::GetInstance().log("csv-example-2", v2);
+    ZjCsvLog::GetInstance().Log("csv-example-1", v);
+    ZjCsvLog::GetInstance().Log("csv-example-2", v2);
 
-    ZjCsvLog::GetInstance().log("csv-example-1", v);
-    ZjCsvLog::GetInstance().log("csv-example-2", v2);
-    ZjCsvLog::GetInstance().log("csv-example-2", v2);
+    ZjCsvLog::GetInstance().Log("csv-example-1", v);
+    ZjCsvLog::GetInstance().Log("csv-example-2", v2);
+    ZjCsvLog::GetInstance().Log("csv-example-2", v2);
 
     _ZJ_DEBUG("");
     _ZJ_INFO("===================================================");

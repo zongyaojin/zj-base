@@ -6,7 +6,7 @@
  */
 
 #include "ZjTimer.hpp"
-#include "ZjLogMacroExtensions.hpp"
+#include "zj-logging-macros-simplified.hpp"
 
 #include <thread>
 
@@ -17,7 +17,7 @@ ZjTimer::ZjTimer(const std::string& name)
     }
 }
 
-void ZjTimer::init(const unsigned frequency, const unsigned overtimeCountLimit)
+void ZjTimer::Init(const unsigned frequency, const unsigned overtimeCountLimit)
 {
     m_totalCount = 0;
     m_totalTimeSpent = 0;

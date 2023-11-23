@@ -1,16 +1,16 @@
 /**
- * @file ZjLogAgents.hpp
+ * @file zj-logging-agents.hpp
  * @author Zongyao Jin (zongyaojin@outlook.com)
  * @date 2023-08
  * @copyright Copyright (c) 2023 by Zongyao Jin
  *
- * @brief Logging agents to be used in the log macros, the agents deal with the ZjLog class
- * @warning Client code should use the macros, not functions here; the log macros use the agents, and the agents interact with the ZjLog
+ * @brief Logging agents to be used in the log macros, the agents deal with the ZjLogger class
+ * @warning Client code should use the macros, not functions here; the log macros use the agents, and the agents interact with the ZjLogger
  */
 
 #pragma once
 
-#include "ZjLog.hpp"
+#include "zj-logger.hpp"
 #include "zj-colors.hpp"
 #include "zj-formatters.hpp"
 
@@ -39,9 +39,9 @@ template <typename... Args>
 void _ZjAssert(const char* condition, const std::source_location& s, const std::string& fmt = "", Args&&... args)
 {
     std::string user_msg {fmt::format(fmt::runtime(fmt), args...)};
-    ZjLog::GetInstance().log(ZjL::Critical,
+    ZjLogger::GetInstance().Log(ZjL::kCritical,
         fmt::format(zj::kAssertFmt, s.file_name(), s.line(), s.column(), s.function_name(), condition, std::move(user_msg)));
-    ZjLog::GetInstance().shutdown();
+    ZjLogger::GetInstance().Shutdown();
     std::abort();
 }
 
@@ -54,34 +54,34 @@ void _ZjAssert(const char* condition, const std::source_location& s, const std::
  * @param[in] fmt Formatter string
  * @param[in] args Variadic template arguments
  *
- * @warning Client code should use macros in ZjLogMacroExtensions.hpp, not this function, to get source location taken care of
+ * @warning Client code should use macros in zj-logging-macros-simplified.hpp, not this function, to get source location taken care of
  */
 template <typename... Args>
 void _ZjMessage(const ZjLogLevel level, const std::source_location& s, const std::string& fmt = "", Args&&... args)
 {
     switch (level) {
-        case ZjLogLevel::Trace: {
+        case ZjLogLevel::kTrace: {
             std::string user_msg {fmt::format(fmt::runtime(fmt), args...)};
-            ZjLog::GetInstance().log(ZjL::Trace,
+            ZjLogger::GetInstance().Log(ZjL::kTrace,
                 fmt::format(zj::kTraceFmt, s.file_name(), s.line(), s.column(), s.function_name(), std::move(user_msg)));
         } break;
-        case ZjLogLevel::Debug: {
-            ZjLog::GetInstance().log(ZjL::Debug, fmt::format(fmt::runtime(fmt), args...));
+        case ZjLogLevel::kDebug: {
+            ZjLogger::GetInstance().Log(ZjL::kDebug, fmt::format(fmt::runtime(fmt), args...));
         } break;
-        case ZjLogLevel::Info: {
-            ZjLog::GetInstance().log(ZjL::Info, fmt::format(fmt::runtime(fmt), args...));
+        case ZjLogLevel::kInfo: {
+            ZjLogger::GetInstance().Log(ZjL::kInfo, fmt::format(fmt::runtime(fmt), args...));
         } break;
-        case ZjLogLevel::Warn: {
-            ZjLog::GetInstance().log(ZjL::Warn, fmt::format(fmt::runtime(fmt), args...));
+        case ZjLogLevel::kWarn: {
+            ZjLogger::GetInstance().Log(ZjL::kWarn, fmt::format(fmt::runtime(fmt), args...));
         } break;
-        case ZjLogLevel::Error: {
-            ZjLog::GetInstance().log(ZjL::Error, fmt::format(fmt::runtime(fmt), args...));
+        case ZjLogLevel::kError: {
+            ZjLogger::GetInstance().Log(ZjL::kError, fmt::format(fmt::runtime(fmt), args...));
         } break;
-        case ZjLogLevel::Critical: {
-            ZjLog::GetInstance().log(ZjL::Critical, fmt::format(fmt::runtime(fmt), args...));
+        case ZjLogLevel::kCritical: {
+            ZjLogger::GetInstance().Log(ZjL::kCritical, fmt::format(fmt::runtime(fmt), args...));
         } break;
         default:
-            ZjLog::GetInstance().log(ZjL::Critical, fmt::format("unsupported log level, [{}]", static_cast<std::uint8_t>(level)));
+            ZjLogger::GetInstance().Log(ZjL::kCritical, fmt::format("unsupported log level, [{}]", static_cast<std::uint8_t>(level)));
             std::abort();
     }
 }

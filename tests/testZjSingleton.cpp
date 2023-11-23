@@ -42,7 +42,7 @@ TEST(TestZjSingleton, MultipleAccess)
 class ZjSingletonWithInit : public ZjSingleton<ZjSingletonWithInit>
 {
 public:
-    inline void init(const int i)
+    inline void Init(const int i)
     {
         if (!m_i) {
             m_i = std::make_unique<int>(i);
@@ -78,7 +78,7 @@ void addToSingletonWithInit(const int i)
 
 TEST(TestZjSingletonWithInit, MultipleAccess)
 {
-    ZjSingletonWithInit::GetInstance().init(1000);
+    ZjSingletonWithInit::GetInstance().Init(1000);
     EXPECT_EQ(ZjSingletonWithInit::GetInstance().i(), 1000);
 
     auto& instance = ZjSingletonWithInit::GetInstance();

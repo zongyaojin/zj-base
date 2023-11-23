@@ -3,7 +3,7 @@
 #include <chrono>
 
 #include "ZjTimer.hpp"
-#include "ZjLogMacroExtensions.hpp"
+#include "zj-logging-macros-simplified.hpp"
 
 ZjChronoCount testZjTimer(unsigned hz, double sec)
 {
@@ -13,7 +13,7 @@ ZjChronoCount testZjTimer(unsigned hz, double sec)
     auto targetNsCount = ZjChronoNs(static_cast<ZjChronoNs::rep>(sec * zj::kSecToNs));
 
     ZjTimer timer(fmt::format("test: {}hz, {}s", hz, sec));
-    timer.init(hz);
+    timer.Init(hz);
 
     int actualTotalCount = 0;
     while (std::chrono::duration_cast<ZjChronoNs>(ZjChronoClock::now() - start) < targetNsCount) {
@@ -33,30 +33,30 @@ ZjChronoCount testZjTimer(unsigned hz, double sec)
 TEST(TestZjTimer, One)
 {
     EXPECT_NEAR(testZjTimer(100, 0.1), 10, 1);
-    ZjLog::GetInstance().shutdown();
+    ZjLogger::GetInstance().Shutdown();
 }
 
 TEST(TestZjTimer, Two)
 {
     EXPECT_NEAR(testZjTimer(200, 0.2), 40, 1);
-    ZjLog::GetInstance().shutdown();
+    ZjLogger::GetInstance().Shutdown();
 }
 
 TEST(TestZjTimer, Three)
 {
     EXPECT_NEAR(testZjTimer(300, 0.1), 30, 1);
-    ZjLog::GetInstance().shutdown();
+    ZjLogger::GetInstance().Shutdown();
 }
 
 TEST(TestZjTimer, Four)
 {
     // Why the avg loop rate is far lower than 0.002s, but the while loop ran way less than expected; probably due to linux non-realtime
     EXPECT_NEAR(testZjTimer(500, 0.3), 150, 10);
-    ZjLog::GetInstance().shutdown();
+    ZjLogger::GetInstance().Shutdown();
 }
 
 TEST(TestZjTimer, Five)
 {
     EXPECT_NEAR(testZjTimer(30, 0.1), 3, 1);
-    ZjLog::GetInstance().shutdown();
+    ZjLogger::GetInstance().Shutdown();
 }

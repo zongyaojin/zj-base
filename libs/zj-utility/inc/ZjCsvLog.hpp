@@ -9,7 +9,7 @@
 
 #include "zj-singleton.hpp"
 #include "zj-concepts.hpp"
-#include "ZjLogMacros.hpp"
+#include "zj-logging-macros.hpp"
 #include "zj-debug.hpp"
 
 #include <unordered_map>
@@ -23,7 +23,7 @@
 /// @brief A csv log class that can create and log to as many files as needed in a thread safe fashion
 class ZjCsvLog : public ZjSingleton<ZjCsvLog>
 {
-    using CoreLogPtr = ZjLog::CoreLogPtr;
+    using CoreLogPtr = ZjLogger::CoreLogPtr;
     using LogName = std::string;
 
     using DataSize = Eigen::Index;
@@ -65,31 +65,31 @@ private:
          * technically, if this class takes a new log name, the existing one will be overwritten, but the outer class won't do that
          */
         template <ZjArithmetic T, DataDimension N>
-        void log(const std::string& logName, const EigenVec<T, N>& data)
+        void Log(const std::string& logName, const EigenVec<T, N>& data)
         {
             // Create a log if not already exists
-            if (!m_logger) [[unlikely]] {
+            if (!logger_) [[unlikely]] {
                 init(logName, data.size());
             }
 
             _ZJ_THROW_IF(data.size() != m_dataSize, "inconsistent data size [{} | {}]", data.size(), m_dataSize);
             std::ostringstream oss;
             oss << data.transpose().format(mk_eigenFmt);
-            m_logger->info("{}", oss.str());
+            logger_->info("{}", oss.str());
         }
 
         /// Log's file name
-        const std::string& fileName() const { return m_fileName; }
+        const std::string& Filename() const { return filename_; }
 
     private:
         /// @brief Initialize the logger with a name, and the size of data to-be logged to keep track of data consistence
         void init(const std::string& logName, const DataSize dataSize);
 
-        CoreLogPtr m_logger;
+        CoreLogPtr logger_;
         DataSize m_dataSize;
 
         std::string m_logName;
-        std::string m_fileName;
+        std::string filename_;
     };
 
 public:
@@ -103,12 +103,12 @@ public:
      * @param data Data
      */
     template <ZjArithmetic T, DataDimension N>
-    void log(const std::string& logName, const EigenVec<T, N>& data)
+    void Log(const std::string& logName, const EigenVec<T, N>& data)
     {
         /// @note `m_logWorkerMap` is a map, it will automatically handle/ignore duplication, no need to manually search here
         /// @note https://stackoverflow.com/a/27553958, with default move constructor, it will be moved
         m_logWorkerMap.emplace(logName, ZjCsvLogWorker {});
-        m_logWorkerMap.at(logName).log(logName, data);
+        m_logWorkerMap.at(logName).Log(logName, data);
     }
 
     /// Drop a given log if it exists
@@ -118,7 +118,7 @@ public:
     inline auto numLogs() const { return m_logWorkerMap.size(); }
 
     /// Get a log's file name
-    std::string fileName(const std::string& logName);
+    std::string Filename(const std::string& logName);
 
 private:
     /// A map that keeps track of ZjCsvLogWorker by their unique log name
