@@ -84,6 +84,7 @@
         "dense": "cpp"
     },
     "cSpell.words": [
+        "chrono",
         "cppcheck",
         "cpplint",
         "Eigen",
