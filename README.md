@@ -12,3 +12,5 @@ This package provides some basic tools for C++ projects. The package mostly foll
 - Macro variables defined within the package do not have leading or trailing underscores, such as `ZJ_PURPLE`;
 - Macro variables defined through CMake follow the two underscores pattern, such as `__FOO_BAR__`;
 - filenames follow the `foo-bar.xyz` pattern to make their style consistent with packages such as [zj-cmake](https://github.com/zongyaojin/zj-cmake/tree/main) and [zj-common-scripts](https://github.com/zongyaojin/zj-common-scripts).
+
+This package is only tested in Ubuntu 22.04 with compiler options set to C++23 and C17.
