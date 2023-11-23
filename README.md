@@ -3,7 +3,7 @@
 [![C++ Build](https://github.com/zongyaojin/zj-base/actions/workflows/cpp-build.yml/badge.svg)](https://github.com/zongyaojin/zj-base/actions/workflows/cpp-build.yml)
 [![GitHub license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/zongyaojin/zj-base/blob/main/LICENSE)
 
-This package provides some basic tools for C++ projects. The package mostly follows the [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html). But there are a few exceptions:
+This package provides some fundamental utilities for C++ client projects, including functionalities such as logging, debugging, stack tracing, and timing. The package mostly follows the [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html). But there are a few exceptions:
 
 - headers use the `#pragma once` include guard;
 - regular header and source files use the `.hpp` and `.cpp` extensions;
