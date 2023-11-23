@@ -14,13 +14,10 @@ jobs:
     steps:
       # Github checkout action | https://github.com/actions/checkout
       # Private repo checkout | https://github.com/actions/checkout/issues/116#issuecomment-644419389
-      # Generate a PAT (personal access token) for your account, then add the PAT to repositories
-      #   that need it (as a `secret`) to access other private repositories in your account for GitHub Action
       - name: Checkout repository with submodules
         uses: actions/checkout@v4
         with:
           submodules: recursive
-          token: ${{ secrets.ZJ_REPO_PAT }}
 
       - name: Install common dependencies
         run: bash ./scripts/zj-common-scripts/zj-dependencies.bash
