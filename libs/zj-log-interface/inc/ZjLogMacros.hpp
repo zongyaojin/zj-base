@@ -10,7 +10,7 @@
 #pragma once
 
 #include "ZjLogAgents.hpp"
-#include "ZjBasicMacros.hpp"
+#include "zj-basic-macros.hpp"
 
 #include <cstdint>
 #include <type_traits>

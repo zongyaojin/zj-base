@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "ZjSingleton.hpp"
+#include "zj-singleton.hpp"
 
 #include <unordered_map>
 #include <memory>

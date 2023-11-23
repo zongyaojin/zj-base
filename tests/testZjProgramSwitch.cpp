@@ -5,12 +5,12 @@ int globalVar = 10;
 
 void testSwitchOff()
 {
-    ZjProgramSwitch::getInstance().turnOff();
+    ZjProgramSwitch::GetInstance().turnOff();
 }
 
 void testSwitchOn()
 {
-    ZjProgramSwitch::getInstance().turnOn();
+    ZjProgramSwitch::GetInstance().turnOn();
 }
 
 void testTurnOffRoutine()
@@ -25,25 +25,25 @@ void testTurnOffRoutine2()
 
 TEST(TestZjProgramSwitch, One)
 {
-    EXPECT_EQ(ZjProgramSwitch::getInstance().on(), true);
+    EXPECT_EQ(ZjProgramSwitch::GetInstance().on(), true);
 
-    ZjProgramSwitch::getInstance().turnOn();
-    EXPECT_EQ(ZjProgramSwitch::getInstance().on(), true);
+    ZjProgramSwitch::GetInstance().turnOn();
+    EXPECT_EQ(ZjProgramSwitch::GetInstance().on(), true);
 
-    ZjProgramSwitch::getInstance().turnOff();
-    EXPECT_EQ(ZjProgramSwitch::getInstance().on(), false);
+    ZjProgramSwitch::GetInstance().turnOff();
+    EXPECT_EQ(ZjProgramSwitch::GetInstance().on(), false);
 
-    ZjProgramSwitch::getInstance().registerTurnOffRoutine(&testTurnOffRoutine);
-    ZjProgramSwitch::getInstance().registerTurnOffRoutine(&testTurnOffRoutine2);
+    ZjProgramSwitch::GetInstance().registerTurnOffRoutine(&testTurnOffRoutine);
+    ZjProgramSwitch::GetInstance().registerTurnOffRoutine(&testTurnOffRoutine2);
 
     EXPECT_EQ(globalVar, 10);
-    ZjProgramSwitch::getInstance().turnOff();
-    EXPECT_EQ(ZjProgramSwitch::getInstance().on(), false);
+    ZjProgramSwitch::GetInstance().turnOff();
+    EXPECT_EQ(ZjProgramSwitch::GetInstance().on(), false);
     EXPECT_EQ(globalVar, 20);
 
     testSwitchOn();
-    EXPECT_EQ(ZjProgramSwitch::getInstance().on(), true);
+    EXPECT_EQ(ZjProgramSwitch::GetInstance().on(), true);
     testSwitchOff();
-    EXPECT_EQ(ZjProgramSwitch::getInstance().on(), false);
+    EXPECT_EQ(ZjProgramSwitch::GetInstance().on(), false);
     EXPECT_EQ(globalVar, 20);
 }

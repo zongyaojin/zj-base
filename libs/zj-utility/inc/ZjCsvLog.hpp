@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include "ZjSingleton.hpp"
-#include "ZjConcepts.hpp"
+#include "zj-singleton.hpp"
+#include "zj-concepts.hpp"
 #include "ZjLogMacros.hpp"
-#include "ZjDebug.hpp"
+#include "zj-debug.hpp"
 
 #include <unordered_map>
 #include <sstream>

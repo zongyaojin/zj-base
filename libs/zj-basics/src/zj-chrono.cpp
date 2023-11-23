@@ -1,37 +1,36 @@
 /**
- * @file ZjChrono.cpp
+ * @file zj-chrono.cpp
  * @author Zongyao Jin (zongyaojin@outlook.com)
  * @date 2023-08
  * @copyright Copyright (c) 2023 by Zongyao Jin
  */
 
-#include "ZjChrono.hpp"
+#include "zj-chrono.hpp"
 #include "fmt/chrono.h"
 
-double ZjChrono::getTimeEpoch(const Unit unit)
+double ZjGetTimeEpoch(const ZjChronoUnit unit)
 {
-    double conversion {0.0};
+    double conversion {1.0};
     switch (unit) {
-        case Unit::Ns:
-            conversion = 1.0;
+        case ZjChronoUnit::kNs:
             break;
-        case Unit::Us:
-            conversion = s_nsToUs;
+        case ZjChronoUnit::kUs:
+            conversion = zj::kNsToUs;
             break;
-        case Unit::Ms:
-            conversion = s_nsToMs;
+        case ZjChronoUnit::kMs:
+            conversion = zj::kNsToMs;
             break;
-        case Unit::Sec:
-            conversion = s_nsToSec;
+        case ZjChronoUnit::kSec:
+            conversion = zj::kNsToSec;
             break;
         default:
             conversion = 0.0;
     }
 
-    return ZjChrono::getTimeEpochCount<Ns>() * conversion;
+    return ZjGetTimeEpochCount<ZjChronoNs>() * conversion;
 }
 
-std::string ZjChrono::getTimeIso()
+std::string ZjGetTimeIso()
 {
     // https://stackoverflow.com/a/74987040
     auto now = std::chrono::system_clock::now();

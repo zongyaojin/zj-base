@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "ZjDebug.hpp"
+#include "zj-debug.hpp"
 #include "ZjVerifyNumerics.hpp"
 #include "ZjLogMacroExtensions.hpp"
 #include "ZjCsvLog.hpp"

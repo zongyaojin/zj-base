@@ -1,5 +1,5 @@
 /**
- * @file ZjDebug.hpp
+ * @file zj-debug.hpp
  * @author Zongyao Jin (zongyaojin@outlook.com)
  * @date 2023-08
  * @copyright Copyright (c) 2023 by Zongyao Jin
@@ -8,8 +8,8 @@
 #pragma once
 
 #include "ZjExceptions.hpp"
-#include "ZjBasicMacros.hpp"
-#include "ZjColors.hpp"
+#include "zj-basic-macros.hpp"
+#include "zj-colors.hpp"
 #include "ZjLogAgents.hpp"
 
 #include <cstring>
@@ -26,10 +26,10 @@ namespace zj {
 namespace debug {
 
 /// Debugging information formatter string
-static constexpr const char* k_formatter {"{}:{}:{} @ `{}` | {}"};
+static constexpr const char* kRegularFmt {"{}:{}:{} @ `{}` | {}"};
 
 /// Abort message formatter
-static constexpr const char* k_printFmt {ZJ_B_PURPLE "  ZJ-PRINT" ZJ_PLAIN " | " ZJ_B_WHITE "{}:{}:{} @ `{}`" ZJ_PLAIN " | {}\n"};
+static constexpr const char* kColoredFmt {ZJ_B_PURPLE "ZJ-PRINT" ZJ_PLAIN " | " ZJ_B_WHITE "{}:{}:{} @ `{}`" ZJ_PLAIN " | {}\n"};
 
 } // namespace debug
 } // namespace zj
@@ -51,14 +51,14 @@ static constexpr const char* k_printFmt {ZJ_B_PURPLE "  ZJ-PRINT" ZJ_PLAIN " | "
 template <typename... Args>
 void _ZjPrint(const std::source_location& s, const std::string& fmt = "", Args&&... args)
 {
-    using zj::debug::k_printFmt;
+    using zj::debug::kColoredFmt;
 
-    std::string userMsg {fmt::format(fmt::runtime(fmt), args...)};
-    if (userMsg.empty()) {
-        userMsg = "...";
+    std::string user_msg {fmt::format(fmt::runtime(fmt), args...)};
+    if (user_msg.empty()) {
+        user_msg = "...";
     }
-    std::string fmtMsg {fmt::format(k_printFmt, s.file_name(), s.line(), s.column(), s.function_name(), std::move(userMsg))};
-    printf("%s\n", fmtMsg.c_str());
+    std::string fmt_msg {fmt::format(kColoredFmt, s.file_name(), s.line(), s.column(), s.function_name(), std::move(user_msg))};
+    printf("%s\n", fmt_msg.c_str());
 }
 
 /// A macro wrapper for _ZjPrint that provides in-place source location for call site tracing
@@ -93,26 +93,26 @@ void _ZjPrint(const std::source_location& s, const std::string& fmt = "", Args&&
 template <typename... Args>
 void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& s, const std::string& fmt = "", Args&&... args)
 {
-    using zj::debug::k_formatter;
+    using zj::debug::kRegularFmt;
 
     std::string msg {fmt::format(fmt::runtime(fmt), std::forward<Args>(args)...)};
-    std::string fmtMsg {fmt::format(k_formatter, s.file_name(), s.line(), s.column(), s.function_name(), std::move(msg))};
+    std::string fmt_msg {fmt::format(kRegularFmt, s.file_name(), s.line(), s.column(), s.function_name(), std::move(msg))};
 
     switch (t) {
         case ZjE::Failure: {
-            _ZjMessage(ZjLogLevel::Critical, s, fmtMsg);
+            _ZjMessage(ZjLogLevel::Critical, s, fmt_msg);
             throw ZjFailure(e.what());
         } break;
         case ZjE::Fault: {
-            _ZjMessage(ZjLogLevel::Error, s, fmtMsg);
+            _ZjMessage(ZjLogLevel::Error, s, fmt_msg);
             throw ZjFault(e.what());
         } break;
         case ZjE::Singularity: {
-            _ZjMessage(ZjLogLevel::Error, s, fmtMsg);
+            _ZjMessage(ZjLogLevel::Error, s, fmt_msg);
             throw ZjSingularity(e.what());
         } break;
         case ZjE::Bug: {
-            _ZjMessage(ZjLogLevel::Error, s, fmtMsg);
+            _ZjMessage(ZjLogLevel::Error, s, fmt_msg);
             throw ZjBug(e.what());
         } break;
         default:
@@ -148,9 +148,9 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
         _ZjThrow(ZjE::Bug, e, std::source_location::current());                                                                            \
     } catch (const std::exception& e) {                                                                                                    \
         auto s {std::source_location::current()};                                                                                          \
-        auto errMsg {fmt::format("external exception, type [{}], what [{}], from [{}]", _ZJ_DEMANGLE(e), e.what(), #expression)};          \
-        auto fmtMsg {fmt::format(zj::debug::k_formatter, s.file_name(), s.line(), s.column(), s.function_name(), std::move(errMsg))};      \
-        _ZjThrow(ZjE::Bug, ZjBug(std::move(fmtMsg)), std::source_location::current());                                                     \
+        auto err_msg {fmt::format("external exception, type [{}], what [{}], from [{}]", _ZJ_DEMANGLE(e), e.what(), #expression)};         \
+        auto fmt_msg {fmt::format(zj::debug::kRegularFmt, s.file_name(), s.line(), s.column(), s.function_name(), std::move(err_msg))};    \
+        _ZjThrow(ZjE::Bug, ZjBug(std::move(fmt_msg)), std::source_location::current());                                                    \
     } catch (...) {                                                                                                                        \
         _ZjAssert("N/A", std::source_location::current(), "unknown exception, package cannot trace it");                                   \
     }

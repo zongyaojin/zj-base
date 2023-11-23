@@ -1,4 +1,4 @@
-#include "ZjDebug.hpp"
+#include "zj-debug.hpp"
 #include "ZjLogMacroExtensions.hpp"
 
 void f1(int i)

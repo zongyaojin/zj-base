@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "ZjSingleton.hpp"
-#include "ZjDebug.hpp"
+#include "zj-singleton.hpp"
+#include "zj-debug.hpp"
 
 #include <vector>
 

@@ -1,5 +1,5 @@
 /**
- * @file ZjBasicMacros.hpp
+ * @file zj-basic-macros.hpp
  * @author Zongyao Jin (zongyaojin@outlook.com)
  * @date 2023-08
  * @copyright Copyright (c) 2023 by Zongyao Jin
@@ -24,6 +24,6 @@
 #define _ZJ_STATIC_BOOLEAN_CHECK(condition)                                                                                                \
     do {                                                                                                                                   \
         using conditionType = std::remove_cvref_t<decltype(condition)>;                                                                    \
-        constexpr bool boolType {std::is_same_v<conditionType, bool>};                                                                     \
-        static_assert(boolType, "condition does not evaluate to boolean");                                                                 \
+        constexpr bool bool_type {std::is_same_v<conditionType, bool>};                                                                    \
+        static_assert(bool_type, "condition does not evaluate to boolean");                                                                \
     } while (0)

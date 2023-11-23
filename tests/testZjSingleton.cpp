@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "ZjSingleton.hpp"
+#include "zj-singleton.hpp"
 
 #include <memory>
 #include <stdexcept>
@@ -16,22 +16,22 @@ private:
 
 void addToSingleton(const int i)
 {
-    ZjSingletonTest::getInstance().add(i);
+    ZjSingletonTest::GetInstance().add(i);
 }
 
 TEST(TestZjSingleton, MultipleAccess)
 {
-    EXPECT_EQ(ZjSingletonTest::getInstance().i(), 0);
+    EXPECT_EQ(ZjSingletonTest::GetInstance().i(), 0);
 
-    auto& instance = ZjSingletonTest::getInstance();
+    auto& instance = ZjSingletonTest::GetInstance();
     EXPECT_EQ(instance.i(), 0);
 
-    ZjSingletonTest::getInstance().add(10);
-    EXPECT_EQ(ZjSingletonTest::getInstance().i(), 10);
+    ZjSingletonTest::GetInstance().add(10);
+    EXPECT_EQ(ZjSingletonTest::GetInstance().i(), 10);
     EXPECT_EQ(instance.i(), 10);
 
     addToSingleton(3);
-    EXPECT_EQ(ZjSingletonTest::getInstance().i(), 13);
+    EXPECT_EQ(ZjSingletonTest::GetInstance().i(), 13);
     EXPECT_EQ(instance.i(), 13);
 }
 
@@ -73,22 +73,22 @@ private:
 
 void addToSingletonWithInit(const int i)
 {
-    ZjSingletonWithInit::getInstance().add(i);
+    ZjSingletonWithInit::GetInstance().add(i);
 }
 
 TEST(TestZjSingletonWithInit, MultipleAccess)
 {
-    ZjSingletonWithInit::getInstance().init(1000);
-    EXPECT_EQ(ZjSingletonWithInit::getInstance().i(), 1000);
+    ZjSingletonWithInit::GetInstance().init(1000);
+    EXPECT_EQ(ZjSingletonWithInit::GetInstance().i(), 1000);
 
-    auto& instance = ZjSingletonWithInit::getInstance();
+    auto& instance = ZjSingletonWithInit::GetInstance();
     EXPECT_EQ(instance.i(), 1000);
 
-    ZjSingletonWithInit::getInstance().add(10);
-    EXPECT_EQ(ZjSingletonWithInit::getInstance().i(), 1010);
+    ZjSingletonWithInit::GetInstance().add(10);
+    EXPECT_EQ(ZjSingletonWithInit::GetInstance().i(), 1010);
     EXPECT_EQ(instance.i(), 1010);
 
     addToSingletonWithInit(3);
-    EXPECT_EQ(ZjSingletonWithInit::getInstance().i(), 1013);
+    EXPECT_EQ(ZjSingletonWithInit::GetInstance().i(), 1013);
     EXPECT_EQ(instance.i(), 1013);
 }

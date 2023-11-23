@@ -19,7 +19,7 @@ void bar()
 
 int main()
 {
-    ZjLog::getInstance().init(std::string {__EXAMPLE_PKG_BUILD_PATH__}, std::string {__EXAMPLE_PKG_BUILD_PATH__});
+    ZjLog::GetInstance().init(std::string {__EXAMPLE_PKG_BUILD_PATH__}, std::string {__EXAMPLE_PKG_BUILD_PATH__});
 
     _ZJ_INFO("hello info");
     _ZJ_WARN("hello warn");
@@ -32,7 +32,7 @@ int main()
     spdlog::critical("Consider selecting PUBLIC, INTERFACE, or PRIVATE");
     spdlog::critical("=======================================================================");
 
-    _ZJ_INFO("time iso: {}", ZjChrono::getTimeIso());
+    _ZJ_INFO("time iso: {}", ZjChrono::ZjGetTimeIso());
 
     try {
         bar();
@@ -47,15 +47,15 @@ int main()
     v2.resize(6);
     v2 << 3.14, 3.14, 3.14, 3.14, 3.14, 3.14;
 
-    ZjCsvLog::getInstance().log("csv-example-1", v);
-    ZjCsvLog::getInstance().log("csv-example-2", v2);
+    ZjCsvLog::GetInstance().log("csv-example-1", v);
+    ZjCsvLog::GetInstance().log("csv-example-2", v2);
 
-    ZjCsvLog::getInstance().log("csv-example-1", v);
-    ZjCsvLog::getInstance().log("csv-example-2", v2);
+    ZjCsvLog::GetInstance().log("csv-example-1", v);
+    ZjCsvLog::GetInstance().log("csv-example-2", v2);
 
-    ZjCsvLog::getInstance().log("csv-example-1", v);
-    ZjCsvLog::getInstance().log("csv-example-2", v2);
-    ZjCsvLog::getInstance().log("csv-example-2", v2);
+    ZjCsvLog::GetInstance().log("csv-example-1", v);
+    ZjCsvLog::GetInstance().log("csv-example-2", v2);
+    ZjCsvLog::GetInstance().log("csv-example-2", v2);
 
     _ZJ_DEBUG("");
     _ZJ_INFO("===================================================");

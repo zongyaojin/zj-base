@@ -8,8 +8,8 @@ void sigintHandler(int signal)
 {
     _ZJ_WARN("Program terminated by Ctrl-C (SIGINT).");
 
-    ZjLog::getInstance().shutdown();
-    ZjProgramSwitch::getInstance().turnOff();
+    ZjLog::GetInstance().shutdown();
+    ZjProgramSwitch::GetInstance().turnOff();
 
     exit(signal);
 }
@@ -19,8 +19,8 @@ void sigsegvHandler(int signal)
 {
     _ZJ_WARN("Segmentation fault (SIGSEGV) occurred.");
 
-    ZjLog::getInstance().shutdown();
-    ZjProgramSwitch::getInstance().turnOff();
+    ZjLog::GetInstance().shutdown();
+    ZjProgramSwitch::GetInstance().turnOff();
 
     exit(signal);
 }
@@ -32,8 +32,8 @@ void turnOffRoutine()
 
 int main()
 {
-    ZjProgramSwitch::getInstance().turnOn();
-    ZjProgramSwitch::getInstance().registerTurnOffRoutine(&turnOffRoutine);
+    ZjProgramSwitch::GetInstance().turnOn();
+    ZjProgramSwitch::GetInstance().registerTurnOffRoutine(&turnOffRoutine);
 
     /// @see <signum_generic.h> for more signals
     std::signal(SIGINT, sigintHandler);
@@ -43,10 +43,10 @@ int main()
 
     std::vector<int>* ptr = nullptr;
 
-    auto startTime = ZjChrono::Clock::now();
+    auto startTime = ZjChronoClock::now();
 
     while (true) {
-        auto timeSpent = std::chrono::duration_cast<ZjChrono::Ms>(ZjChrono::Clock::now() - startTime);
+        auto timeSpent = std::chrono::duration_cast<ZjChronoMs>(ZjChronoClock::now() - startTime);
         _ZJ_INFO_T(1, "Ctrl-C to terminate, or wait 5 sec to trigger segmentation fault, current count: [{}]", timeSpent.count());
         if (timeSpent.count() > 5000) {
             _ZJ_WARN("triggering segmentation fault now");

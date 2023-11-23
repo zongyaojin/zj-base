@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include "ZjDebug.hpp"
+#include "zj-debug.hpp"
 #include "ZjLogMacroExtensions.hpp"
-#include "ZjConcepts.hpp"
+#include "zj-concepts.hpp"
 
 #include <sstream>
 #include <vector>

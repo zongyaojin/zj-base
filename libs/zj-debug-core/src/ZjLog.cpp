@@ -6,9 +6,9 @@
  */
 
 #include "ZjLog.hpp"
-#include "ZjColors.hpp"
-#include "ZjChrono.hpp"
-#include "ZjBasicMacros.hpp"
+#include "zj-colors.hpp"
+#include "zj-chrono.hpp"
+#include "zj-basic-macros.hpp"
 
 #include <cstdio>
 
@@ -72,7 +72,7 @@ void ZjLog::init(const std::string& csvLogFolderNoSlash, const std::string& regu
     // If regular log folder folder is empty, do not create log file, only log to console
     if (!m_regularLogFolderNoSlash.empty()) {
         std::string logSaveFolder {fmt::format("{}/{}", m_regularLogFolderNoSlash, k_logSubFolderName)};
-        m_fileName = fmt::format("{}/{}_{}.txt", logSaveFolder, __ZJ_PKG_NAME__, ZjChrono::getTimeIso());
+        m_fileName = fmt::format("{}/{}_{}.txt", logSaveFolder, __ZJ_PKG_NAME__, ZjGetTimeIso());
     } else {
         m_fileName.clear();
     }
@@ -93,8 +93,8 @@ void ZjLog::init(const std::string& csvLogFolderNoSlash, const std::string& regu
         m_logger = std::make_shared<spdlog::async_logger>(
             __ZJ_PKG_NAME__, sinks.begin(), sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::block);
     } catch (const std::exception& e) {
-        auto errMsg {fmt::format(ZJ_B_RED "Regular log initialization failed, exception [{} | {}]" ZJ_PLAIN, _ZJ_DEMANGLE(e), e.what())};
-        printf("%s\n", errMsg.c_str());
+        auto err_msg {fmt::format(ZJ_B_RED "Regular log initialization failed, exception [{} | {}]" ZJ_PLAIN, _ZJ_DEMANGLE(e), e.what())};
+        printf("%s\n", err_msg.c_str());
     }
 
     m_logger->flush_on(spdlog::level::info);

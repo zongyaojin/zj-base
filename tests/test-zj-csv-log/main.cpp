@@ -64,28 +64,28 @@ TEST(TestZjCsvLog, TestZjCsvLog)
     v5 << 40, 30, 20, 10;
     v6 << 400, 300, 200, 100;
 
-    ZjCsvLog::getInstance().log(log1, v1);
-    EXPECT_EQ(ZjCsvLog::getInstance().numLogs(), 1);
-    ZjCsvLog::getInstance().log(log1, v2);
-    EXPECT_EQ(ZjCsvLog::getInstance().numLogs(), 1);
-    ZjCsvLog::getInstance().log(log1, v3);
-    EXPECT_EQ(ZjCsvLog::getInstance().numLogs(), 1);
+    ZjCsvLog::GetInstance().log(log1, v1);
+    EXPECT_EQ(ZjCsvLog::GetInstance().numLogs(), 1);
+    ZjCsvLog::GetInstance().log(log1, v2);
+    EXPECT_EQ(ZjCsvLog::GetInstance().numLogs(), 1);
+    ZjCsvLog::GetInstance().log(log1, v3);
+    EXPECT_EQ(ZjCsvLog::GetInstance().numLogs(), 1);
 
-    std::string log1_fileName = ZjCsvLog::getInstance().fileName(log1);
+    std::string log1_fileName = ZjCsvLog::GetInstance().fileName(log1);
     _ZJ_DEBUG("log 1 file: [{}]", log1_fileName);
 
-    ZjCsvLog::getInstance().log(log2, v4);
-    EXPECT_EQ(ZjCsvLog::getInstance().numLogs(), 2);
+    ZjCsvLog::GetInstance().log(log2, v4);
+    EXPECT_EQ(ZjCsvLog::GetInstance().numLogs(), 2);
 
-    ZjCsvLog::getInstance().drop(log1);
-    EXPECT_EQ(ZjCsvLog::getInstance().numLogs(), 1);
+    ZjCsvLog::GetInstance().drop(log1);
+    EXPECT_EQ(ZjCsvLog::GetInstance().numLogs(), 1);
 
-    ZjCsvLog::getInstance().log(log2, v5);
-    EXPECT_EQ(ZjCsvLog::getInstance().numLogs(), 1);
-    ZjCsvLog::getInstance().log(log2, v6);
-    EXPECT_EQ(ZjCsvLog::getInstance().numLogs(), 1);
+    ZjCsvLog::GetInstance().log(log2, v5);
+    EXPECT_EQ(ZjCsvLog::GetInstance().numLogs(), 1);
+    ZjCsvLog::GetInstance().log(log2, v6);
+    EXPECT_EQ(ZjCsvLog::GetInstance().numLogs(), 1);
 
-    std::string log2_fileName = ZjCsvLog::getInstance().fileName(log2);
+    std::string log2_fileName = ZjCsvLog::GetInstance().fileName(log2);
     _ZJ_DEBUG("log 2 file: [{}]", log2_fileName);
 
     EXPECT_TRUE(fs::exists(log1_fileName));
@@ -94,5 +94,5 @@ TEST(TestZjCsvLog, TestZjCsvLog)
     EXPECT_TRUE(printFile(log1_fileName));
     EXPECT_TRUE(printFile(log2_fileName));
 
-    EXPECT_THROW(ZjCsvLog::getInstance().log(log2, v1), ZjFault);
+    EXPECT_THROW(ZjCsvLog::GetInstance().log(log2, v1), ZjFault);
 }

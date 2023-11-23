@@ -6,7 +6,7 @@
  */
 
 #include "ZjCsvLog.hpp"
-#include "ZjChrono.hpp"
+#include "zj-chrono.hpp"
 #include "ZjLogMacroExtensions.hpp"
 #include "ZjLog.hpp"
 
@@ -20,18 +20,18 @@ static constexpr const char* k_csvLogFolderName {"zj-csv-logs"};
 void ZjCsvLog::ZjCsvLogWorker::init(const std::string& logName, const DataSize dataSize)
 {
     // This will take care of spdlog thread initialization, if it's already initialized, it will do nothing
-    ZjLog::getInstance().init();
+    ZjLog::GetInstance().init();
 
     m_logName = logName;
     m_dataSize = dataSize;
     _ZJ_THROW_IF(m_logName.empty(), "empty log name");
     _ZJ_THROW_IF(m_dataSize < 1, "invalid data size [{}]", m_dataSize);
 
-    std::string logSaveFolder = ZjLog::getInstance().csvLogFolder().empty()
+    std::string logSaveFolder = ZjLog::GetInstance().csvLogFolder().empty()
                                     ? fmt::format("{}/{}", __ZJ_PKG_BUILD_PATH_NO_SLASH__, k_csvLogFolderName)
-                                    : fmt::format("{}/{}", ZjLog::getInstance().csvLogFolder(), k_csvLogFolderName);
+                                    : fmt::format("{}/{}", ZjLog::GetInstance().csvLogFolder(), k_csvLogFolderName);
 
-    m_fileName = fmt::format("{}/{}_{}.csv", logSaveFolder, m_logName, ZjChrono::getTimeIso());
+    m_fileName = fmt::format("{}/{}_{}.csv", logSaveFolder, m_logName, ZjGetTimeIso());
 
     _ZJ_TRY(m_logger = spdlog::basic_logger_mt(m_logName, m_fileName, true));
     _ZJ_THROW_IF(!m_logger, "failed to initialize logger [{}]", m_logName);
