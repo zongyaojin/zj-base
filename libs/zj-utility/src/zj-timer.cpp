@@ -1,11 +1,11 @@
 /**
- * @file ZjTimer.cpp
+ * @file zj-timer.cpp
  * @author Zongyao Jin (zongyaojin@outlook.com)
  * @date 2023-08
  * @copyright Copyright (c) 2023 by Zongyao Jin
  */
 
-#include "ZjTimer.hpp"
+#include "zj-timer.hpp"
 #include "zj-logging-macros-simplified.hpp"
 
 #include <thread>
@@ -17,12 +17,12 @@ ZjTimer::ZjTimer(const std::string& name)
     }
 }
 
-void ZjTimer::Init(const unsigned frequency, const unsigned overtimeCountLimit)
+void ZjTimer::Init(const unsigned frequency, const unsigned overtime_count_limit)
 {
     total_count_ = 0;
     total_time_spent = 0;
 
-    overtime_count_limit_ = overtimeCountLimit;
+    overtime_count_limit_ = overtime_count_limit;
     overtime_count_ = 0;
 
     period_ = ZjChronoNs {static_cast<ZjChronoCount>(zj::kSecToNs / frequency)};

@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "ZjUtility.hpp"
+#include "zj-utility.hpp"
 
 #include <map>
 #include <unordered_map>
@@ -33,20 +33,20 @@ const std::unordered_map<TestType, std::string> k_enumStringUnorderedMap {
 
 TEST(TestMap, GeneralMaps)
 {
-    EXPECT_NEAR(_GetKeyByValue(k_map, 1), 1.1, std::numeric_limits<double>::min());
-    EXPECT_NEAR(_GetKeyByValue(k_map, 2), 2.2, std::numeric_limits<double>::min());
+    EXPECT_NEAR(ZjGetKeyByValue(k_map, 1), 1.1, std::numeric_limits<double>::min());
+    EXPECT_NEAR(ZjGetKeyByValue(k_map, 2), 2.2, std::numeric_limits<double>::min());
 
-    EXPECT_NEAR(_GetKeyByValue(k_unorderedMap, 1), 1.1, std::numeric_limits<double>::min());
-    EXPECT_NEAR(_GetKeyByValue(k_unorderedMap, 2), 2.2, std::numeric_limits<double>::min());
+    EXPECT_NEAR(ZjGetKeyByValue(k_unorderedMap, 1), 1.1, std::numeric_limits<double>::min());
+    EXPECT_NEAR(ZjGetKeyByValue(k_unorderedMap, 2), 2.2, std::numeric_limits<double>::min());
 }
 
 TEST(TestMap, EnumStringMaps)
 {
-    EXPECT_EQ(_GetKeyByValue(k_enumStringMap, "A"), TestType::A);
-    EXPECT_EQ(_GetKeyByValue(k_enumStringMap, "B"), TestType::B);
+    EXPECT_EQ(ZjGetKeyByValue(k_enumStringMap, "A"), TestType::A);
+    EXPECT_EQ(ZjGetKeyByValue(k_enumStringMap, "B"), TestType::B);
 
-    EXPECT_EQ(_GetKeyByValue(k_enumStringUnorderedMap, "A"), TestType::A);
-    EXPECT_EQ(_GetKeyByValue(k_enumStringUnorderedMap, "B"), TestType::B);
+    EXPECT_EQ(ZjGetKeyByValue(k_enumStringUnorderedMap, "A"), TestType::A);
+    EXPECT_EQ(ZjGetKeyByValue(k_enumStringUnorderedMap, "B"), TestType::B);
 }
 
 TEST(TestDeleteRawPointer, One)
@@ -56,6 +56,6 @@ TEST(TestDeleteRawPointer, One)
     EXPECT_EQ(*i, 10);
     EXPECT_NE(i, nullptr);
 
-    _DeleteRawPointer(&i);
+    ZjDeleteRawPointer(&i);
     EXPECT_EQ(i, nullptr);
 }

@@ -1,5 +1,5 @@
 /**
- * @file ZjUtility.hpp
+ * @file zj-utility.hpp
  * @author Zongyao Jin (zongyaojin@outlook.com)
  * @date 2023-08
  * @copyright Copyright (c) 2023 by Zongyao Jin
@@ -35,7 +35,7 @@
  * ```
  */
 template <ZjMapType MapType, typename ValueType>
-typename MapType::key_type _GetKeyByValue(const MapType& map, const ValueType& value)
+typename MapType::key_type ZjGetKeyByValue(const MapType& map, const ValueType& value)
 {
     for (const auto& pair : map) {
         if (pair.second == value) { // cppcheck-suppress useStlAlgorithm
@@ -48,9 +48,9 @@ typename MapType::key_type _GetKeyByValue(const MapType& map, const ValueType& v
 }
 
 /// @brief Get enum (key) by string (value) from an unordered_map of enum and string
-/// @see _GetKeyByValue for notes
+/// @see ZjGetKeyByValue for notes
 template <ZjEnumType T>
-T _GetEnumByString(const std::unordered_map<T, std::string>& map, const std::string& name)
+T ZjGetEnumByString(const std::unordered_map<T, std::string>& map, const std::string& name)
 {
     for (const auto& pair : map) {
         if (pair.second == name) { // cppcheck-suppress useStlAlgorithm
@@ -64,7 +64,7 @@ T _GetEnumByString(const std::unordered_map<T, std::string>& map, const std::str
 
 /// Delete raw pointer
 template <ZjRawPointer T>
-void _DeleteRawPointer(T* ptr)
+void ZjDeleteRawPointer(T* ptr)
 {
     if (*ptr) {
         delete *ptr;

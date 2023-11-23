@@ -7,6 +7,6 @@
 
 #pragma once
 
-#include "ZjTimer.hpp"
+#include "zj-timer.hpp"
 #include "zj-program-switch.hpp"
-#include "ZjUtility.hpp"
+#include "zj-utility.hpp"
