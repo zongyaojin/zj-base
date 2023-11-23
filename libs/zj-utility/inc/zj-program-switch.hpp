@@ -1,5 +1,5 @@
 /**
- * @file ZjProgramSwitch.hpp
+ * @file zj-program-switch.hpp
  * @author Zongyao Jin (zongyaojin@outlook.com)
  * @date 2023-08
  * @copyright Copyright (c) 2023 by Zongyao Jin
@@ -21,9 +21,9 @@
 class ZjProgramSwitch : public ZjSingleton<ZjProgramSwitch>
 {
 public:
-    inline bool on() { return m_on; }
+    inline bool On() { return on_; }
 
-    inline void turnOn() { m_on = true; }
+    inline void TurnOn() { on_ = true; }
 
     /**
      * @brief Turn off the program switch, and before that, execute all registered functions
@@ -32,13 +32,13 @@ public:
      * operators implemented, you cannot change the container to std::set<>, it won't compile; comparing two pointers directly also doesn't
      * seem work
      */
-    void turnOff();
+    void TurnOff();
 
     /// Register functions to be executed before turning off
-    void registerTurnOffRoutine(const std::function<void()>& routine);
+    void RegisterTurnOffRoutine(const std::function<void()>& routine);
 
 private:
-    bool m_on {true};
+    bool on_ {true};
 
-    std::vector<std::function<void()>> m_turnOffRoutine;
+    std::vector<std::function<void()>> turn_off_routines_;
 };

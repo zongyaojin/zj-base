@@ -10,4 +10,4 @@
 #include "zj-debug.hpp"
 #include "zj-verify-numerics.hpp"
 #include "zj-logging-macros-simplified.hpp"
-#include "ZjCsvLog.hpp"
+#include "zj-csv-logger.hpp"

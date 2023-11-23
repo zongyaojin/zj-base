@@ -19,6 +19,14 @@
 
 #include "Eigen/Dense"
 
+namespace zj {
+namespace verify {
+namespace numerics {
+const Eigen::IOFormat kEigenFmt {Eigen::StreamPrecision, 0, ", "};
+} // namespace numerics
+} // namespace verify
+} // namespace zj
+
 /**
  * @brief Verify if an eigen matrix has NAN of INF entries
  * @note Client code should not use this function directly, use _ZJ_VERIFY instead
@@ -38,11 +46,10 @@ void _ZjVerifyNumerics(const Eigen::Matrix<Type, M, N>& var, const std::string& 
 {
     if (var.array().isNaN().any() || var.array().isInf().any()) {
         std::ostringstream oss;
-        Eigen::IOFormat kEigenFmt {Eigen::StreamPrecision, 0, ", "};
         if (var.cols() == 1) {
-            oss << var.transpose().format(kEigenFmt);
+            oss << var.transpose().format(zj::verify::numerics::kEigenFmt);
         } else {
-            oss << var.format(kEigenFmt);
+            oss << var.format(zj::verify::numerics::kEigenFmt);
         }
 
         std::string err_msg {fmt::format("singular eigen variable [{}]\n{}", var_literal, oss.str())};

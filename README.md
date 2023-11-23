@@ -12,7 +12,7 @@ This package contains some basic tools such as logging and debugging for C++ pro
 - `zj-verify-numerics.hpp` provides a macro to check Eigen or std variable singularity
 - `zj-logging-macros-simplified.hpp` provides macros for assertion and regular, condition-based, and periodic message with built-in log support
 
-- `ZjCsvLog` provides a singleton class that can create as many files as needed and log Eigen vectors with time stamp to a given file in a thread-safe fashion
+- `ZjCsvLogger` provides a singleton class that can create as many files as needed and log Eigen vectors with time stamp to a given file in a thread-safe fashion
 - `ZjProgramSwitch` provides a singleton class that can be used as a global program switch and run user-specified functions when it turns off
 - `ZjTimer` provides a timer class that can be used to guard a periodic loop of a certain frequency
 - `ZjUtility.hpp` provides some functions for map access and pointer clean up

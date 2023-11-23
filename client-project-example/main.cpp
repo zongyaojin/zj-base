@@ -47,15 +47,15 @@ int main()
     v2.resize(6);
     v2 << 3.14, 3.14, 3.14, 3.14, 3.14, 3.14;
 
-    ZjCsvLog::GetInstance().Log("csv-example-1", v);
-    ZjCsvLog::GetInstance().Log("csv-example-2", v2);
+    ZjCsvLogger::GetInstance().Log("csv-example-1", v);
+    ZjCsvLogger::GetInstance().Log("csv-example-2", v2);
 
-    ZjCsvLog::GetInstance().Log("csv-example-1", v);
-    ZjCsvLog::GetInstance().Log("csv-example-2", v2);
+    ZjCsvLogger::GetInstance().Log("csv-example-1", v);
+    ZjCsvLogger::GetInstance().Log("csv-example-2", v2);
 
-    ZjCsvLog::GetInstance().Log("csv-example-1", v);
-    ZjCsvLog::GetInstance().Log("csv-example-2", v2);
-    ZjCsvLog::GetInstance().Log("csv-example-2", v2);
+    ZjCsvLogger::GetInstance().Log("csv-example-1", v);
+    ZjCsvLogger::GetInstance().Log("csv-example-2", v2);
+    ZjCsvLogger::GetInstance().Log("csv-example-2", v2);
 
     _ZJ_DEBUG("");
     _ZJ_INFO("===================================================");

@@ -9,7 +9,7 @@ void sigintHandler(int signal)
     _ZJ_WARN("Program terminated by Ctrl-C (SIGINT).");
 
     ZjLogger::GetInstance().Shutdown();
-    ZjProgramSwitch::GetInstance().turnOff();
+    ZjProgramSwitch::GetInstance().TurnOff();
 
     exit(signal);
 }
@@ -20,7 +20,7 @@ void sigsegvHandler(int signal)
     _ZJ_WARN("Segmentation fault (SIGSEGV) occurred.");
 
     ZjLogger::GetInstance().Shutdown();
-    ZjProgramSwitch::GetInstance().turnOff();
+    ZjProgramSwitch::GetInstance().TurnOff();
 
     exit(signal);
 }
@@ -32,8 +32,8 @@ void turnOffRoutine()
 
 int main()
 {
-    ZjProgramSwitch::GetInstance().turnOn();
-    ZjProgramSwitch::GetInstance().registerTurnOffRoutine(&turnOffRoutine);
+    ZjProgramSwitch::GetInstance().TurnOn();
+    ZjProgramSwitch::GetInstance().RegisterTurnOffRoutine(&turnOffRoutine);
 
     /// @see <signum_generic.h> for more signals
     std::signal(SIGINT, sigintHandler);

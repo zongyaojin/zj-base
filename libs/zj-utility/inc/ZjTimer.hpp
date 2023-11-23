@@ -30,12 +30,12 @@ public:
     void Init(const unsigned frequency, const unsigned overtimeCountLimit = 0);
 
     /// Start time a loop
-    inline void start() { m_startTime = ZjChronoClock::now(); }
+    inline void Start() { start_time_ = ZjChronoClock::now(); }
 
     /// Get count since start in Ns, can be used to time a segment
-    inline ZjChronoCount sinceStart() const
+    inline ZjChronoCount SinceStart() const
     {
-        return std::chrono::duration_cast<ZjChronoNs>(ZjChronoClock::now() - m_startTime).count();
+        return std::chrono::duration_cast<ZjChronoNs>(ZjChronoClock::now() - start_time_).count();
     }
 
     /**
@@ -44,34 +44,34 @@ public:
      *
      * @return ZjChronoCount Number count since start
      */
-    ZjChronoCount guard();
+    ZjChronoCount Guard();
 
     /// Loop period
-    double period(const ZjChronoUnit unit) const;
+    double Period(const ZjChronoUnit unit) const;
 
     /// Overtime count of the last loop
-    inline ZjChronoCount overtimeCount() const { return m_overtimeCount; }
+    inline ZjChronoCount OvertimeCount() const { return overtime_count_; }
 
     /// Timer name
-    inline const std::string& name() const { return m_name; }
+    inline const std::string& Name() const { return name_; }
 
     /// Total number of counts of all cycles
-    inline ZjChronoCount totalCount() const { return m_totalCount; }
+    inline ZjChronoCount TotalCount() const { return total_count_; }
 
     /// Total loop average of all cycles
-    double totalLoopAvg(const ZjChronoUnit unit) const;
+    double TotalLoopAverage(const ZjChronoUnit unit) const;
 
 private:
-    std::string m_name {fmt::format("ZjTimer-{}", fmt::ptr(this))};
+    std::string name_ {fmt::format("ZjTimer-{}", fmt::ptr(this))};
 
-    ZjChronoCount m_overtimeCount {0};
-    ZjChronoCount m_overtimeCountLimit {0};
+    ZjChronoCount overtime_count_ {0};
+    ZjChronoCount overtime_count_limit_ {0};
 
-    ZjChronoNs m_period {0};
-    ZjChronoTimePoint m_startTime {ZjChronoClock::now()};
-    ZjChronoNs m_timeSpent {0};
-    ZjChronoNs m_timeLeft {0};
+    ZjChronoNs period_ {0};
+    ZjChronoTimePoint start_time_ {ZjChronoClock::now()};
+    ZjChronoNs time_spent_ {0};
+    ZjChronoNs time_left_ {0};
 
-    ZjChronoCount m_totalCount {0};
-    ZjChronoCount m_totalTimeSpent {0};
+    ZjChronoCount total_count_ {0};
+    ZjChronoCount total_time_spent {0};
 };

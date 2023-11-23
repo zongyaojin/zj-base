@@ -1,11 +1,11 @@
 /**
- * @file ZjCsvLog.cpp
+ * @file zj-csv-logger.cpp
  * @author Zongyao Jin (zongyaojin@outlook.com)
  * @date 2023-08
  * @copyright Copyright (c) 2023 by Zongyao Jin
  */
 
-#include "ZjCsvLog.hpp"
+#include "zj-csv-logger.hpp"
 #include "zj-chrono.hpp"
 #include "zj-logging-macros-simplified.hpp"
 #include "zj-logger.hpp"
@@ -17,24 +17,24 @@ namespace {
 static constexpr const char* k_csvLogFolderName {"zj-csv-logs"};
 }
 
-void ZjCsvLog::ZjCsvLogWorker::init(const std::string& logName, const DataSize dataSize)
+void ZjCsvLogger::ZjCsvLoggingUnit::Init(const std::string& log_name, const DataSize data_size)
 {
     // This will take care of spdlog thread initialization, if it's already initialized, it will do nothing
     ZjLogger::GetInstance().Init();
 
-    m_logName = logName;
-    m_dataSize = dataSize;
-    _ZJ_THROW_IF(m_logName.empty(), "empty log name");
-    _ZJ_THROW_IF(m_dataSize < 1, "invalid data size [{}]", m_dataSize);
+    log_name_ = log_name;
+    data_size_ = data_size;
+    _ZJ_THROW_IF(log_name_.empty(), "empty log name");
+    _ZJ_THROW_IF(data_size_ < 1, "invalid data size [{}]", data_size_);
 
     std::string logSaveFolder = ZjLogger::GetInstance().CsvLogFolder().empty()
                                     ? fmt::format("{}/{}", __ZJ_PKG_BUILD_PATH_NO_SLASH__, k_csvLogFolderName)
                                     : fmt::format("{}/{}", ZjLogger::GetInstance().CsvLogFolder(), k_csvLogFolderName);
 
-    filename_ = fmt::format("{}/{}_{}.csv", logSaveFolder, m_logName, ZjGetTimeIso());
+    filename_ = fmt::format("{}/{}_{}.csv", logSaveFolder, log_name_, ZjGetTimeIso());
 
-    _ZJ_TRY(logger_ = spdlog::basic_logger_mt(m_logName, filename_, true));
-    _ZJ_THROW_IF(!logger_, "failed to initialize logger [{}]", m_logName);
+    _ZJ_TRY(logger_ = spdlog::basic_logger_mt(log_name_, filename_, true));
+    _ZJ_THROW_IF(!logger_, "failed to initialize logger [{}]", log_name_);
 
     /// @note No need to flush every once in a while since the logger is initialized to flush on info level, and all messages are logged at
     /// the same level; i.e., they will be logged and flushed at the same time, no information would be lost
@@ -47,24 +47,24 @@ void ZjCsvLog::ZjCsvLogWorker::init(const std::string& logName, const DataSize d
     // Formatted as seconds since epoch, dot, microsecond part of the current second
     logger_->set_pattern("%E.%f, %v");
 
-    _ZJ_INFO("ZjCsvLogWorker starts [{}]", m_logName);
+    _ZJ_INFO("ZjCsvLoggingUnit starts [{}]", log_name_);
 }
 
 // ---------------------------------------------------------
 
-void ZjCsvLog::drop(const std::string& logName)
+void ZjCsvLogger::Drop(const std::string& log_name)
 {
-    auto it = m_logWorkerMap.find(logName);
+    auto it = logging_units_.find(log_name);
 
-    if (it != m_logWorkerMap.end()) {
-        m_logWorkerMap.erase(it);
+    if (it != logging_units_.end()) {
+        logging_units_.erase(it);
     }
 }
 
-std::string ZjCsvLog::Filename(const std::string& logName)
+std::string ZjCsvLogger::Filename(const std::string& log_name)
 {
-    if (m_logWorkerMap.find(logName) != m_logWorkerMap.end()) {
-        return m_logWorkerMap.at(logName).Filename();
+    if (logging_units_.find(log_name) != logging_units_.end()) {
+        return logging_units_.at(log_name).Filename();
     }
 
     return std::string {};

@@ -8,5 +8,5 @@
 #pragma once
 
 #include "ZjTimer.hpp"
-#include "ZjProgramSwitch.hpp"
+#include "zj-program-switch.hpp"
 #include "ZjUtility.hpp"

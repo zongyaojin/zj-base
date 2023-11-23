@@ -13,76 +13,76 @@
 ZjTimer::ZjTimer(const std::string& name)
 {
     if (!name.empty()) {
-        m_name = fmt::format("ZjTimer-{}", name);
+        name_ = fmt::format("ZjTimer-{}", name);
     }
 }
 
 void ZjTimer::Init(const unsigned frequency, const unsigned overtimeCountLimit)
 {
-    m_totalCount = 0;
-    m_totalTimeSpent = 0;
+    total_count_ = 0;
+    total_time_spent = 0;
 
-    m_overtimeCountLimit = overtimeCountLimit;
-    m_overtimeCount = 0;
+    overtime_count_limit_ = overtimeCountLimit;
+    overtime_count_ = 0;
 
-    m_period = ZjChronoNs {static_cast<ZjChronoCount>(zj::kSecToNs / frequency)};
+    period_ = ZjChronoNs {static_cast<ZjChronoCount>(zj::kSecToNs / frequency)};
 }
 
-ZjChronoCount ZjTimer::guard()
+ZjChronoCount ZjTimer::Guard()
 {
-    m_totalCount++;
+    total_count_++;
 
-    m_timeSpent = std::chrono::duration_cast<ZjChronoNs>(ZjChronoClock::now() - m_startTime);
-    m_totalTimeSpent += m_timeSpent.count();
-    m_timeLeft = m_period - m_timeSpent;
+    time_spent_ = std::chrono::duration_cast<ZjChronoNs>(ZjChronoClock::now() - start_time_);
+    total_time_spent += time_spent_.count();
+    time_left_ = period_ - time_spent_;
 
-    if (m_timeLeft.count() > 0) [[likely]] {
-        std::this_thread::sleep_for(m_timeLeft);
-    } else if (m_timeLeft.count() < 0) [[unlikely]] {
-        m_overtimeCount++;
+    if (time_left_.count() > 0) [[likely]] {
+        std::this_thread::sleep_for(time_left_);
+    } else if (time_left_.count() < 0) [[unlikely]] {
+        overtime_count_++;
     }
 
     // There should be an [[unlikely]] here, but the current version of cpplint doesn't get it
-    if (m_overtimeCountLimit > 0 && m_overtimeCount > m_overtimeCountLimit) {
-        auto&& loopAvgMs = static_cast<double>(m_totalTimeSpent) / m_totalCount * zj::kNsToMs;
-        auto&& periodMs = m_period.count() * zj::kNsToMs;
-        _ZJ_WARN("[{}] ========== ==========", m_name);
-        _ZJ_WARN("-- overtime count [{}] exceeds limit [{}]", m_overtimeCount, m_overtimeCountLimit);
+    if (overtime_count_limit_ > 0 && overtime_count_ > overtime_count_limit_) {
+        auto&& loopAvgMs = static_cast<double>(total_time_spent) / total_count_ * zj::kNsToMs;
+        auto&& periodMs = period_.count() * zj::kNsToMs;
+        _ZJ_WARN("[{}] ========== ==========", name_);
+        _ZJ_WARN("-- overtime count [{}] exceeds limit [{}]", overtime_count_, overtime_count_limit_);
         _ZJ_WARN("-- loop average [{:.3f} ms], expected period  [{:.3f} ms]", loopAvgMs, periodMs);
         _ZJ_WARN("-- overtime count has been reset to start over");
-        m_overtimeCount = 0;
+        overtime_count_ = 0;
     }
 
-    return m_timeSpent.count();
+    return time_spent_.count();
 }
 
-double ZjTimer::totalLoopAvg(const ZjChronoUnit unit) const
+double ZjTimer::TotalLoopAverage(const ZjChronoUnit unit) const
 {
     switch (unit) {
         case ZjChronoUnit::kSec:
-            return static_cast<double>(m_totalTimeSpent) / m_totalCount * zj::kNsToSec;
+            return static_cast<double>(total_time_spent) / total_count_ * zj::kNsToSec;
         case ZjChronoUnit::kMs:
-            return static_cast<double>(m_totalTimeSpent) / m_totalCount * zj::kNsToMs;
+            return static_cast<double>(total_time_spent) / total_count_ * zj::kNsToMs;
         case ZjChronoUnit::kUs:
-            return static_cast<double>(m_totalTimeSpent) / m_totalCount * zj::kNsToUs;
+            return static_cast<double>(total_time_spent) / total_count_ * zj::kNsToUs;
         case ZjChronoUnit::kNs:
-            return static_cast<double>(m_totalTimeSpent) / m_totalCount;
+            return static_cast<double>(total_time_spent) / total_count_;
         default:
             return 0.0;
     }
 }
 
-double ZjTimer::period(const ZjChronoUnit unit) const
+double ZjTimer::Period(const ZjChronoUnit unit) const
 {
     switch (unit) {
         case ZjChronoUnit::kSec:
-            return m_period.count() * zj::kNsToSec;
+            return period_.count() * zj::kNsToSec;
         case ZjChronoUnit::kMs:
-            return m_period.count() * zj::kNsToMs;
+            return period_.count() * zj::kNsToMs;
         case ZjChronoUnit::kUs:
-            return m_period.count() * zj::kNsToUs;
+            return period_.count() * zj::kNsToUs;
         case ZjChronoUnit::kNs:
-            return m_period.count();
+            return period_.count();
         default:
             return 0.0;
     }

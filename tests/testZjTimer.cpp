@@ -17,17 +17,17 @@ ZjChronoCount testZjTimer(unsigned hz, double sec)
 
     int actualTotalCount = 0;
     while (std::chrono::duration_cast<ZjChronoNs>(ZjChronoClock::now() - start) < targetNsCount) {
-        timer.start();
+        timer.Start();
         std::this_thread::sleep_for(0.0015s);
         actualTotalCount++;
-        timer.guard();
+        timer.Guard();
     }
 
-    _ZJ_DEBUG("name: {}, overtime count: {}", timer.name(), timer.overtimeCount());
+    _ZJ_DEBUG("name: {}, overtime count: {}", timer.Name(), timer.OvertimeCount());
     _ZJ_DEBUG("actual total count vs. expected: [{} | {:.1f}]", actualTotalCount, hz * sec);
     _ZJ_DEBUG(
-        "avg loop time vs. period: [{:.5f} s | {:.5f} s]", timer.totalLoopAvg(ZjChronoUnit::kSec), timer.period(ZjChronoUnit::kSec));
-    return timer.totalCount();
+        "avg loop time vs. period: [{:.5f} s | {:.5f} s]", timer.TotalLoopAverage(ZjChronoUnit::kSec), timer.Period(ZjChronoUnit::kSec));
+    return timer.TotalCount();
 }
 
 TEST(TestZjTimer, One)
