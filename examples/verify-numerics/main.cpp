@@ -1,40 +1,40 @@
-#include "ZjVerifyNumerics.hpp"
-#include "ZjLogMacroExtensions.hpp"
+#include "zj-verify-numerics.hpp"
+#include "zj-logging-macros-simplified.hpp"
 
-Eigen::Vector3d invalidEigen()
+Eigen::Vector3d InvalidEigen()
 {
     Eigen::Vector3d v;
     v << 1, 2, std::nan("1");
     return v;
 }
 
-double invalidDouble()
+double InvalidDouble()
 {
     return std::nan("1");
 }
 
-void foo(bool flag)
+void Foo(bool flag)
 {
     if (flag) {
-        _ZJ_VERIFY(invalidEigen());
+        _ZJ_VERIFY(InvalidEigen());
     } else {
-        _ZJ_VERIFY(invalidDouble());
+        _ZJ_VERIFY(InvalidDouble());
     }
 }
 
-void bar(bool flag)
+void Bar(bool flag)
 {
-    _ZJ_TRY(foo(flag));
+    _ZJ_TRY(Foo(flag));
 }
 
-void hello(bool flag)
+void Hello(bool flag)
 {
-    _ZJ_TRY(bar(flag));
+    _ZJ_TRY(Bar(flag));
 }
 
-void world(bool flag)
+void World(bool flag)
 {
-    _ZJ_TRY(hello(flag));
+    _ZJ_TRY(Hello(flag));
 }
 
 int main()
@@ -62,7 +62,7 @@ int main()
     _ZJ_DEBUG("");
 
     try {
-        _ZJ_TRY(world(true));
+        _ZJ_TRY(World(true));
     } catch (const std::exception& e) {
         _ZJ_INFO("get exception: {}", e.what());
     }
@@ -74,7 +74,7 @@ int main()
     _ZJ_DEBUG("");
 
     try {
-        world(false);
+        World(false);
     } catch (const std::exception& e) {
         _ZJ_INFO("get exception: {}", e.what());
     }

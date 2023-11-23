@@ -1,9 +1,9 @@
-#include "ZjLogMacroExtensions.hpp"
+#include "zj-logging-macros-simplified.hpp"
 #include <any>
 #include "eigen3/Eigen/Dense"
 #include <iostream>
 
-void func(const std::any input)
+void Func(const std::any input)
 {
     try {
         auto d = std::any_cast<double>(input);
@@ -16,7 +16,7 @@ void func(const std::any input)
 }
 
 
-void func2(std::any input)
+void Func2(std::any input)
 {
     try {
         double* d = std::any_cast<double*>(input);
@@ -36,9 +36,9 @@ int main()
     // std::string a = "2";
     // int a = 123;
     double a = 1.23;
-    func(a);
+    Func(a);
 
-    func2(&a);
+    Func2(&a);
 
     std::cout << a << std::endl;
     return 0;

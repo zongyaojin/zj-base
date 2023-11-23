@@ -1,25 +1,26 @@
-#include "zj-base/zj-log.hpp"
-#include "zj-base/zj-utility.hpp"
+#include "zj-base/zj-logging.hpp"
+#include "zj-base/zj-tools.hpp"
 
 #include <iostream>
-#include <eigen3/Eigen/Dense>
+
+#include "Eigen/Dense"
 #include "spdlog/spdlog.h"
 
-void foo()
+void Foo()
 {
     _ZJ_DEBUG("\n\nin foo\n\n");
     _ZJ_THROW("intentional fault");
 }
 
-void bar()
+void Bar()
 {
     _ZJ_DEBUG("\n\nin bar\n\n");
-    _ZJ_TRY(foo());
+    _ZJ_TRY(Foo());
 }
 
 int main()
 {
-    ZjLog::getInstance().init(std::string {__EXAMPLE_PKG_BUILD_PATH__}, std::string {__EXAMPLE_PKG_BUILD_PATH__});
+    ZjLogger::GetInstance().Init(std::string {__EXAMPLE_PKG_BUILD_PATH__}, std::string {__EXAMPLE_PKG_BUILD_PATH__});
 
     _ZJ_INFO("hello info");
     _ZJ_WARN("hello warn");
@@ -32,10 +33,10 @@ int main()
     spdlog::critical("Consider selecting PUBLIC, INTERFACE, or PRIVATE");
     spdlog::critical("=======================================================================");
 
-    _ZJ_INFO("time iso: {}", ZjChrono::getTimeIso());
+    _ZJ_INFO("time iso: {}", ZjGetTimeIso());
 
     try {
-        bar();
+        Bar();
     } catch (const std::exception& e) {
         _ZJ_DEBUG("got intentional exception [{}]", e.what());
     }
@@ -47,15 +48,15 @@ int main()
     v2.resize(6);
     v2 << 3.14, 3.14, 3.14, 3.14, 3.14, 3.14;
 
-    ZjCsvLog::getInstance().log("csv-example-1", v);
-    ZjCsvLog::getInstance().log("csv-example-2", v2);
+    ZjCsvLogger::GetInstance().Log("csv-example-1", v);
+    ZjCsvLogger::GetInstance().Log("csv-example-2", v2);
 
-    ZjCsvLog::getInstance().log("csv-example-1", v);
-    ZjCsvLog::getInstance().log("csv-example-2", v2);
+    ZjCsvLogger::GetInstance().Log("csv-example-1", v);
+    ZjCsvLogger::GetInstance().Log("csv-example-2", v2);
 
-    ZjCsvLog::getInstance().log("csv-example-1", v);
-    ZjCsvLog::getInstance().log("csv-example-2", v2);
-    ZjCsvLog::getInstance().log("csv-example-2", v2);
+    ZjCsvLogger::GetInstance().Log("csv-example-1", v);
+    ZjCsvLogger::GetInstance().Log("csv-example-2", v2);
+    ZjCsvLogger::GetInstance().Log("csv-example-2", v2);
 
     _ZJ_DEBUG("");
     _ZJ_INFO("===================================================");

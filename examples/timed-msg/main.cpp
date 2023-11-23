@@ -1,4 +1,4 @@
-#include "ZjLogMacroExtensions.hpp"
+#include "zj-logging-macros-simplified.hpp"
 
 int main()
 {

@@ -1,46 +1,46 @@
 #include "gtest/gtest.h"
-#include "zj-log.hpp"
+#include "zj-logging.hpp"
 
-Eigen::Vector3d invalidEigen()
+Eigen::Vector3d InvalidEigen()
 {
     Eigen::Vector3d v;
     v << 1, 2, std::nan("1");
     return v;
 }
 
-double invalidDouble()
+double InvalidDouble()
 {
     return std::nan("1");
 }
 
-void foo(bool flag)
+void Foo(bool flag)
 {
     if (flag) {
-        _ZJ_VERIFY(invalidEigen());
+        _ZJ_VERIFY(InvalidEigen());
     } else {
-        _ZJ_VERIFY(invalidDouble());
+        _ZJ_VERIFY(InvalidDouble());
     }
 }
 
-void bar(bool flag)
+void Bar(bool flag)
 {
-    _ZJ_TRY(foo(flag));
+    _ZJ_TRY(Foo(flag));
 }
 
-void hello(bool flag)
+void Hello(bool flag)
 {
-    _ZJ_TRY(bar(flag));
+    _ZJ_TRY(Bar(flag));
 }
 
-void world(bool flag)
+void World(bool flag)
 {
-    _ZJ_TRY(hello(flag));
+    _ZJ_TRY(Hello(flag));
 }
 
-void noThrow()
+void NoThrow()
 {
-    invalidEigen();
-    invalidDouble();
+    InvalidEigen();
+    InvalidDouble();
 }
 
 TEST(TestZjVerify, DirectVerify)
@@ -57,11 +57,11 @@ TEST(TestZjVerify, DirectVerify)
 
 TEST(TestZjThrow, TraceVerify)
 {
-    EXPECT_THROW(_ZJ_TRY(world(true)), ZjSingularity);
-    EXPECT_THROW(_ZJ_TRY(world(false)), ZjSingularity);
+    EXPECT_THROW(_ZJ_TRY(World(true)), ZjSingularity);
+    EXPECT_THROW(_ZJ_TRY(World(false)), ZjSingularity);
 
     _ZJ_DEBUG("");
-    EXPECT_NO_THROW(_ZJ_TRY(noThrow()));
+    EXPECT_NO_THROW(_ZJ_TRY(NoThrow()));
 }
 
 TEST(TestZjTry, NoSingular)

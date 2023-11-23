@@ -1,9 +1,9 @@
-#include "ZjDebug.hpp"
-#include "ZjLogMacroExtensions.hpp"
+#include "zj-debug.hpp"
+#include "zj-logging-macros-simplified.hpp"
 
-void f1(int i)
+void F1(int i)
 {
-    spdlog::info("in f1");
+    spdlog::info("in F1");
 
     if (i == 2) {
         throw std::invalid_argument("throwing std exception");
@@ -12,24 +12,24 @@ void f1(int i)
     _ZJ_THROW_IF(i != 2, "throwing ZjFault");
 }
 
-void f2(int i)
+void F2(int i)
 {
-    spdlog::info("in f2");
-    _ZJ_TRY(f1(i));
+    spdlog::info("in F2");
+    _ZJ_TRY(F1(i));
 }
 
-void f3(int i)
+void F3(int i)
 {
-    spdlog::info("in f3");
-    _ZJ_TRY(f2(i));
+    spdlog::info("in F3");
+    _ZJ_TRY(F2(i));
 }
 
 int main()
 {
     try {
-        _ZJ_TRY(f3(2));
+        _ZJ_TRY(F3(2));
     } catch (const std::exception& e) {
-        spdlog::info("got f3(2) exception: {}", e.what());
+        spdlog::info("got F3(2) exception: {}", e.what());
     }
 
     _ZJ_DEBUG("");
@@ -38,9 +38,9 @@ int main()
     _ZJ_DEBUG("");
 
     try {
-        _ZJ_TRY(f3(1));
+        _ZJ_TRY(F3(1));
     } catch (const std::exception& e) {
-        spdlog::info("got f3(1) exception: {}", e.what());
+        spdlog::info("got F3(1) exception: {}", e.what());
     }
 
     return 0;
