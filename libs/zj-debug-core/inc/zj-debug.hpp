@@ -126,18 +126,18 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
     try {                                                                                                                                  \
         expression;                                                                                                                        \
     } catch (const ZjFailure& e) {                                                                                                         \
-        _ZjThrow(ZjE::kFailure, e, std::source_location::current());                                                                        \
+        _ZjThrow(ZjE::kFailure, e, std::source_location::current());                                                                       \
     } catch (const ZjFault& e) {                                                                                                           \
-        _ZjThrow(ZjE::kFault, e, std::source_location::current());                                                                          \
+        _ZjThrow(ZjE::kFault, e, std::source_location::current());                                                                         \
     } catch (const ZjSingularity& e) {                                                                                                     \
-        _ZjThrow(ZjE::kSingularity, e, std::source_location::current());                                                                    \
+        _ZjThrow(ZjE::kSingularity, e, std::source_location::current());                                                                   \
     } catch (const ZjBug& e) {                                                                                                             \
-        _ZjThrow(ZjE::kBug, e, std::source_location::current());                                                                            \
+        _ZjThrow(ZjE::kBug, e, std::source_location::current());                                                                           \
     } catch (const std::exception& e) {                                                                                                    \
         auto s {std::source_location::current()};                                                                                          \
         auto err_msg {fmt::format("external exception, type [{}], what [{}], from [{}]", _ZJ_DEMANGLE(e), e.what(), #expression)};         \
-        auto fmt_msg {fmt::format(zj::kTraceFmt, s.file_name(), s.line(), s.column(), s.function_name(), std::move(err_msg))};    \
-        _ZjThrow(ZjE::kBug, ZjBug(std::move(fmt_msg)), std::source_location::current());                                                    \
+        auto fmt_msg {fmt::format(zj::kTraceFmt, s.file_name(), s.line(), s.column(), s.function_name(), std::move(err_msg))};             \
+        _ZjThrow(ZjE::kBug, ZjBug(std::move(fmt_msg)), std::source_location::current());                                                   \
     } catch (...) {                                                                                                                        \
         _ZjAssert("N/A", std::source_location::current(), "unknown exception, package cannot trace it");                                   \
     }
@@ -149,13 +149,13 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
 #define _ZJ_THROW_EXCEPTION(t, ...)                                                                                                        \
     do {                                                                                                                                   \
         static_assert(std::is_same_v<decltype(t), ZjE>, "first argument of `_ZJ_THROW()` has to be a ZjExceptionType");                    \
-        static_assert(t != ZjE::kBug, "ZjBug is reserved for `_ZJ_TRY()` to pass upstream exceptions");                                     \
-        static_assert(t != ZjE::kSingularity, "ZjSingularity is reserved for `_ZJ_VERIFY()` to check numerics");                            \
+        static_assert(t != ZjE::kBug, "ZjBug is reserved for `_ZJ_TRY()` to pass upstream exceptions");                                    \
+        static_assert(t != ZjE::kSingularity, "ZjSingularity is reserved for `_ZJ_VERIFY()` to check numerics");                           \
         switch (t) {                                                                                                                       \
-            case ZjE::kFailure:                                                                                                             \
+            case ZjE::kFailure:                                                                                                            \
                 _ZjThrow(t, ZjFailure(), std::source_location::current(), ##__VA_ARGS__);                                                  \
                 break;                                                                                                                     \
-            case ZjE::kFault:                                                                                                               \
+            case ZjE::kFault:                                                                                                              \
                 _ZjThrow(t, ZjFault(), std::source_location::current(), ##__VA_ARGS__);                                                    \
                 break;                                                                                                                     \
             default:                                                                                                                       \
@@ -180,7 +180,7 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
     do {                                                                                                                                   \
         _ZJ_STATIC_BOOLEAN_CHECK(condition);                                                                                               \
         if ((condition)) {                                                                                                                 \
-            _ZJ_THROW_EXCEPTION(ZjE::kFault, ##__VA_ARGS__);                                                                                \
+            _ZJ_THROW_EXCEPTION(ZjE::kFault, ##__VA_ARGS__);                                                                               \
         }                                                                                                                                  \
     } while (0)
 
@@ -189,6 +189,6 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
     do {                                                                                                                                   \
         _ZJ_STATIC_BOOLEAN_CHECK(condition);                                                                                               \
         if ((condition)) {                                                                                                                 \
-            _ZJ_THROW_EXCEPTION(ZjE::kFailure, ##__VA_ARGS__);                                                                              \
+            _ZJ_THROW_EXCEPTION(ZjE::kFailure, ##__VA_ARGS__);                                                                             \
         }                                                                                                                                  \
     } while (0)
