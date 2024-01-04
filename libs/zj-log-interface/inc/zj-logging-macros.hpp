@@ -28,9 +28,7 @@
 #define _ZJ_MSG_IF(condition, level, msg, ...)                                                                                             \
     do {                                                                                                                                   \
         _ZJ_STATIC_BOOLEAN_CHECK(condition);                                                                                               \
-        if ((condition)) {                                                                                                                 \
-            _ZJ_MSG(level, msg, ##__VA_ARGS__);                                                                                            \
-        }                                                                                                                                  \
+        if ((condition)) { _ZJ_MSG(level, msg, ##__VA_ARGS__); }                                                                           \
     } while (0)
 
 /// @brief Periodic message interface that will print/log the message when it's first called, then every interval_sec second(s)
@@ -67,7 +65,5 @@
 #define _ZJ_MSG_T_IF(condition, level, interval_sec, msg, ...)                                                                             \
     do {                                                                                                                                   \
         _ZJ_STATIC_BOOLEAN_CHECK(condition);                                                                                               \
-        if ((condition)) {                                                                                                                 \
-            _ZJ_MSG_T(level, interval_sec, msg, ##__VA_ARGS__);                                                                            \
-        }                                                                                                                                  \
+        if ((condition)) { _ZJ_MSG_T(level, interval_sec, msg, ##__VA_ARGS__); }                                                           \
     } while (0)

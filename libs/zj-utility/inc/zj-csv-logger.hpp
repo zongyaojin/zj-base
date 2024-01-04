@@ -61,16 +61,15 @@ private:
          * @note If the given log name doesn't exist, it will initialized the log and file and log the data; otherwise, data will be logged
          * to the existing log and file
          *
-         * @note This is managed by the outer class, the outer class will always use the same log name to access a ZjCsvLoggingUnit instance;
-         * technically, if this class takes a new log name, the existing one will be overwritten, but the outer class won't do that
+         * @note This is managed by the outer class, the outer class will always use the same log name to access a ZjCsvLoggingUnit
+         * instance; technically, if this class takes a new log name, the existing one will be overwritten, but the outer class won't do
+         * that
          */
         template <ZjArithmetic T, DataDimension N>
         void Log(const std::string& log_name, const EigenVec<T, N>& data)
         {
             // Create a log if not already exists
-            if (!logger_) [[unlikely]] {
-                Init(log_name, data.size());
-            }
+            if (!logger_) [[unlikely]] { Init(log_name, data.size()); }
 
             _ZJ_THROW_IF(data.size() != data_size_, "inconsistent data size [{} | {}]", data.size(), data_size_);
             std::ostringstream oss;

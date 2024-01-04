@@ -56,16 +56,12 @@ void ZjCsvLogger::Drop(const std::string& log_name)
 {
     auto it = logging_units_.find(log_name);
 
-    if (it != logging_units_.end()) {
-        logging_units_.erase(it);
-    }
+    if (it != logging_units_.end()) { logging_units_.erase(it); }
 }
 
 std::string ZjCsvLogger::Filename(const std::string& log_name)
 {
-    if (logging_units_.find(log_name) != logging_units_.end()) {
-        return logging_units_.at(log_name).Filename();
-    }
+    if (logging_units_.find(log_name) != logging_units_.end()) { return logging_units_.at(log_name).Filename(); }
 
     return std::string {};
 }

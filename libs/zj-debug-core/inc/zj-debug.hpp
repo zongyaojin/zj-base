@@ -41,9 +41,7 @@ template <typename... Args>
 void _ZjPrint(const std::source_location& s, const std::string& fmt = "", Args&&... args)
 {
     std::string user_msg {fmt::format(fmt::runtime(fmt), args...)};
-    if (user_msg.empty()) {
-        user_msg = "N/A";
-    }
+    if (user_msg.empty()) { user_msg = "N/A"; }
 
     constexpr const char* colored_fmt {ZJ_B_PURPLE "ZJ-PRINT" ZJ_PLAIN " | " ZJ_B_WHITE "{}:{}:{} @ `{}`" ZJ_PLAIN " | {}\n"};
     std::string fmt_msg {fmt::format(colored_fmt, s.file_name(), s.line(), s.column(), s.function_name(), std::move(user_msg))};
@@ -54,9 +52,7 @@ void _ZjPrint(const std::source_location& s, const std::string& fmt = "", Args&&
 #define _ZJ_PRINT_IF(enabled, ...)                                                                                                         \
     do {                                                                                                                                   \
         _ZJ_STATIC_BOOLEAN_CHECK(enabled);                                                                                                 \
-        if (enabled) {                                                                                                                     \
-            _ZjPrint(std::source_location::current(), ##__VA_ARGS__);                                                                      \
-        }                                                                                                                                  \
+        if (enabled) { _ZjPrint(std::source_location::current(), ##__VA_ARGS__); }                                                         \
     } while (0)
 
 /**
@@ -102,8 +98,7 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
             _ZjMessage(ZjLogLevel::kError, s, fmt_msg);
             throw ZjBug(e.what());
         } break;
-        default:
-            _ZjAssert("N/A", s, "invalid exception type [{}], check code logic", static_cast<std::uint8_t>(t));
+        default: _ZjAssert("N/A", s, "invalid exception type [{}], check code logic", static_cast<std::uint8_t>(t));
     }
 }
 
@@ -152,12 +147,8 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
         static_assert(t != ZjE::kBug, "ZjBug is reserved for `_ZJ_TRY()` to pass upstream exceptions");                                    \
         static_assert(t != ZjE::kSingularity, "ZjSingularity is reserved for `_ZJ_VERIFY()` to check numerics");                           \
         switch (t) {                                                                                                                       \
-            case ZjE::kFailure:                                                                                                            \
-                _ZjThrow(t, ZjFailure(), std::source_location::current(), ##__VA_ARGS__);                                                  \
-                break;                                                                                                                     \
-            case ZjE::kFault:                                                                                                              \
-                _ZjThrow(t, ZjFault(), std::source_location::current(), ##__VA_ARGS__);                                                    \
-                break;                                                                                                                     \
+            case ZjE::kFailure: _ZjThrow(t, ZjFailure(), std::source_location::current(), ##__VA_ARGS__); break;                           \
+            case ZjE::kFault: _ZjThrow(t, ZjFault(), std::source_location::current(), ##__VA_ARGS__); break;                               \
             default:                                                                                                                       \
                 _ZjAssert("N/A", std::source_location::current(), "illegal exception type [{}], check code logic",                         \
                     static_cast<std::uint8_t>(t));                                                                                         \
@@ -179,16 +170,12 @@ void _ZjThrow(const ZjE t, const std::exception& e, const std::source_location& 
 #define _ZJ_THROW_IF(condition, ...)                                                                                                       \
     do {                                                                                                                                   \
         _ZJ_STATIC_BOOLEAN_CHECK(condition);                                                                                               \
-        if ((condition)) {                                                                                                                 \
-            _ZJ_THROW_EXCEPTION(ZjE::kFault, ##__VA_ARGS__);                                                                               \
-        }                                                                                                                                  \
+        if ((condition)) { _ZJ_THROW_EXCEPTION(ZjE::kFault, ##__VA_ARGS__); }                                                              \
     } while (0)
 
 /// @brief Throw ZjFailure if condition not satisfied, @see Notes in _ZJ_THROW_IF
 #define _ZJ_THROW_FAILURE_IF(condition, ...)                                                                                               \
     do {                                                                                                                                   \
         _ZJ_STATIC_BOOLEAN_CHECK(condition);                                                                                               \
-        if ((condition)) {                                                                                                                 \
-            _ZJ_THROW_EXCEPTION(ZjE::kFailure, ##__VA_ARGS__);                                                                             \
-        }                                                                                                                                  \
+        if ((condition)) { _ZJ_THROW_EXCEPTION(ZjE::kFailure, ##__VA_ARGS__); }                                                            \
     } while (0)
