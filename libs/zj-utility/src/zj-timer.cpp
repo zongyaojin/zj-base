@@ -12,9 +12,7 @@
 
 ZjTimer::ZjTimer(const std::string& name)
 {
-    if (!name.empty()) {
-        name_ = fmt::format("ZjTimer-{}", name);
-    }
+    if (!name.empty()) { name_ = fmt::format("ZjTimer-{}", name); }
 }
 
 void ZjTimer::Init(const unsigned frequency, const unsigned overtime_count_limit)
@@ -59,31 +57,21 @@ ZjChronoCount ZjTimer::Guard()
 double ZjTimer::TotalLoopAverage(const ZjChronoUnit unit) const
 {
     switch (unit) {
-        case ZjChronoUnit::kSec:
-            return static_cast<double>(total_time_spent) / total_count_ * zj::kNsToSec;
-        case ZjChronoUnit::kMs:
-            return static_cast<double>(total_time_spent) / total_count_ * zj::kNsToMs;
-        case ZjChronoUnit::kUs:
-            return static_cast<double>(total_time_spent) / total_count_ * zj::kNsToUs;
-        case ZjChronoUnit::kNs:
-            return static_cast<double>(total_time_spent) / total_count_;
-        default:
-            return 0.0;
+        case ZjChronoUnit::kSec: return static_cast<double>(total_time_spent) / total_count_ * zj::kNsToSec;
+        case ZjChronoUnit::kMs: return static_cast<double>(total_time_spent) / total_count_ * zj::kNsToMs;
+        case ZjChronoUnit::kUs: return static_cast<double>(total_time_spent) / total_count_ * zj::kNsToUs;
+        case ZjChronoUnit::kNs: return static_cast<double>(total_time_spent) / total_count_;
+        default: return 0.0;
     }
 }
 
 double ZjTimer::Period(const ZjChronoUnit unit) const
 {
     switch (unit) {
-        case ZjChronoUnit::kSec:
-            return period_.count() * zj::kNsToSec;
-        case ZjChronoUnit::kMs:
-            return period_.count() * zj::kNsToMs;
-        case ZjChronoUnit::kUs:
-            return period_.count() * zj::kNsToUs;
-        case ZjChronoUnit::kNs:
-            return period_.count();
-        default:
-            return 0.0;
+        case ZjChronoUnit::kSec: return period_.count() * zj::kNsToSec;
+        case ZjChronoUnit::kMs: return period_.count() * zj::kNsToMs;
+        case ZjChronoUnit::kUs: return period_.count() * zj::kNsToUs;
+        case ZjChronoUnit::kNs: return period_.count();
+        default: return 0.0;
     }
 }

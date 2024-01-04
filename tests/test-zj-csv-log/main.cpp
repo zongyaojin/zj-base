@@ -37,9 +37,7 @@ bool PrintFile(const std::string& Filename)
 
     // Read and print the content of the file
     std::string line;
-    while (std::getline(file_stream, line)) {
-        ss << line << std::endl;
-    }
+    while (std::getline(file_stream, line)) { ss << line << std::endl; }
 
     ss << "---------- ---------- ----------" << std::endl;
     std::cout << ss.str() << std::endl;

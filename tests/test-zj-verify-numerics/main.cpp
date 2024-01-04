@@ -8,10 +8,7 @@ Eigen::Vector3d InvalidEigen()
     return v;
 }
 
-double InvalidDouble()
-{
-    return std::nan("1");
-}
+double InvalidDouble() { return std::nan("1"); }
 
 void Foo(bool flag)
 {
@@ -22,20 +19,11 @@ void Foo(bool flag)
     }
 }
 
-void Bar(bool flag)
-{
-    _ZJ_TRY(Foo(flag));
-}
+void Bar(bool flag) { _ZJ_TRY(Foo(flag)); }
 
-void Hello(bool flag)
-{
-    _ZJ_TRY(Bar(flag));
-}
+void Hello(bool flag) { _ZJ_TRY(Bar(flag)); }
 
-void World(bool flag)
-{
-    _ZJ_TRY(Hello(flag));
-}
+void World(bool flag) { _ZJ_TRY(Hello(flag)); }
 
 void NoThrow()
 {

@@ -15,9 +15,7 @@
 #define _ZJ_ASSERT(condition, ...)                                                                                                         \
     do {                                                                                                                                   \
         _ZJ_STATIC_BOOLEAN_CHECK(condition);                                                                                               \
-        if (!(condition)) {                                                                                                                \
-            _ZjAssert(#condition, std::source_location::current(), ##__VA_ARGS__);                                                         \
-        }                                                                                                                                  \
+        if (!(condition)) { _ZjAssert(#condition, std::source_location::current(), ##__VA_ARGS__); }                                       \
     } while (0)
 
 /// @{ Message interfaces

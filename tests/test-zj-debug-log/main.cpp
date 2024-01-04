@@ -21,25 +21,13 @@ void TestZjThrowFailureIf(const bool flag, const std::string& msg = "")
     }
 }
 
-inline void NoThrow()
-{
-    _ZJ_INFO("not throwing anything");
-}
+inline void NoThrow() { _ZJ_INFO("not throwing anything"); }
 
-void ThrowStdException()
-{
-    throw std::runtime_error("bar");
-}
+void ThrowStdException() { throw std::runtime_error("bar"); }
 
-void UpstreamFault()
-{
-    TestZjThrowIf(true, "bar");
-}
+void UpstreamFault() { TestZjThrowIf(true, "bar"); }
 
-void UpstreamFailure()
-{
-    TestZjThrowFailureIf(true, "bar");
-}
+void UpstreamFailure() { TestZjThrowFailureIf(true, "bar"); }
 
 void TestZjTry(const int type)
 {
@@ -82,9 +70,7 @@ TEST(TestZjThrow, ThrowExceptions)
 
     auto log_filename = ZjLogger::GetInstance().Filename();
     _ZJ_INFO("output log file: {}", log_filename);
-    if (!log_filename.empty()) {
-        EXPECT_TRUE(std::filesystem::exists(log_filename));
-    }
+    if (!log_filename.empty()) { EXPECT_TRUE(std::filesystem::exists(log_filename)); }
 }
 
 TEST(TestZjThrow, ThrowExceptionsIf)
@@ -110,9 +96,7 @@ TEST(TestZjThrow, ThrowExceptionsIf)
     auto log_filename = ZjLogger::GetInstance().Filename();
     _ZJ_INFO("output log file: {}", log_filename);
 
-    if (!log_filename.empty()) {
-        EXPECT_TRUE(std::filesystem::exists(log_filename));
-    }
+    if (!log_filename.empty()) { EXPECT_TRUE(std::filesystem::exists(log_filename)); }
 }
 
 TEST(TestZjTry, TryCatchExceptions)
@@ -127,9 +111,7 @@ TEST(TestZjTry, TryCatchExceptions)
     auto log_filename = ZjLogger::GetInstance().Filename();
     _ZJ_INFO("output log file: {}", log_filename);
 
-    if (!log_filename.empty()) {
-        EXPECT_TRUE(std::filesystem::exists(log_filename));
-    }
+    if (!log_filename.empty()) { EXPECT_TRUE(std::filesystem::exists(log_filename)); }
 }
 
 TEST(TestZjAssert, AssertCases)

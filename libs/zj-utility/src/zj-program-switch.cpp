@@ -9,14 +9,10 @@
 
 void ZjProgramSwitch::TurnOff()
 {
-    if (!on_) {
-        return;
-    }
+    if (!on_) { return; }
 
     for (const auto& routine : turn_off_routines_) {
-        if (routine) {
-            routine();
-        }
+        if (routine) { routine(); }
     }
 
     turn_off_routines_.clear();
@@ -25,13 +21,9 @@ void ZjProgramSwitch::TurnOff()
 
 void ZjProgramSwitch::RegisterTurnOffRoutine(const std::function<void()>& routine)
 {
-    if (!on_) {
-        TurnOn();
-    }
+    if (!on_) { TurnOn(); }
 
-    if (!routine) {
-        return;
-    }
+    if (!routine) { return; }
 
     turn_off_routines_.emplace_back(routine);
 }

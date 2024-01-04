@@ -62,8 +62,8 @@ void _ZjMessage(const ZjLogLevel level, const std::source_location& s, const std
     switch (level) {
         case ZjLogLevel::kTrace: {
             std::string user_msg {fmt::format(fmt::runtime(fmt), args...)};
-            ZjLogger::GetInstance().Log(ZjL::kTrace,
-                fmt::format(zj::kTraceFmt, s.file_name(), s.line(), s.column(), s.function_name(), std::move(user_msg)));
+            ZjLogger::GetInstance().Log(
+                ZjL::kTrace, fmt::format(zj::kTraceFmt, s.file_name(), s.line(), s.column(), s.function_name(), std::move(user_msg)));
         } break;
         case ZjLogLevel::kDebug: {
             ZjLogger::GetInstance().Log(ZjL::kDebug, fmt::format(fmt::runtime(fmt), args...));

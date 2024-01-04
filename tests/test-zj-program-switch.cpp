@@ -3,25 +3,13 @@
 
 int globalVar = 10;
 
-void TestSwitchOff()
-{
-    ZjProgramSwitch::GetInstance().TurnOff();
-}
+void TestSwitchOff() { ZjProgramSwitch::GetInstance().TurnOff(); }
 
-void TestSwitchOn()
-{
-    ZjProgramSwitch::GetInstance().TurnOn();
-}
+void TestSwitchOn() { ZjProgramSwitch::GetInstance().TurnOn(); }
 
-void TestTurnOffRoutine()
-{
-    globalVar++;
-}
+void TestTurnOffRoutine() { globalVar++; }
 
-void TestTurnOffRoutine2()
-{
-    globalVar += 9;
-}
+void TestTurnOffRoutine2() { globalVar += 9; }
 
 TEST(TestZjProgramSwitch, One)
 {
