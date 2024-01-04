@@ -19,10 +19,7 @@ std::string TestZjDemangle(T input)
     return _ZJ_DEMANGLE(input);
 }
 
-TEST(TestZjStaticBooleanCheck, ValidCases)
-{
-    EXPECT_EQ(TestStaticBoolCheckValid(), 1);
-}
+TEST(TestZjStaticBooleanCheck, ValidCases) { EXPECT_EQ(TestStaticBoolCheckValid(), 1); }
 
 TEST(TestZjTypeTraits, Demangle)
 {

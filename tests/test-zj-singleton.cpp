@@ -14,10 +14,7 @@ private:
     int i_ {0};
 };
 
-void addToSingleton(const int i)
-{
-    ZjSingletonTest::GetInstance().Add(i);
-}
+void addToSingleton(const int i) { ZjSingletonTest::GetInstance().Add(i); }
 
 TEST(TestZjSingleton, MultipleAccess)
 {
@@ -44,25 +41,19 @@ class ZjSingletonWithInit : public ZjSingleton<ZjSingletonWithInit>
 public:
     inline void Init(const int i)
     {
-        if (!i_) {
-            i_ = std::make_unique<int>(i);
-        }
+        if (!i_) { i_ = std::make_unique<int>(i); }
     }
 
     inline void Add(const int i)
     {
-        if (!i_) {
-            throw std::runtime_error {"not initialized"};
-        }
+        if (!i_) { throw std::runtime_error {"not initialized"}; }
 
         *i_ += i;
     }
 
     inline int GetI() const
     {
-        if (!i_) {
-            throw std::runtime_error {"not initialized"};
-        }
+        if (!i_) { throw std::runtime_error {"not initialized"}; }
 
         return *i_;
     }
@@ -71,10 +62,7 @@ private:
     std::unique_ptr<int> i_;
 };
 
-void addToSingletonWithInit(const int i)
-{
-    ZjSingletonWithInit::GetInstance().Add(i);
-}
+void addToSingletonWithInit(const int i) { ZjSingletonWithInit::GetInstance().Add(i); }
 
 TEST(TestZjSingletonWithInit, MultipleAccess)
 {
