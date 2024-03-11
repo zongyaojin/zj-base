@@ -14,3 +14,16 @@ This package provides some fundamental utilities for C++ client projects, includ
 - filenames follow the `foo-bar.xyz` pattern to make their style consistent with packages such as [zj-cmake](https://github.com/zongyaojin/zj-cmake/tree/main) and [zj-common-scripts](https://github.com/zongyaojin/zj-common-scripts).
 
 This package is only tested on Ubuntu 22.04 with compiler options set to C++23 and C17.
+
+---
+
+## Build and Run
+
+Recursive clone the repo:
+
+```bash
+git clone --recurse-submodules git@github.com:zongyaojin/zj-base.git
+cd zj-base
+```
+
+To build, test, and install, please refer to contents in the [workflow configuration file](./.github/workflows/cpp-build.yml).
